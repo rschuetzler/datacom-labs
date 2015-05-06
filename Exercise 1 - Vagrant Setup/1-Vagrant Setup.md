@@ -12,6 +12,10 @@ By the end of this lesson, you will be able to:
 3. Suspend a virtual machine
 4. Destroy a virtual machine
 
+Conventions
+--------------------------
+In these exercises, commands run from a windows prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+
 Steps
 --------------------------
 
@@ -48,15 +52,16 @@ Git is a distributed source control application originally built to manage the L
 * Create a folder to store your Vagrant files (e.g. c:\\Users\\John\\Documents\\NetworkingClass\\Vagrant). 
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
     * Click Start > cmd.exe [enter]
-    * `cd Documents\NetworkingClass\Vagrant`
+    * `> cd Documents\NetworkingClass\Vagrant`
 * Create a new folder called "Exercise1"
-    * `md Exercise1` [enter]
+    * `> md Exercise1` [enter]
 * Navigate to the Exercise1 folder
-    * `cd Exercise1` [enter]
+    * `> cd Exercise1` [enter]
 * Create a new virtual machine with the following command:
-    * `vagrant init hashicorp/precise32` [enter]
+    * `> vagrant init ubuntu/trusty64` [enter]
 * Start the virtual machine with the following command:
-    * `vagrant up` [enter]
+    * `> vagrant up` [enter]
+    * Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template computer). If you have not already used this box, the box will be downloaded automatically.
 
 Your Ubuntu virtual machine is now running. You will not see a graphical user interface (GUI) because by default, Vagrant virtual machines are "headless." There are ways to turn on the GUI, but for now it is not needed.
 
@@ -65,7 +70,7 @@ Your Ubuntu virtual machine is now running. You will not see a graphical user in
 SSH is a secure protocol for connecting to a remote machine to run commands.
 
 * In your command prompt, run the following command in the Exercise1 folder:
-    * `vagrant ssh`
+    * `> vagrant ssh`
 * You should see a connection made to the virtual machine similar to the following image.
 
     ![ssh screenshot](ssh-success.png "SSH Example Screenshot")
@@ -75,13 +80,13 @@ SSH is a secure protocol for connecting to a remote machine to run commands.
 
 ### Step 7: Suspend, Resume, and Destroy
 
-* Run "`exit`" to leave the SSH session. You will be back at your regular command prompt.
-* Run "`vagrant suspend`" to suspend your machine. Suspending the machine saves its running state to your hard drive and allows you to bring it up quickly.
-* Run "`vagrant ssh`". This should fail because the machine is not running.
-* Run "`vagrant up`" to bring the machine into a running state again.
-* Run "`vagrant ssh`". This should succeed.
-* Run "`exit`".
-* Run "`vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
+* Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
+* Run "`> vagrant suspend`" to suspend your machine. Suspending the machine saves its running state to your hard drive and allows you to bring it up quickly.
+* Run "`> vagrant ssh`". This should fail because the machine is not running.
+* Run "`> vagrant up`" to bring the machine into a running state again.
+* Run "`> vagrant ssh`". This should succeed.
+* Run "`$ exit`".
+* Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
 
 Submission
 ----------------------
