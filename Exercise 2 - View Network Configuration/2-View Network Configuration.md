@@ -3,12 +3,24 @@ Exercise 2: IP Configuration
 
 Internet Protocol (IP) addressing helps to identify the location of machines on a network and facilitates routing messages between machines. 
 
+Prerequisites
+--------------------------
+Before starting this lesson, you should have a basic understanding of the following terms:
+
+* IP Address
+* Subnet
+* Subnet mask
+* DNS
+* Gateway
+
 Learning Objectives
 --------------------------
 By the end of this lesson, you will be able to:
 
-1. Determine the IP address of a computer
-2. 
+1. Use `ipconfig` and `ipconfig /all` on Windows to view network configuration.
+2. Use `ifconfig` to view Linux network configuration.
+3. Use `ip route show` to view Linux the default gateway on Linux.
+4. Display the Linux network configuration file.
 
 Steps
 --------------------------
@@ -99,7 +111,6 @@ Heading:
 
 Questions
 
-1. Include Screenshot of an SSH session open with your virtual machine.
-2. What is a virtual machine? (~100 words)
-3. What is SSH? (~50 words)
-4. What does the Windows PATH variable do? (~15-50 words)
+1. What is an IP address?
+2. What command line tools would you use on Linux and Windows to display network configurations? List each tool, the operating system on which it's found, and a sentence or two about what it does.
+3. Each network adapter in a computer can have different network settings. Describe a situation in which you would want different network settings for two adapters on the same computer. (~100 words)
