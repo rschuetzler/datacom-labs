@@ -14,7 +14,7 @@ By the end of this lesson, you will be able to:
 
 Conventions
 --------------------------
-In these exercises, commands run from a windows prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
 Steps
 --------------------------
@@ -61,19 +61,19 @@ Git is a distributed source control application originally built to manage the L
     * `> vagrant init ubuntu/trusty64` [enter]
 * Start the virtual machine with the following command:
     * `> vagrant up` [enter]
-    * Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template computer). If you have not already used this box, the box will be downloaded automatically.
+    * Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template computer). If you have not already used this box, the box will be downloaded automatically. This download may take a few hours.
 
 Your Ubuntu virtual machine is now running. You will not see a graphical user interface (GUI) because by default, Vagrant virtual machines are "headless." There are ways to turn on the GUI, but for now it is not needed.
 
 ### Step 6: Connect to the Ubuntu Virtual Machine with SSH
 
-SSH is a secure protocol for connecting to a remote machine to run commands.
+Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands.
 
 * In your command prompt, run the following command in the Exercise1 folder:
     * `> vagrant ssh`
 * You should see a connection made to the virtual machine similar to the following image.
 
-    ![ssh screenshot](ssh-success.png "SSH Example Screenshot")
+    ![ssh screenshot](ssh-success.png "SSH Connection Screenshot")
 
 * Connecting to a machine with SSH is commonly called an SSH session. You close your session when you disconnect.
 * Take a screenshot of your own command prompt and copy it into a Word document.
@@ -86,7 +86,7 @@ SSH is a secure protocol for connecting to a remote machine to run commands.
 * Run "`> vagrant up`" to bring the machine into a running state again.
 * Run "`> vagrant ssh`". This should succeed.
 * Run "`$ exit`".
-* Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
+* Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "`y`" to confirm deletion.
 
 Submission
 ----------------------

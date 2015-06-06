@@ -40,22 +40,22 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
 The default Vagrant box comes preconfigured with networking capability. In this section, you will issue commands to discover what networking is enabled by default.
 
 * Run `$ ifconfig`
-    * `ifconfig` is a Linux command that shows the network "*i*nterface *c*onfiguration."
+    * `ifconfig` is a Linux command that shows the network "**i**nter**f**ace **config**uration."
 * Two connections will be listed. We are concerned with the "eth0" interface. The "eth0" is a simulated Ethernet (wired) connection.
-* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address. Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses must be unique in a network.
+* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address. Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique.
 * The "Mask" identifies the subnet (i.e. sub network).
 * The "HWaddr" is the hardware address. This is the media access control (MAC) address. Each MAC address is unique across the entire world.
-* The output of the command also lists the amount of information send and received.
+* The output of the command also lists the amount of information sent and received.
 
 You will be come more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
 
-### Step 3: Discover Your Host Network Configuration
+### Step 3: Discover Your Host Computer's Network Configuration
 
 * Open a new command prompt on your host machine.
 * Run `> ipconfig` to show the Internet Protocol configuration.
     * This is a tremendously important command. Remember it.
     * The number of interfaces depends on the number of network adapters on your machine and software installed (such as Virtual Private Network [VPN] software or VirtualBox).
-* Look for a connection named "Ethernet adapter Local Area Connection" or something similar.
+    * Look for a connection named "Ethernet adapter Local Area Connection" or something similar.
     * What do you notice that is similar and different from the `ifconfig` output?
 * Run `> ipconfig /all`
     * Notice that the Windows `ipconfig /all` command shows the Default Gateway, Domain Name Server (DNS), and Dynamic Control Host Protocol (DHCP) information that the Linux `ifconfig` does not show.
@@ -72,14 +72,14 @@ Windows makes it easy to see the DHCP configuration and DNS configuration in one
     * `/etc/network/interfaces` is a text file that contains networking configuration.
 * You should notice that at the end of the file, there is a `source` command that loads all network configurations in the `/etc/networking/interfaces.d/` directory.
 * Run `$ cd /etc/networking/interfaces.d/`
-* Run `$ ls` to *l*i*s*t the contents of the folder.
+* Run `$ ls` to **l**i**s**t the contents of the folder.
     * There should only be one file in the folder: eth0.cfg.
-* Run `$ cat eth0.cfg` and you should see output similar to the following
+* Run `$ cat eth0.cfg` and you should see output similar to the following:
 
-<blockquote>
-<p>auto eth0<br/>
-iface eth0 inet dhcp</p>
-</blockquote>
+```
+auto eth0
+iface eth0 inet dhcp
+```
 
 * The configuration tells us the following facts about the network:
     * `auto eth0` tells the system to load the network interface at boot
