@@ -61,7 +61,7 @@ Git is a distributed source control application originally built to manage the L
     * `> vagrant init ubuntu/trusty64` [enter]
 * Start the virtual machine with the following command:
     * `> vagrant up` [enter]
-    * Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template computer). If you have not already used this box, the box will be downloaded automatically. This download may take a few hours.
+    * Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template computer). If you have not already used this box, the box will be downloaded automatically. Depending on your Internet connection speed, this download may take some time.
 
 Your Ubuntu virtual machine is now running. You will not see a graphical user interface (GUI) because by default, Vagrant virtual machines are "headless." There are ways to turn on the GUI, but for now it is not needed.
 
