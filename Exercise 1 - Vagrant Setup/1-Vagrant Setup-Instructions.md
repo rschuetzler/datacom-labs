@@ -87,21 +87,3 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
 * Run "`> vagrant ssh`". This should succeed.
 * Run "`$ exit`".
 * Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "`y`" to confirm deletion.
-
-Submission
-----------------------
-Create a Word document with the following:
-
-Heading:
-
-  - Name
-  - Date
-  - Course
-  - Exercise 1
-
-Questions
-
-1. Include Screenshot of an SSH session open with your virtual machine.
-2. What is a virtual machine? (~100 words)
-3. What is SSH? (~50 words)
-4. What does the Windows PATH variable do? (~15-50 words)
