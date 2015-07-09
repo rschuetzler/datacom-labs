@@ -55,7 +55,7 @@ Consider the example of the website google.com. If your computer has never conne
 * Run `bob$ sudo cp /etc/bind/db.local /etc/bind/db.networkclass.com`
     * This will create a template we can use to modify a valid DNS configuration file. The `db.local` file contains information for resolving `localhost.`
 * Run `bob$ sudo nano /etc/bind/db.networkclass.com`
-    * `nano` is a text editor that is fairly easy to use. More powerful text editing programs like `vi` exist, but they have steeper learning curves. If you are going to work with Linux professionally, you must learn `vi` basics. But for now, `nano` will work fine.
+    * `nano` is a text editor that is fairly easy to use. More powerful text editing programs like `vi` and `emacs` exist, but they have steeper learning curves. If you are going to work with Linux professionally, you must learn `vi` basics. But for now, `nano` will work fine.
 * Make the following changes to `db.networkclass.com`:
     * Change `localhost. root.localhost.` to `ns.networkclass.com. root.networkclass.com.`
     * Change `localhost.` to `ns.networkclass.com`
@@ -73,23 +73,18 @@ Consider the example of the website google.com. If your computer has never conne
     * Note that "25" and "24" refer to the last number in the IP address of the server (e.g. 192.168.100.25).
 * You have now created two configuration files, but bind9 is not looking for them, yet. Edit the `named.conf.local` file to point to these new configuration files.
 * Run `bob$ sudo nano /etc/bind/named.conf.local`
-    * Add the following to the file:
-<blockquote>
-// Forward zone<br>
-zone "networkclass.com" {
-<blockquote>
-type master;<br>
-file "/etc/bind/db.networkclass.com";
-</blockquote>
-};<br>
-//reverse zone<br>
-zone "100.168.192.in-addr.arpa" {
-<blockquote>
-type master;<br>
-file "/etc/bind/db.192";
-</blockquote>
-};
-</blockquote>
+* Add the following to the file:
+
+    // Forward zone
+    zone "networkclass.com" {
+      type master;
+      file "/etc/bind/db.networkclass.com";
+    };
+    //reverse zone
+    zone "100.168.192.in-addr.arpa" {
+      type master;
+      file "/etc/bind/db.192";
+    };
 
 * Run `bob$ sudo service bind9 restart` to restart the bind9 service to reload the configuration files.
     * If you see a message ending with "...fail!" then you probably missed a semicolon or misconfigured one of the files. Double check that you have them exactly right. Bind9 is not forgiving. Fix your configuration files until you see "...done." when restarting bind9.
