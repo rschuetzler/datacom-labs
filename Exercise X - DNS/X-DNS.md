@@ -75,16 +75,18 @@ Consider the example of the website google.com. If your computer has never conne
 * Run `bob$ sudo nano /etc/bind/named.conf.local`
 * Add the following to the file:
 
-    // Forward zone
-    zone "networkclass.com" {
-      type master;
-      file "/etc/bind/db.networkclass.com";
-    };
-    //reverse zone
-    zone "100.168.192.in-addr.arpa" {
-      type master;
-      file "/etc/bind/db.192";
-    };
+```
+// Forward zone
+zone "networkclass.com" {
+  type master;
+  file "/etc/bind/db.networkclass.com";
+};
+//reverse zone
+zone "100.168.192.in-addr.arpa" {
+  type master;
+  file "/etc/bind/db.192";
+};
+```
 
 * Run `bob$ sudo service bind9 restart` to restart the bind9 service to reload the configuration files.
     * If you see a message ending with "...fail!" then you probably missed a semicolon or misconfigured one of the files. Double check that you have them exactly right. Bind9 is not forgiving. Fix your configuration files until you see "...done." when restarting bind9.
