@@ -1,7 +1,5 @@
-Exercise 4: Routing
+Exercise 2: IP Configuration
 ==========================
-
-TODO: CHANGE EVERYTHING
 
 Internet Protocol (IP) addressing helps to identify the location of machines on a network and facilitates routing messages between machines. 
 

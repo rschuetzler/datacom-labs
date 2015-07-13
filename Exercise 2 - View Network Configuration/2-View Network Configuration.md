@@ -98,3 +98,19 @@ After submitting your work, you can destroy any boxes you used.
 * Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
 * Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
 
+Submission
+----------------------
+Create a Word document with the following:
+
+Heading:
+
+  - Name
+  - Date
+  - Course
+  - Exercise 2
+
+Questions
+
+1. What is an IP address?
+2. What command line tools would you use on Linux and Windows to display network configurations? List each tool, the operating system on which it's found, and a sentence or two about what it does.
+3. Each network adapter in a computer can have different network settings. Describe a situation in which you would want different network settings for two adapters on the same computer. (~100 words)

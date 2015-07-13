@@ -1,4 +1,4 @@
-Exercise 5: Domain Name System (DNS)
+Exercise X: Domain Name System (DNS)
 ==========================
 
 The Domain Name System (DNS) is one of the most critical parts of the Internet. Companies also setup and configure their own DNS servers so that they can route intranet traffic. In this exercise, you will setup a DNS server in Linux.
@@ -111,3 +111,25 @@ After submitting your work, you can destroy any boxes you used.
 
 * Run "`$ exit`" on Bob and Alice to leave the SSH sessions.
 * Run "`> vagrant destroy`" to turn off the machines and delete them completely. Answer "y" to confirm deletion.
+
+Submission
+----------------------
+Create a Word document with the following:
+
+Heading:
+
+  - Name
+  - Date
+  - Course
+  - Exercise X
+
+Questions
+
+1. What is DNS? (~50 words)
+2. What is an authoritative nameserver? (~50 words)
+3. What is a TLD nameserver? (~50 words)
+4. What is a root nameserver? (~50 words)
+5. What is a resolving nameserver? (~50 words)
+6. What is a forward lookup? (~50 words)
+7. What is a reverse lookup? (~50 words)
+8. At a high level, describe how to configure bind9 on Linux. (~200 words)

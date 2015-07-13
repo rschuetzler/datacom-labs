@@ -1,4 +1,4 @@
-Exercise 3: Subnetting
+Exercise X: Subnetting
 ==========================
 
 Like with cars, too much traffic causes congestion. Networks can be segmented to separate traffic. The segments are called subnetworks, or subnets. The subnet is defined by a subnet mask.
@@ -65,3 +65,23 @@ After submitting your work, you can destroy any boxes you used.
 
 * Run "`$ exit`" on Bob and Alice to leave the SSH sessions.
 * Run "`> vagrant destroy`" to turn off the machines and delete them completely. Answer "y" to confirm deletion.
+
+Submission
+----------------------
+Create a Word document with the following:
+
+Heading:
+
+  - Name
+  - Date
+  - Course
+  - Exercise X
+
+Questions
+
+1. What is a subnet?
+2. What is a subnet mask?
+3. If two computers are not on the same subnet, what is needed in order to communicate?
+4. Describe the `ping` command.
+5. Describe the `sudo` command.
+6. Ping google.com. Paste the output in a screenshot. What does the output tell you?
