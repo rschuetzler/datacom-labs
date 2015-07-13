@@ -21,7 +21,13 @@ Steps
 
 ### Step 1: Download and Install VirtualBox
 
-VirtualBox allows you to run multiple operating systems in sandboxed environments on your computer.
+Your computer has an operating system (OS), probably Windows, Mac OS, or a version of Linux. Software exists that allows you to run another OS while your main OS is still running. For example, with a Windows laptop, you could run Ubuntu Linux as if it were another application on your computer. Your Windows OS would be the "host," and the Ubuntu Linux OS would be the "guest." In this case, the guest is not connecting to your hardware directly, but virtually, and is therefore called a virtual machine. Virtual machines run on virtualization software that makes the system hardware and host platform agnostic.
+
+There are several software platforms that allow you to run virtual machines. At the enterprise level, Microsoft's Hyper-V and VMWare ESX allow professionals to deploy virtual machines inside data centers. With these platforms, there is no host OS; the virtual machines run on the server hardware with on a thin virtualization layer between the operating system and the hardware. Virtualization is quickly become the de-facto option for deploying servers in an enterprise environment.
+
+Virtualization options exist for desktop users who want to run guest operating systems. The guest operating systems can be used for software development, testing software exploits, or learning about different operating systems. By default, the guest operating system cannot harm the host operating system. Guest operating systems typically interact with the host operating system be sharing write access to specific folders, but a guest operating system will never make configuration changes to the host operating system. Basically, you can run guest operating systems without worrying about messing up your computer.
+
+VirtualBox is the premier tool for running virtual machines on your system. It has an added advantage in that it is free. You will use VirtualBox throughout the course to run virtual machines.
 
 * Open https://www.virtualbox.org/wiki/Downloads
 * Download the latest version of VirtualBox for Windows hosts (or your computer's primary operating system if it is not Windows)
@@ -29,12 +35,25 @@ VirtualBox allows you to run multiple operating systems in sandboxed environment
 
 ### Step 2: Download and Install Git for Windows
 
-Git is a distributed source control application originally built to manage the Linux kernel. It comes with many helpful tools. The tool required for this exercise is SSH.exe. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrte as easily with Vagrant.
+Git is a distributed source control application originally built to manage the Linux kernel. Git is now widely used for general software development and version tracking. The Git Windows installation package comes with many helpful command line tools, such as SSH.exe which is required for these exercises. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrate as easily with Vagrant. Follow the steps below to install Git for Windows.
 
 * Open https://msysgit.github.io/
 * Click "Download" and install the application once the download completes.
 
 ### Step 3: Configure your PATH environment variable
+
+Older versions of Windows required users to run commands at a "command prompt." But most users of Windows XP and after likely never need to open a command prompt, and may not have ever seen it.
+
+* Click Start > cmd.exe [enter]
+    * This will open a command prompt.
+* Type "ping" [enter]
+    * "ping" is a network utility that attempts to connect to a remote machine.
+    * When you run "ping" without any parameters, ping will only output the usage instructions.
+* Type "winword" [enter]
+    * You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping" is in a folder specified in your path environment variable.
+    * The path environment variable tells Windows what directories to look in for commands, such as executables. Ping.exe is in c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
+    
+Use the following steps to view and edit your PATH variable.
 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
@@ -44,10 +63,14 @@ Git is a distributed source control application originally built to manage the L
 
 ### Step 4: Download and install Vagrant
 
+Vagrant is a software package that makes setting up new virtual machines extremely simple. Without Vagrant, if you were to install an operating system you would need to download the DVD or CD installation media, start a new virtual machine instance, follow the on-screen prompts, wait, follow more prompts, etc. Without Vagrant, it can easily take an hour to get a basic virtual machine running. Vagrant simplifies this process by creating "boxes" that come 99% ready for use. Instead of creating a new virtual machine from scratch, Vagrant provisions a box and finishes the last 1% of the configuration. This way, Vagrant can create a virtual machine in minutes instead of hours. Follow the steps below to download and install Vagrant.
+
 * Open http://www.vagrantup.com/downloads.html
 * Install the Windows universal version (or the version that matches your computer's operating system if not Windows)
 
 ### Step 5: Setup an Ubuntu Virtual Machine
+
+In this section, you will use Vagrant to create and start an Ubuntu Linux virtual machine. If you have not yet rebooted after installing Virtual Box and Vagrant, please do so before starting this section. Ubuntu is one of the most popular versions of Linux, so it is often easy to find information and support for it online.
 
 * Create a folder to store your Vagrant files (e.g. c:\\Users\\John\\Documents\\NetworkingClass\\Vagrant). 
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
@@ -67,7 +90,7 @@ Your Ubuntu virtual machine is now running. You will not see a graphical user in
 
 ### Step 6: Connect to the Ubuntu Virtual Machine with SSH
 
-Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands.
+Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communication and run commands within your virtual machine.
 
 * In your command prompt, run the following command in the Exercise1 folder:
     * `> vagrant ssh`
@@ -75,8 +98,9 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
 
     ![ssh screenshot](ssh-success.png "SSH Connection Screenshot")
 
+* If you see a message similar to the screenshot, congratulations! You have successfully installed Virtual Box and Vagrant. You now know how to create a virtual machine and connect to it.
+* Take a screenshot of your own command prompt and copy it into your submission Word document.
 * Connecting to a machine with SSH is commonly called an SSH session. You close your session when you disconnect.
-* Take a screenshot of your own command prompt and copy it into a Word document.
 
 ### Step 7: Suspend, Resume, and Destroy
 
