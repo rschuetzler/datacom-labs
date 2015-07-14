@@ -7,11 +7,11 @@ Prerequisites
 --------------------------
 Before starting this lesson, you should have a basic understanding of the following terms:
 
-* IP Address
-* Subnet
-* Subnet mask
-* DNS
-* Gateway
+* [IP Address](https://en.wikipedia.org/wiki/IP_address)
+* [Subnet](https://en.wikipedia.org/wiki/Subnetwork)
+* [Subnet mask](https://en.wikipedia.org/wiki/Subnetwork#Subnetting)
+* [Domain Name System (DNS)](https://en.wikipedia.org/wiki/Domain_Name_System)
+* [Default Gateway](https://en.wikipedia.org/wiki/Default_gateway)
 
 Learning Objectives
 --------------------------
@@ -68,15 +68,16 @@ This step assumes that you are using a Windows host. If you are not using a Wind
 
 ### Step 4: More Linux Guest Network Configuration
 
-Windows makes it easy to see the DHCP configuration and DNS configuration in one place. This same information can be obtained in Linux, but the information is located in several parts of the system.
+Windows makes it easy to see the DHCP configuration and DNS configuration in one place. This same information can be obtained in Linux, but the information is located in several parts of the system. Linux follows the Unix convention of having small utilities do one job and do that job well.
 
 * Run `$ ip route show`
 * The output will show "default via x.x.x.x" (where x.x.x.x is the IP address of the default gateway).
-* More information can be found in the network configuration file. In Debian systems (like Ubuntu), run the following command:
+    * The default gateway is the node that knows how to send data to other networks (networks outside of the current subnetwork).
+* More information can be found in the network configuration file. In Debian-based systems (like Ubuntu), run the following command:
     * `$ cat /etc/network/interfaces`
     * The `cat` command prints the contents of files to your shell.
     * `/etc/network/interfaces` is a text file that contains networking configuration.
-* You should notice that at the end of the file, there is a `source` command that loads all network configurations in the `/etc/networking/interfaces.d/` directory.
+    * You should notice that at the end of the file, there is a `source` command that loads all network configurations in the `/etc/networking/interfaces.d/` directory.
 * Run `$ cd /etc/networking/interfaces.d/`
 * Run `$ ls` to **l**i**s**t the contents of the folder.
     * There should only be one file in the folder: eth0.cfg.
@@ -97,10 +98,31 @@ iface eth0 inet dhcp
         * The "SERVER:" line will contain the DNS server.
 * It is possible to manually define the default gateway, DNS, and IP addressing in the network configuration file (e.g. eth0.cfg), but it is often best to let the system obtain this information automatically.
 
-### Step 5: Cleanup (Optional)
+
+### Step 5: Use the Windows Graphical User Interface to Discover Network Configuration
+
+* Click Start > Control Panel
+* In the "Search Control Panel" text box, type "network connections."
+* Click the "View network connections" link.
+* The list of network adapters you see should be the same as the list you saw when you ran `ipconfig.`
+* Right-click on your active network interface and choose "Properties." Your active network connection will likely be your wireless or local area network. If there is a red X on a network connection, it means that it is not being used (such as not having an Ethernet cable plugged in). Some connections might be disabled. Be sure to choose the connection that is enabled and connected. You should see something like the following screenshot.
+
+![Windows Connection Properties](windows_connection_properties.png "Windows Connection Properties")
+
+* Click on Internet Protocol Version 4 (TCP/IPv4), and click Properties.
+    * Here, you can view or change how your computer obtains an IP address.
+    * On this screen, you can also change the DNS information.
+    * Click "Cancel" to exit without making any changes.
+* Under the name of your network adapter, click "Configure..."
+    * Click the "Advanced" tab, and select "Network Address." The Network Address allows you to specify a new MAC address.
+    * By default, "Not Present" is selected. If you select "Value" and type in a new address, Windows will use the value you entered instead of the actual MAC address of your network adapter.
+* Close the network configuration screens.
+
+Note that in Windows, you could discover network configuration from the command prompt. Changes are typically made using the graphical user interface. Microsoft has a more sophisticated version of the command prompt called PowerShell which can also be used to view and make changes to system configurations. PowerShell has a unique scripting language that is beyond the scope of this exercise. If network administrators were to made changes to a large number of computers on a network, it is likely that they would use PowerShell to make the change. If a single network configuration had to be diagnosed, it is often easier to use the graphical user interface.
+
+### Step 6: Cleanup (Optional)
 
 After submitting your work, you can destroy any boxes you used.
 
-* Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
+* Run "`$ exit`" to leave the SSH session. You will be back at your host command prompt.
 * Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
-
