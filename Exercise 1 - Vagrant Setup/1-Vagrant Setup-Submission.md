@@ -7,10 +7,14 @@ Date:
 Questions
 -------------------
 
-1) Include Screenshot of an SSH session open with your virtual machine.
+1\) Paste a screenshot of an SSH session open with your virtual machine. See the following example screenshot of what is expected, though your screenshot will be slightly different. (Delete the example prior to your submission.)
 
-2) What is a virtual machine? (~100 words)
+![](ssh-success.png "SSH Connection Screenshot")
 
-3) What is SSH? (~50 words)
+2\) What is a virtual machine? (~100 words)
 
-4) What does the Windows PATH variable do? (~15-50 words)
+3\) What is SSH? (~50 words)
+
+4\) What does the Windows PATH variable do? (~15-50 words)
+
+5\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.

@@ -29,11 +29,13 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
 
 ### Step 1: Setup and Connect to a Linux Guest
 
+In this step, you will create a 64 bit Ubuntu Linux virtual machine.
+
 * Create a new folder on your computer for this exercise.
 * Open a command prompt and navigate to the folder.
-    * (Remember Start > cmd [enter], cd, md)
-* In the command prompt, run `vagrant init ubuntu/trusty64`
-* Run `vagrant ssh` to connect to the machine.
+    * (Remember Start > cmd [enter], cd, md. Refer to the first exercise for more detailed instructions on creating and navigating folders in a command prompt.)
+* In the command prompt, run `> vagrant init ubuntu/trusty64`
+* Run `> vagrant ssh` to connect to the machine.
 
 ### Step 2: Discover the Guest Network Configuration
 
@@ -42,14 +44,18 @@ The default Vagrant box comes preconfigured with networking capability. In this 
 * Run `$ ifconfig`
     * `ifconfig` is a Linux command that shows the network "**i**nter**f**ace **config**uration."
 * Two connections will be listed. We are concerned with the "eth0" interface. The "eth0" is a simulated Ethernet (wired) connection.
-* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address. Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique.
+* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address.
+    * Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique because they identify a specific machine. IP addresses are much like mailing addresses. If two people had the same mailing address, mail carriers would not know where to deliver the mail. IP addresses on a network must be unique. Most operating systems will give you a warning if you try to connect to a network with a duplicate IP address.
 * The "Mask" identifies the subnet (i.e. sub network).
-* The "HWaddr" is the hardware address. This is the media access control (MAC) address. Each MAC address is unique across the entire world.
-* The output of the command also lists the amount of information sent and received.
+    * At a high level, subnets are used to separate traffic to allow for more efficient communication. An analogy is a single large classroom where four classes are simultaneously being taught. It would be difficult to communicate in such a crowded classroom with students asking questions of the various instructors and instructors trying to be heard over the noise. It would be more efficient if the single large classroom were broken down into four distinct classrooms. This way, the communication for each class would be contained in a separate classroom. One of the primary benefits of subnetting is the ability to regulate traffic. Ideally, as much traffic as possible is kept on the same subnet.
+* The "HWaddr" is the hardware address. This is the media access control (MAC) address. Each MAC address is unique across the entire world. There are two parts of a MAC address--the hardware vendor identification and the device identification. Every piece of network equipment created by Cisco will start with the same ID, but each device will be unique. This convention is a standard that all device manufacturers follow. It should be noted, however, that users can "spoof" their MAC address, changing it from the address defined in hardware to something that the user chooses in software.
+* The output of the `ifconfig` command also lists the amount of data sent and received.
 
-You will be come more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
+You will become more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
 
-### Step 3: Discover Your Host Computer's Network Configuration
+### Step 3: Discover Your Windows Host Network Configuration
+
+This step assumes that you are using a Windows host. If you are not using a Windows host, use a library computer or borrow a friend's Windows computer to complete this section.
 
 * Open a new command prompt on your host machine.
 * Run `> ipconfig` to show the Internet Protocol configuration.
@@ -60,7 +66,7 @@ You will be come more familiar with these terms throughout the exercises. For no
 * Run `> ipconfig /all`
     * Notice that the Windows `ipconfig /all` command shows the Default Gateway, Domain Name Server (DNS), and Dynamic Control Host Protocol (DHCP) information that the Linux `ifconfig` does not show.
 
-### Step 4: More Guest Network Configuration
+### Step 4: More Linux Guest Network Configuration
 
 Windows makes it easy to see the DHCP configuration and DNS configuration in one place. This same information can be obtained in Linux, but the information is located in several parts of the system.
 

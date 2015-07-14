@@ -1,16 +1,14 @@
-Exercise 2 Submission
-----------------------
-
+Exercise 2: View Network Configuration
+======================================
 Name: 
 
 Date: 
 
-
 Questions
 ----------------
 
-1. What is an IP address?
+1\) What is an IP address?
 
-2. What command line tools would you use on Linux and Windows to display network configurations? List each tool, the operating system on which it's found, and a sentence or two about what it does.
+2\) What command line tools would you use on Linux and Windows to display network configurations? List each tool, the operating system on which it's found, and a sentence or two about what it does. List at least 3 command line tools for each operating system.
 
-3. Each network adapter in a computer can have different network settings. Describe a situation in which you would want different network settings for two adapters on the same computer. (~100 words)
+3\) Each network adapter in a computer can have different network settings. Describe a situation in which you would want different network settings for two adapters on the same computer. (~100 words)
