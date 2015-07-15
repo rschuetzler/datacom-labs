@@ -34,9 +34,7 @@ Note that *two* virtual machines will be created. The machines are named "alice"
 * Alice and Bob have different IP addresses, but they have they same subnet mask.
     * You need two pieces of information to determine if computers are on the same network (i.e. subnetwork): 1) the IP address, and 2) the subnet mask.
 
-Subnet masks define the IP addresses for a subnetwork. Remember that IPv4 addresses are 4 numbers ranging from 0 to 255. Subnet masks are more limited. It is easiest to see how subnet masks are defined in binary. The subnet mask 255.255.255.0 is very common, and is represented in binary as 11111111.11111111.11111111.00000000. Subnet masks 
-
-The ta
+Subnet masks define the IP addresses for a subnetwork. Remember that IPv4 addresses are 4 numbers ranging from 0 to 255. Subnet masks are more limited. It is easiest to see how subnet masks are defined in binary. The subnet mask 255.255.255.0 is very common, and is represented in binary as 11111111.11111111.11111111.00000000. [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) can represent this subnet simply as "/24." Looking at the binary notation, from left to right there are 24 1's. Valid subnets always fill up the 1's on the left and zeros on the right, they are never mixed together.
 
 |Netmask notation | Binary Representation               | [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) | Hosts |
 |-----------------|-------------------------------------|:----:|------:|
@@ -47,14 +45,36 @@ The ta
 
 You can calculate the number of hosts with a simple formula: (2^host bits)-2. So for the /28 subnet, there are 4 bits (i.e. 4 0's) for the host addresses. So we calculate 2^4-2=14. You can connect 14 computers on the /28 subnet. Each subnet has two reserved addresses--the [network address](https://en.wikipedia.org/wiki/Subnetwork#subnet_zero) and the [broadcast address](https://en.wikipedia.org/wiki/Broadcast_address).
 
-Consider two computers in an organization that are both configured with a /28 subnet mask. Computer A has an IP address of 192.168.10.36. Computer B has an IP address of 192.168.10.42. Are these computers in the same subnetwork? We start by determining the number of IP addresses in each network. In the /28 network, 4 bits are reserved for hosts, the broadcast, and network address. So, 2^4 gives us 16 IP addresses reserved for each network. Next, we start with the base network.
+Consider two computers in an organization that are both configured with a /28 subnet mask. Computer A has an IP address of 192.168.16.36. Computer B has an IP address of 192.168.16.42. Are these computers in the same subnetwork? We start by determining the number of IP addresses in each network. In the /28 network, 4 bits are reserved for hosts, the broadcast, and network address. So, 2^4 gives us 16 IP addresses reserved for each network. Next, we start with the base network.
 
-The first 2 octets of the /28 subnet mask are all 255, so we know that all network addresses will begin with the first 2 octets of our IP addresses: 192.168. We know that the first network will end with a 0, which gives us a starting network address of 192.168.X.0. For X, we simply substitute the number of IP addresses per subnet--16. So, our first network address will be 192.168.16.0.
+The first 2 octets of the /28 subnet mask are all 255, so we know that all network addresses will begin with the first 2 octets of our IP addresses: 192.168. We know that the first network will end with a 0, which gives us a starting network address of 192.168.X.0. For X, we simply substitute the number of IP addresses per subnet--16. So, our first network address will be 192.168.16.0. The next IP address will be the first valid host. The broadcast address will be the 16th IP address in the next work address. The last valid host will be the IP address immediately preceding the broadcast address.
 
-Network Address | 1st Valid Host | Last Valid Host | Broadcast Address
-192.168.16.0    | 192.168.16.1   | 192.168.16.14   | 192.168.16.15
+Network Address | 1st Valid Host | Last Valid Host | Broadcast Address |
+----------------|----------------|-----------------|-------------------|
+192.168.16.0    | 192.168.16.1   | 192.168.16.14   | 192.168.16.15     |
+192.168.16.16   | 192.168.16.17  | 192.168.16.30   | 192.168.16.31     |
+192.168.16.32   | 192.168.16.33  | 192.168.16.46   | 192.168.16.47     |
+192.168.16.48   | 192.168.16.49  | 192.168.16.62   | 192.168.16.63     |
+192.168.16.64   | 192.168.16.65  | 192.168.16.78   | 192.168.16.79     |
+192.168.16.80   | 192.168.16.81  | 192.168.16.94   | 192.168.16.95     |
+192.168.16.96   | 192.168.16.97  | 192.168.16.110  | 192.168.16.111    |
+192.168.16.112  | 192.168.16.113 | 192.168.16.126  | 192.168.16.127    |
+192.168.16.128  | 192.168.16.129 | 192.168.16.142  | 192.168.16.143    |
+192.168.16.144  | 192.168.16.145 | 192.168.16.158  | 192.168.16.159    |
+192.168.16.160  | 192.168.16.161 | 192.168.16.174  | 192.168.16.175    |
+192.168.16.176  | 192.168.16.177 | 192.168.16.190  | 192.168.16.191    |
+192.168.16.192  | 192.168.16.193 | 192.168.16.206  | 192.168.16.207    |
+192.168.16.208  | 192.168.16.209 | 192.168.16.222  | 192.168.16.223    |
+192.168.16.224  | 192.168.16.225 | 192.168.16.238  | 192.168.16.239    |
+192.168.16.240  | 192.168.16.241 | 192.168.16.254  | 192.168.16.255    |
+
+There are only 16 subnets available on the /28 subnet. Looking at the preceding table of subnetworks, a clear pattern emerges. The first line takes some thought, but after that, you just add 16 to get the next network. Returning to the question asked previously, are computers A and B with IP addresses 192.168.16.36 and 192.168.16.42 on the same subnet? The answer is yes. Looking at the table above, the third network has IP addresses that range from 192.168.16.33 through 192.168.16.46. Computers A and B are both in that range, so they can communicate without having to route between networks.
+
+It should be noted that machines on different networks can be configured with the same subnetwork settings but be unable to communicate. The 192.168 address space is reserved for local networks. A public library in Seattle might give and IP address to a computer of 192.168.1.1/24 to a user, while a business in Houston might assign the IP address 192.168.1.2/24 to another user. If those two addresses were on the same network, they could communicate. However, they are on separate networks. They are physically and logically disconnected. Traffic from the Seattle library network would have to be routed to the Houston business network for those machines to communicate. On a single network, IP addresses must be unique.
 
 ### Step 3: Test Connections Between Machines
+
+In this section, you will have the opportunity to test what happens when computers are on the same subnet or different subnet.
 
 * Run `alice$ ping 192.168.100.25`
     * You should see a *reply* showing how fast the reply was received.
