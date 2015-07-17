@@ -41,8 +41,8 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
 
 ### Step 2: Gather information
 
-* In one command prompt, connect to Alice with `vagrant ssh alice`. From the other,
-  connect to Bob with `vagrant ssh bob`.
+* In one command prompt, connect to Alice with `> vagrant ssh alice`. From the other,
+  connect to Bob with `> vagrant ssh bob`.
 * Determine the IP address of the `eth1` interface of each VM. Record the IP addresses in
   the assignment submission, and keep them handy. You'll need them soon.
 
@@ -77,7 +77,7 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
     	us to execute other commands while the capture is running.
 
 ```
-tshark -f "not broadcast and not multicast" -i eth1 -a duration:10 -w /vagrant/udp.pcap -Q &
+$ tshark -f "not broadcast and not multicast" -i eth1 -a duration:10 -w /vagrant/udp-short.pcap -Q &
 ```
 
 * Use `netcat` to set up listening on a UDP port on Alice.
@@ -85,14 +85,14 @@ tshark -f "not broadcast and not multicast" -i eth1 -a duration:10 -w /vagrant/u
     * `-l 4242` tells netcat to listen on port 4242.
 
 ```
-netcat -ul 4242
+$ netcat -ul 4242
 ```
 
 * Use netcat to send a UDP message to Alice from Bob
   * Enter the following command at Bob's command prompt to open a connection to Alice,
   substituting Alice's IP address where indicated (remove the `<>`).
 ```
-netcat -u <Alice's eth1 IP Address> 4242
+$ netcat -u <Alice's eth1 IP Address> 4242
 ```
 * Once the connection has started, type a brief message (1 or 2 sentences) and hit Enter
   to send.
@@ -107,15 +107,58 @@ directory you created for this lab. There you should find a file named `udp.pcap
 file should contain all of the packets sent between Alice and Bob while your tshark
 session was running. Open that file in Wireshark.
 
+* Answer the questions in the submission file regarding your short UDP message.
 
-  
+### Step 4: Examining TCP
 
-### Step : Examining TCP
+Now we will send a short message (the same short message as before) using TCP instead of
+UDP.
 
-* Start new capture (new name)
-* Use netcat to listen on TCP on VM1
-* Send TCP message from VM1 --> VM2
-* Stop capture
+* Start `tshark` again, changing the name of the output file to
+  `/vagrant/tcp-short.pcap`. This is important, because you may want to review the UDP and
+  TCP files to answer some of the questions in the submission.
+* On Alice, run `$ netcat -l 4242` to start listening on port 4242
+* On Bob, run `$ netcat <Alice's eth1 ip address> 4242` to open a connection
+    * Type your short message and hit Enter to send.
+    * Type Ctrl-C to end your connection. This will also close `netcat` on Alice.
+* Wait for your `tshark` session to end.
+* Open `tcp-short.pcap` in Wireshark on your host computer and use it to answer the
+questions in the submission file.
+
+### Step 5: Longer messages
+
+In this section we will use netcat to send the contents of a text file as if we had typed
+it. This will let us see how UDP and TCP handle sending and receiving longer messages.
+
+* Open the `dangerous.txt` file you copied from the lab documents. It should contain the
+  entire contents of the short story "The Most Dangerous Game" by Richard Connell. As long
+  as it's in the same directory as your Vagrantfile, can access it on your Linux VMs at
+  `/vagrant/dangerous.txt`.
+
+#### UDP
+
+* Start `tshark`, outputting to the file `/vagrant/udp-long.pcap`.
+* Start `netcat` on Alice listening for a UDP message (`-u`) on port 4242.
+* On Bob, send the contents of the `dangerous.txt` file over UDP with the following
+command:
+
+```
+$ netcat -u 192.168.100.10 4242 < /vagrant/dangerous.txt
+```
+
+* You should see the contents of the file appear in Alice's terminal.
+* Press Ctrl-C on both VMs to stop netcat, then wait for your tshark session to end.
+* Open `udp-long.pcap` in Wireshark on your host, and use it to answer the questions in
+the submission document
+
+#### TCP
+
+* Start `tshark` with the filename `/vagrant/tcp-long.pcap` as the output.
+* Start `netcat` on Alice listening for a _TCP_ message on 4242.
+* On Bob, send the contents of `dangerous.txt` over TCP to Alice
+* Wait for your `tshark` session to end, then open `tcp-long.pcap` in Wireshark on your
+host.
+* Answer the questions in the submission file
 
 ### Step X: Cleanup (Optional)
 
