@@ -39,6 +39,15 @@ Questions
 6. How many bytes of data were sent (hint: find the message in Wireshark and look at the
 "Data" section).
 
+### TCP & UDP long messages
+
+1. The `netcat` program can be used to transfer the contents of files between
+   machines. You transferred a large file to the stdout (aka the terminal) on Alice's
+   computer using the `netcat [ip] [port] < filename.txt` syntax on Bob. If you had typed
+   `netcat -l [port] > filename.txt` on Alice, that output would have gone into a
+   file. Would TCP or UDP be better used for a file transfer like this? and why?
+2. What 
+
 ### Critical thinking
 
 1. What are two important differences between TCP and UDP when sending short messages?
@@ -46,7 +55,6 @@ Questions
 synchronization, IRC for chat)?
 3. Name a service that uses UDP, and explain why.
 
-### TCP & UDP long messages
 
 __Brainstorming__
 
