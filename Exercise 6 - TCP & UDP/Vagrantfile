@@ -9,10 +9,12 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "alice" do |alice|
     alice.vm.network "private_network", ip: "192.168.100.10"
+    alice.vm.hostname = "alice"
   end
   
   config.vm.define "bob" do |bob|
     bob.vm.network "private_network", ip: "192.168.100.20"
+    bob.vm.hostname = "bob"
   end
 
 end
