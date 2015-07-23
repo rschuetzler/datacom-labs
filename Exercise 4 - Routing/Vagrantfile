@@ -21,7 +21,7 @@ SCRIPT
     alice.vm.box_check_update = false
     alice.vm.provision :shell, inline: $alicescript
   end
-    
+  
   config.vm.define "amy" do |amy|
     amy.vm.box = "ubuntu/Trusty64"
     amy.vm.network "private_network", ip: "192.168.10.11"
