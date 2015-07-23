@@ -17,4 +17,4 @@ Questions
 
 4\) What does the Windows PATH variable do? (~15-50 words)
 
-5\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.
+5\) What part(s) of this exercise was(were) most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.

@@ -16,6 +16,10 @@ Conventions
 --------------------------
 In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
+For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows. If that is not the case, you may need to adapt some of the instructions to your primary operating system. You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
+
+/TODO: Is this what we want to say here ^^? It's what I've done in the past. If you choose to use a Mac or Linux, then you need to figure out what commands to run, etc., to make the labs work for you.
+
 Steps
 --------------------------
 
@@ -25,9 +29,9 @@ Your computer has an operating system (OS), probably Windows, Mac OS, or a versi
 
 There are several software platforms that allow you to run virtual machines. At the enterprise level, Microsoft's Hyper-V and VMWare ESX allow professionals to deploy virtual machines inside data centers. With these platforms, there is no host OS; the virtual machines run on the server hardware with on a thin virtualization layer between the operating system and the hardware. Virtualization is quickly become the de-facto option for deploying servers in an enterprise environment.
 
-Virtualization options exist for desktop users who want to run guest operating systems. The guest operating systems can be used for software development, testing software exploits, or learning about different operating systems. By default, the guest operating system cannot harm the host operating system. Guest operating systems typically interact with the host operating system be sharing write access to specific folders, but a guest operating system will never make configuration changes to the host operating system. Basically, you can run guest operating systems without worrying about messing up your computer.
+Virtualization options exist for desktop users who want to run guest operating systems. The guest operating systems can be used for software development, testing software exploits, or learning about different operating systems. By default, the guest operating system cannot affect the host operating system. Guest operating systems can be configured to interact with the host operating system by sharing write access to specific folders, but a guest operating system will never make configuration changes to the host operating system. Basically, you can run guest operating systems without worrying about messing up your computer.
 
-VirtualBox is the premier tool for running virtual machines on your system. It has an added advantage in that it is free. You will use VirtualBox throughout the course to run virtual machines.
+VirtualBox is a an excellent open source tool for running virtual machines on your system. It has an added advantage in that it is free. We will use Virtualbox for all of the labs in this course to demonstrate and try out networking concepts. 
 
 * Open https://www.virtualbox.org/wiki/Downloads
 * Download the latest version of VirtualBox for Windows hosts (or your computer's primary operating system if it is not Windows)
@@ -44,13 +48,13 @@ Git is a distributed source control application originally built to manage the L
 
 Older versions of Windows required users to run commands at a "command prompt." But most users of Windows XP and after likely never need to open a command prompt, and may not have ever seen it.
 
-* Click Start > cmd.exe [enter]
+* Click Start and type `cmd.exe` [enter]
     * This will open a command prompt.
 * Type "ping" [enter]
     * "ping" is a network utility that attempts to connect to a remote machine.
     * When you run "ping" without any parameters, ping will only output the usage instructions.
 * Type "winword" [enter]
-    * You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping" is in a folder specified in your path environment variable.
+    * You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping.exe" is in a folder specified in your path environment variable.
     * The path environment variable tells Windows what directories to look in for commands, such as executables. Ping.exe is in c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
     
 Use the following steps to view and edit your PATH variable.
@@ -58,7 +62,7 @@ Use the following steps to view and edit your PATH variable.
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\bin". The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty.
+* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
 * Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.
 
 ### Step 4: Download and install Vagrant
@@ -76,6 +80,7 @@ In this section, you will use Vagrant to create and start an Ubuntu Linux virtua
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
     * Click Start > cmd.exe [enter]
     * `> cd Documents\NetworkingClass\Vagrant`
+        * Or you can open the directory in Windows Explorer, hold down the Shift key while right-clicking in an empty part of the folder, then click "Open command window here"
 * Create a new folder called "Exercise1"
     * `> md Exercise1` [enter]
 * Navigate to the Exercise1 folder
@@ -90,7 +95,7 @@ Your Ubuntu virtual machine is now running. You will not see a graphical user in
 
 ### Step 6: Connect to the Ubuntu Virtual Machine with SSH
 
-Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communication and run commands within your virtual machine.
+Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communicate and run commands within your virtual machine.
 
 * In your command prompt, run the following command in the Exercise1 folder:
     * `> vagrant ssh`
@@ -100,12 +105,12 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
 
 * If you see a message similar to the screenshot, congratulations! You have successfully installed Virtual Box and Vagrant. You now know how to create a virtual machine and connect to it.
 * Take a screenshot of your own command prompt and copy it into your submission Word document.
-* Connecting to a machine with SSH is commonly called an SSH session. You close your session when you disconnect.
+* Connecting to a machine with SSH is commonly called an SSH session. You close your session when you close the window or log out of the machine.
 
 ### Step 7: Suspend, Resume, and Destroy
 
 * Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
-* Run "`> vagrant suspend`" to suspend your machine. Suspending the machine saves its running state to your hard drive and allows you to bring it up quickly.
+* Run "`> vagrant suspend`" to suspend your machine. Suspending the machine saves its running state to your hard drive and allows you to bring it back up quickly.
 * Run "`> vagrant ssh`". This should fail because the machine is not running.
 * Run "`> vagrant up`" to bring the machine into a running state again.
 * Run "`> vagrant ssh`". This should succeed.
