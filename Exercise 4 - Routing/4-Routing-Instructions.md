@@ -68,39 +68,29 @@ Hot Standby Router Protocol (HSRP) is not a routing protocol, but a way to make 
 Configuring a Router
 ----------------------
 
-In this example, we will have two networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", "billy", and "brouter". There is an intermediate router named "crossroads." The following lists the IP addresses of the five computers.
+In this example, we will have two networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", "billy", and "brouter". The following lists the IP addresses of the five computers.
 
- alice, amy <-> arouter <-> crossroads <-> brouter <-> bob, billy
-
-* Ace
-    - arouter: 192.168.1.0/24
-    - alice: 192.168.1.1/24
-    - amy: 192.168.1.2/24
-* Blaster
-    - brouter: 192.168.2.0/24
-    - bob: 192.168.2.1/24
-    - billy: 192.168.2.2/24
-* Crossroads: 192.168.3.0/24
+![Network Configuration](Simple-routing-instructions.png "Network Configuration")
 
 ### Step 1: Setup and Connect to a Linux Guest
 
-* Create a new folder on your computer for this exercise.
-* Open a command prompt and navigate to the folder.
-    * (Remember Start > cmd [enter], cd, md)
-* In the command prompt, run `vagrant init ubuntu/trusty64`
-* Run `vagrant ssh` to connect to the machine.
+* Copy the Vagrantfile for this exercise to a folder.
+* Open a command prompt and navigate to the folder where you saved the Vagrantfile.
+* Run `vagrant up` to bring up the machines.
+    * Note that because six machines are defined in the Vagrantfile, any Vagrant command that does not target a specific machine will automatically target all machines. It will take a few minutes for this to run.
+
+Note that *six* virtual machines will be created. The machines are named alice, amy, arouter, bob, billy, and brouter. You might be surprised that arouter and brouter are just regular virtual machines, but routers are basically just computers. Most router hardware strips away uneeded operating system functionality (like graphical user interfaces), but the underlying networking capabilities are equivalent to what you would find in any modern operating system.
 
 ### Step 2: Discover the Guest Network Configuration
 
 The default Vagrant box comes preconfigured with networking capability. In this section, you will issue commands to discover what networking is enabled by default.
 
-* Run `$ ifconfig`
-    * `ifconfig` is a Linux command that shows the network "**i**nter**f**ace **config**uration."
-* Two connections will be listed. We are concerned with the "eth0" interface. The "eth0" is a simulated Ethernet (wired) connection.
-* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address. Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique.
-* The "Mask" identifies the subnet (i.e. sub network).
-* The "HWaddr" is the hardware address. This is the media access control (MAC) address. Each MAC address is unique across the entire world.
-* The output of the command also lists the amount of information sent and received.
+* Run `> vagrant ssh alice`
+* Run `alice $ ifconfig`
+    * eth1 will have the interface used for this exercise
+    * eth0 exists so that your host machine can communicate with the guest
+* sudo route del default
+
 
 You will be come more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
 

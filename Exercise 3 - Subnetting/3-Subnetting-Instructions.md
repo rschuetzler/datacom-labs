@@ -30,7 +30,7 @@ Note that *two* virtual machines will be created. The machines are named "alice"
 * Run `> vagrant ssh alice` to connect to the first machine.
 * Open a new Windows command prompt, navigate to the folder with your Vagrantfile, and run `> vagrant ssh bob` to connect to the second machine.
 * Run `$ ifconfig` to check the IP address and subnet of each machine.
-* Note that there are two ethernet connections. This lab will focus on `eth1`. This is a bridged connection that allows multiple guests virtual machines to communicate with each other. For the purposes of this exercise, you can pretend that `eth0` doesn't exist.
+* Note that there are two ethernet connections. This lab will focus on `eth1`. This connection allows multiple guests virtual machines to communicate with each other. For the purposes of this exercise, you can pretend that `eth0` doesn't exist.
 * Alice and Bob have different IP addresses, but they have they same subnet mask.
     * You need two pieces of information to determine if computers are on the same network (i.e. subnetwork): 1) the IP address, and 2) the subnet mask.
 
