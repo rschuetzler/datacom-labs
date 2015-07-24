@@ -41,6 +41,18 @@ If you want to get to Tucson from Phoenix, you must pass through Casa Grande. Th
 
 The above routing table has a single entry. It says that if data needs to get to the 192.168.100.15/24 network, it should send it to 192.168.100.1 using the network card with the IP address 192.168.0.100.
 
+Every workstation, server, and router has a routing table. In windows, type the command `> route print` to list the routing tables. There will be separate tables for IPv4 and IPv6. Take a minute to look at the list.
+
+![Windows Routing Table Entry](windows-route-table-entry.png "Windows Routing Table Entry")
+
+The 0.0.0.0 network is the default network. If traffic is being routed to a network that is not listed in the routing table, it will be routed through the specified Gateway and Interface. In this example, my home router has the IP address 192.168.1.1. So if I try to access an IP address that my computer does not recognize as a local address, it sends it through my router and off to my internet service provider.
+
+When I run `ipconfig` on my Windows workstation, I can see that my wireless network card has the IP address 192.168.1.244.
+
+![Windows IP Config Output](windows-ipconfig.png "Windows IP Config Output")
+
+There may be entries in your routing table to the same Network Destination but through different interfaces. Each interface can have a different Metric, and the computer will use this metric when deciding which interface to use.
+
 ### [Static Routing](https://en.wikipedia.org/wiki/Static_routing)
 
 Static routing is the simplest way to configure routing, though it is only useful for very simple networks. Static routing requires that every routing entry be configured manually. A human being must type in each of the routes. If something changes in the network configuration, the routes must be updated manually.
@@ -72,6 +84,8 @@ In this example, we will have two networks. The "Ace" network has "alice", "amy"
 
 ![Network Configuration](Simple-routing-instructions.png "Network Configuration")
 
+Note that the diagram shows distinct cables connecting the devices. However, Vagrant essentially puts them all in the same physical space. The machines will have to be configured to appear like they are distinct physical networks.
+
 ### Step 1: Setup and Connect to a Linux Guest
 
 * Copy the Vagrantfile for this exercise to a folder.
@@ -89,52 +103,51 @@ The default Vagrant box comes preconfigured with networking capability. In this 
 * Run `alice $ ifconfig`
     * eth1 will have the interface used for this exercise
     * eth0 exists so that your host machine can communicate with the guest
-* sudo route del default
+* Run `alice $ tracepath 192.168.10.11`
+    * `tracepath` comes with the default Ubuntu installation. It is similar to the `tracert` command in windows, or the `traceroute` command in other systems. The `tracepath` command shows the different hops or routes through a network that are required to reach a remote host.
+    * This will attempt to find the path to amy. This should be successful since they are on the same network.
+    * Because alice and amy are on the same subnet, no routing is required.
+* Run `alice $ tracepath 192.168.10.5`
+    * This should also be successful, since the internally facing interface of the router is on the same network.
+* Run `alice $ tracepath 192.168.3.5`
+    * This command will fail. The externally facing interface of the router is not on the same network. The command will fail at 10.0.2.2--your host machine. Your host machine does not know how to route the traffic to the appropriate network.
+* Run `alice $ netstat -rn` to show the routing table.
+    * You should see output like the screenshot below.
+    * ![Alice Routing Table](netstat-alice-pre.png "Alice Routing Table")
+* Run `alice $ sudo route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.10.10`
+    * sudo: runs the command in privileged mode
+    * route: accesses the routing table
+    * add: inserts a new entry
+    * -net: specifies the network destination to add
+    * gw: the local network interface to route through
+* Run `alice $ tracepath 192.168.3.5` again
+    * The command should succeed.
+* Run `alice $ tracepath 192.168.20.11`
+    * The command will fail.
+* Open a new command prompt and SSH into arouter with `> vagrant ssh arouter`.
+    * Run `sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.3.6`
+        * This command tells the `a` router how to route traffic to the `b` network.
 
+http://imranasghar.blogspot.com/2009/09/how-to-make-ubuntudebian-as-router.html
 
-You will be come more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
+Arouter/Brouter:
+sudo vi /etc/sysctl.conf
+    * Uncomment "net.ipv4.ip_forward = 1"
+sudo sysctl -p
+sudo /etc/init.d/networking restart
+sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
 
-### Step 3: Discover Your Host Computer's Network Configuration
+Alice:
+sudo route del default
+sudo ip route add default via 192.168.10.5
+traceroute 192.168.20.5
 
-* Open a new command prompt on your host machine.
-* Run `> ipconfig` to show the Internet Protocol configuration.
-    * This is a tremendously important command. Remember it.
-    * The number of interfaces depends on the number of network adapters on your machine and software installed (such as Virtual Private Network [VPN] software or VirtualBox).
-    * Look for a connection named "Ethernet adapter Local Area Connection" or something similar.
-    * What do you notice that is similar and different from the `ifconfig` output?
-* Run `> ipconfig /all`
-    * Notice that the Windows `ipconfig /all` command shows the Default Gateway, Domain Name Server (DNS), and Dynamic Control Host Protocol (DHCP) information that the Linux `ifconfig` does not show.
+brouter
+vagrant ssh brouter
+sudo ip route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.20.5
 
-### Step 4: More Guest Network Configuration
-
-Windows makes it easy to see the DHCP configuration and DNS configuration in one place. This same information can be obtained in Linux, but the information is located in several parts of the system.
-
-* Run `$ ip route show`
-* The output will show "default via x.x.x.x" (where x.x.x.x is the IP address of the default gateway).
-* More information can be found in the network configuration file. In Debian systems (like Ubuntu), run the following command:
-    * `$ cat /etc/network/interfaces`
-    * The `cat` command prints the contents of files to your shell.
-    * `/etc/network/interfaces` is a text file that contains networking configuration.
-* You should notice that at the end of the file, there is a `source` command that loads all network configurations in the `/etc/networking/interfaces.d/` directory.
-* Run `$ cd /etc/networking/interfaces.d/`
-* Run `$ ls` to **l**i**s**t the contents of the folder.
-    * There should only be one file in the folder: eth0.cfg.
-* Run `$ cat eth0.cfg` and you should see output similar to the following:
-
-```
-auto eth0
-iface eth0 inet dhcp
-```
-
-* The configuration tells us the following facts about the network:
-    * `auto eth0` tells the system to load the network interface at boot
-    * `iface eth0 inet dhcp` tells the system to obtain an IP address automatically
-* There are several ways to get DNS information.
-    * Run `$ cat /etc/resolv.conf`
-        * Look for the IP address of the nameserver
-    * Run `$ dig google.com` (or use another website)
-        * The "SERVER:" line will contain the DNS server.
-* It is possible to manually define the default gateway, DNS, and IP addressing in the network configuration file (e.g. eth0.cfg), but it is often best to let the system obtain this information automatically.
+sudo apt-get install inetutils-traceroute
+    
 
 ### Step 5: Cleanup (Optional)
 
