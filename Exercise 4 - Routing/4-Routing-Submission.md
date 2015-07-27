@@ -19,6 +19,10 @@ RIP:
 
 OSPF:
  
-HSRP:
+3) The command `alice $ tracepath 192.168.20.11` failed the first time. Explain why.
 
-10\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.
+4) Paste alice's original routing table (the output of netstat -rn).
+
+5) Paste alice's updated routing table (the output of netstat -rn). What has changed?
+
+6\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.

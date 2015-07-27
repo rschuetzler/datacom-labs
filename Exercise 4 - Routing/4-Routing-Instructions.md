@@ -80,7 +80,7 @@ Hot Standby Router Protocol (HSRP) is not a routing protocol, but a way to make 
 Configuring a Router
 ----------------------
 
-In this example, we will have two networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", "billy", and "brouter". The following lists the IP addresses of the five computers.
+In this example, we will have three networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", "billy", and "brouter". The "Intermediate" network connects the two routers. The following lists the IP addresses of the network devices.
 
 ![Network Configuration](Simple-routing-instructions.png "Network Configuration")
 
@@ -90,6 +90,7 @@ Note that the diagram shows distinct cables connecting the devices. However, Vag
 
 * Copy the Vagrantfile for this exercise to a folder.
 * Open a command prompt and navigate to the folder where you saved the Vagrantfile.
+    * As a shortcut, you can open the folder in a Windows explorer folder, hold shift, right-click, and choose "Open command window here." Be sure to right-click on an empty part of the folder and not a specific file.
 * Run `vagrant up` to bring up the machines.
     * Note that because six machines are defined in the Vagrantfile, any Vagrant command that does not target a specific machine will automatically target all machines. It will take a few minutes for this to run.
 
@@ -101,57 +102,86 @@ The default Vagrant box comes preconfigured with networking capability. In this 
 
 * Run `> vagrant ssh alice`
 * Run `alice $ ifconfig`
-    * eth1 will have the interface used for this exercise
-    * eth0 exists so that your host machine can communicate with the guest
+    * eth1 will have the interface used for this exercise. We will pretend that this is the only network interface ont he machine.
+    * eth0 exists so that your host machine can communicate with the guest. If you delete this interface, your SSH session will die.
 * Run `alice $ tracepath 192.168.10.11`
-    * `tracepath` comes with the default Ubuntu installation. It is similar to the `tracert` command in windows, or the `traceroute` command in other systems. The `tracepath` command shows the different hops or routes through a network that are required to reach a remote host.
+    * `tracepath` comes with the default Ubuntu installation. It is similar to the `tracert` command in Windows, or the `traceroute` command in *nix systems. The `tracepath` command shows the different hops or routes through a network that are required to reach a remote host.
     * This will attempt to find the path to amy. This should be successful since they are on the same network.
     * Because alice and amy are on the same subnet, no routing is required.
 * Run `alice $ tracepath 192.168.10.5`
     * This should also be successful, since the internally facing interface of the router is on the same network.
 * Run `alice $ tracepath 192.168.3.5`
-    * This command will fail. The externally facing interface of the router is not on the same network. The command will fail at 10.0.2.2--your host machine. Your host machine does not know how to route the traffic to the appropriate network.
+    * This command will fail. The externally facing interface of the router is not on the same network. The command will fail at 10.0.2.2--your host machine. Your host machine does not know how to route the traffic to the appropriate network. The traffic is not being routed properly.
+    * Press `control+c` to stop the tracepath command.
 * Run `alice $ netstat -rn` to show the routing table.
     * You should see output like the screenshot below.
     * ![Alice Routing Table](netstat-alice-pre.png "Alice Routing Table")
+    * There are three entries in the routing table.
+        * The 0.0.0.0 network (the default network if no other networks apply)
+        * The 10.0.2.0 network (your host machine)
+        * The 192.168.10.0 network (the local network)
+    * Because there is no routing entry for the 192.168.3.0 network, it is going to the interface defined for the 0.0.0.0 network--eth0 (your host machine).
+
+Two things must be done to fix the routing:
+    1. Add a new entry in alice's routing table
+    2. Properly configure arouter as a router, currently it's just a computer with two network cards.
+
+### Step 3: Modify Network Routing Configuration
+
 * Run `alice $ sudo route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.10.10`
-    * sudo: runs the command in privileged mode
-    * route: accesses the routing table
-    * add: inserts a new entry
-    * -net: specifies the network destination to add
-    * gw: the local network interface to route through
+    * This previous command adds a new static route. Any traffic from alice destined for the 192.168.3.0/24 network will be directed through the 192.168.10.10 network interface.
+        * sudo: runs the command in privileged mode
+        * route: accesses the routing table
+        * add: inserts a new entry
+        * -net: specifies the network destination to add
+        * gw: the local network interface to route through
 * Run `alice $ tracepath 192.168.3.5` again
     * The command should succeed.
 * Run `alice $ tracepath 192.168.20.11`
-    * The command will fail.
+    * The command will fail. Explain why this fails in your submission. Run `alice $ netstat -rn` and include a screenshot of the output in your answer.
+
+### Step 4: Router Configuration
+
+Currently, arouter and brouter are just computer with multiple network interfaces. Their settings need to be updated to enable routing functionality.
+
 * Open a new command prompt and SSH into arouter with `> vagrant ssh arouter`.
-    * Run `sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.3.6`
+* Run `arouter $ sudo nano /etc/sysctl.conf`
+    * Uncomment "net.ipv4.ip_forward = 1" by deleting the "#" character at the beginning of the line.
+    * Save the file and exit.
+* Run `arouter $ sudo sysctl -p`
+    * This command reloads the configuration changes made with the previous command.
+    * You should see the output "net.ipv4.ip_forward = 1".
+* Run `sudo /etc/init.d/networking restart`
+    * This restarts the networking service to ensure that all configuration changes are running.
+* Run `arouter $ sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE`
+    * This enables routing functionality.
+* Complete the above steps again on brouter (you should open a new command prompt).
+
+Now, some manual routes need to be added to arouter and brouter.
+
+* Run `arouter $ sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.3.6`
         * This command tells the `a` router how to route traffic to the `b` network.
+* Run `brouter $ sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.20.5`
 
 http://imranasghar.blogspot.com/2009/09/how-to-make-ubuntudebian-as-router.html
 
-Arouter/Brouter:
-sudo vi /etc/sysctl.conf
-    * Uncomment "net.ipv4.ip_forward = 1"
-sudo sysctl -p
-sudo /etc/init.d/networking restart
-sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE
+### Step 5: Client Configuration
 
-Alice:
-sudo route del default
-sudo ip route add default via 192.168.10.5
-traceroute 192.168.20.5
+Currently, Alice still will not be able to route to 192.168.20.11. Her routing tables have not been updated.
 
-brouter
-vagrant ssh brouter
-sudo ip route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.20.5
+* Run `alice $ sudo route del default`
+    * This command deletes the default gateway.
+* Run `alice $ sudo ip route add default via 192.168.10.5`
+    * This tells the machine that traffic should be routed through eth1 by default if it cannot find the destination.
+    * Essentially, we are pointing alice to the correct router.
+* Run `alice $ tracepath 192.168.20.5`
+    * The command should succeed.
+* Run `alice $ netstat -rn` and examine the routing table.
+    * Include a screenshot of the output in your submission.
 
-sudo apt-get install inetutils-traceroute
-    
-
-### Step 5: Cleanup (Optional)
+### Step 6: Cleanup (Optional)
 
 After submitting your work, you can destroy any boxes you used.
 
 * Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
-* Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
+* Run "`> vagrant destroy -f`" to turn off the machines and delete them completely from your system. Note that the `-f` command is to force the command to run without prompting you to delete each machine.
