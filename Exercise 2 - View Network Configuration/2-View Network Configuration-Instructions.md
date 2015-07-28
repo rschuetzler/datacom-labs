@@ -33,9 +33,9 @@ In this step, you will create a 64 bit Ubuntu Linux virtual machine.
 
 * Create a new folder on your computer for this exercise.
 * Open a command prompt and navigate to the folder.
-    * (Remember Start > cmd [enter], cd, md. Refer to the first exercise for more detailed instructions on creating and navigating folders in a command prompt.)
+    * (Remember Start > cmd [enter], `cd`, `md`. Refer to the first exercise for more detailed instructions on creating and navigating folders in a command prompt.)
 * In the command prompt, run `> vagrant init ubuntu/trusty64`
-* Run `> vagrant ssh` to connect to the machine.
+* Run `>vagrant up` and then `> vagrant ssh` to connect to the machine.
 
 ### Step 2: Discover the Guest Network Configuration
 
@@ -44,12 +44,12 @@ The default Vagrant box comes preconfigured with networking capability. In this 
 * Run `$ ifconfig`
     * `ifconfig` is a Linux command that shows the network "**i**nter**f**ace **config**uration."
 * Two connections will be listed. We are concerned with the "eth0" interface. The "eth0" is a simulated Ethernet (wired) connection.
-* Look at the "inet addr". This is the Internet Protocol (IP) version 4 address.
-    * Like all IP addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique because they identify a specific machine. IP addresses are much like mailing addresses. If two people had the same mailing address, mail carriers would not know where to deliver the mail. IP addresses on a network must be unique. Most operating systems will give you a warning if you try to connect to a network with a duplicate IP address.
+* Find where the output says "inet addr". This is the Internet Protocol (IP) version 4 address.
+    * Like all IPv4 addresses, it is composed of 4 numbers between 0 and 255, separated by periods. IP addresses within a network must be unique because they identify a specific machine. IP addresses are much like mailing addresses. If two people had the same mailing address, mail carriers would not know where to deliver the mail. IP addresses on a network must be unique. Most operating systems will give you a warning if you try to connect to a network with a duplicate IP address.
 * The "Mask" identifies the subnet (i.e. sub network).
     * At a high level, subnets are used to separate traffic to allow for more efficient communication. An analogy is a single large classroom where four classes are simultaneously being taught. It would be difficult to communicate in such a crowded classroom with students asking questions of the various instructors and instructors trying to be heard over the noise. It would be more efficient if the single large classroom were broken down into four distinct classrooms. This way, the communication for each class would be contained in a separate classroom. One of the primary benefits of subnetting is the ability to regulate traffic. Ideally, as much traffic as possible is kept on the same subnet.
 * The "HWaddr" is the hardware address. This is the media access control (MAC) address. Each MAC address is unique across the entire world. There are two parts of a MAC address--the hardware vendor identification and the device identification. Every piece of network equipment created by Cisco will start with the same ID, but each device will be unique. This convention is a standard that all device manufacturers follow. It should be noted, however, that users can "spoof" their MAC address, changing it from the address defined in hardware to something that the user chooses in software.
-* The output of the `ifconfig` command also lists the amount of data sent and received.
+* The output of the `ifconfig` command also lists the amount of data sent (`TX` or transmitted) and received (`RX`).
 
 You will become more familiar with these terms throughout the exercises. For now, it is most important that you know where to find this information.
 
@@ -63,7 +63,7 @@ This step assumes that you are using a Windows host. If you are not using a Wind
     * The number of interfaces depends on the number of network adapters on your machine and software installed (such as Virtual Private Network [VPN] software or VirtualBox).
     * Look for a connection named "Ethernet adapter Local Area Connection" or something similar.
     * What do you notice that is similar and different from the `ifconfig` output?
-* Run `> ipconfig /all`
+* Run `> ipconfig /all` and scroll to find the same "Ethernet adapter" you looked at in the previous step.
     * Notice that the Windows `ipconfig /all` command shows the Default Gateway, Domain Name Server (DNS), and Dynamic Control Host Protocol (DHCP) information that the Linux `ifconfig` does not show.
 
 ### Step 4: More Linux Guest Network Configuration
@@ -78,7 +78,7 @@ Windows makes it easy to see the DHCP configuration and DNS configuration in one
     * The `cat` command prints the contents of files to your shell.
     * `/etc/network/interfaces` is a text file that contains networking configuration.
     * You should notice that at the end of the file, there is a `source` command that loads all network configurations in the `/etc/networking/interfaces.d/` directory.
-* Run `$ cd /etc/networking/interfaces.d/`
+* Run `$ cd /etc/network/interfaces.d/`
 * Run `$ ls` to **l**i**s**t the contents of the folder.
     * There should only be one file in the folder: eth0.cfg.
 * Run `$ cat eth0.cfg` and you should see output similar to the following:
@@ -91,12 +91,12 @@ iface eth0 inet dhcp
 * The configuration tells us the following facts about the network:
     * `auto eth0` tells the system to load the network interface at boot
     * `iface eth0 inet dhcp` tells the system to obtain an IP address automatically
-* There are several ways to get DNS information.
+* There are several ways to get DNS information. In the case of this VM, the DNS information was obtained via DHCP and automatically written to the `/etc/resolv.conf` file.
     * Run `$ cat /etc/resolv.conf`
         * Look for the IP address of the nameserver
     * Run `$ dig google.com` (or use another website)
         * The "SERVER:" line will contain the DNS server.
-* It is possible to manually define the default gateway, DNS, and IP addressing in the network configuration file (e.g. eth0.cfg), but it is often best to let the system obtain this information automatically.
+* It is possible to manually define the default gateway, DNS, and IP addressing in the network configuration file (e.g. eth0.cfg), but it is usually best to let the system obtain this information automatically.
 
 
 ### Step 5: Use the Windows Graphical User Interface to Discover Network Configuration
@@ -118,7 +118,7 @@ iface eth0 inet dhcp
     * By default, "Not Present" is selected. If you select "Value" and type in a new address, Windows will use the value you entered instead of the actual MAC address of your network adapter.
 * Close the network configuration screens.
 
-Note that in Windows, you could discover network configuration from the command prompt. Changes are typically made using the graphical user interface. Microsoft has a more sophisticated version of the command prompt called PowerShell which can also be used to view and make changes to system configurations. PowerShell has a unique scripting language that is beyond the scope of this exercise. If network administrators were to made changes to a large number of computers on a network, it is likely that they would use PowerShell to make the change. If a single network configuration had to be diagnosed, it is often easier to use the graphical user interface.
+Note that in Windows, you could discover network configuration from the command prompt (using `ipconfig`). Changes are typically made using the graphical user interface. Microsoft has a more sophisticated version of the command prompt called PowerShell which can also be used to view and make changes to system configurations. PowerShell has a unique scripting language that is beyond the scope of this class. If network administrators were to make changes to a large number of computers on a network, it would be much easier to create a Powershell script to do it than to use the GUI. If a single network configuration had to be diagnosed, it is often easier to use the graphical user interface.
 
 ### Step 6: Cleanup (Optional)
 
