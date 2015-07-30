@@ -28,10 +28,10 @@ Routing Protocols
 
 Suppose  you were to construct a routing table for Phoenix, Arizona. The *Network Destination* would be the place you ultimately want to end up at. The *Gateway* is the intermediate hop to get to your final destination. The *Interface* is the network adapter (or transportation method in this example) that can be used to reach the next hop. The *Metric* defines the cost of the route, basically how fast and reliable it is.
 
-|Network Destination| Gateway      | Interface                 | Metric |
-|-------------------|--------------|---------------------------|--------|
-|Tucson             | Casa Grande  | Bust Stop at 4th and Main | 500    |
-|Tucson             | Casa Grande  | Helicopter Pad            | 5      |
+|Network Destination| Gateway      | Interface                | Metric |
+|-------------------|--------------|--------------------------|--------|
+|Tucson             | Casa Grande  | Bus Stop at 4th and Main | 500    |
+|Tucson             | Casa Grande  | Helicopter Pad           | 5      |
 
 If you want to get to Tucson from Phoenix, you must pass through Casa Grande. There are two possible routes defined in the routing table above--a bus and helicopter. The metric for the helicopter is much lower, so the router will choose this route. The router in Casa Grande will have its own routing table for the most efficient way to send data from Casa Grande to Tucson.
 
