@@ -12,6 +12,11 @@ By the end of this lesson, you will be able to:
 3. Configure an authoritative DNS server.
 4. Configure a client to connect to a specific DNS server.
 
+<!---
+Things I (Ryan) would like to add:
+* Hosts file
+--->
+
 Steps
 --------------------------
 
