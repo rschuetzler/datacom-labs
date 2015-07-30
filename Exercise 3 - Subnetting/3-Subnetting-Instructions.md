@@ -34,7 +34,7 @@ Note that *two* virtual machines will be created. The machines are named "alice"
 * Alice and Bob have different IP addresses, but they have they same subnet mask.
     * You need two pieces of information to determine if computers are on the same network (i.e. subnetwork): 1) the IP address, and 2) the subnet mask.
 
-Subnet masks define the IP addresses for a subnetwork. Remember that IPv4 addresses are 4 numbers ranging from 0 to 255. Subnet masks are more limited. It is easiest to see how subnet masks are defined in binary. The subnet mask 255.255.255.0 is very common, and is represented in binary as 11111111.11111111.11111111.00000000. [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) can represent this subnet simply as "/24." Looking at the binary notation, from left to right there are 24 1's. Valid subnets always fill up the 1's on the left and zeros on the right, they are never mixed together.
+Subnet masks define the IP addresses for a subnetwork. Remember that IPv4 addresses are 4 numbers ranging from 0 to 255. Subnet masks are more limited. It is easiest to see how subnet masks are defined in binary. The subnet mask 255.255.255.0 is very common, and is represented in binary as 11111111.11111111.11111111.00000000. [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) can represent this subnet simply as "/24." Looking at the binary notation, from left to right there are 24 1's. Valid subnets always fill up the 1's on the left and zeros on the right; they are never mixed together.
 
 |Netmask notation | Binary Representation               | [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation) | Hosts |
 |-----------------|-------------------------------------|:----:|------:|
@@ -81,7 +81,7 @@ In this section, you will have the opportunity to test what happens when compute
     * The Linux ping utility has several options. Run `$ man ping` to read the user manual. Press `q` to quit reading the manual.
 * On Linux, the ping command will keep running until it is stopped. Stop it by pressing `Control+c`.
 * On your host machine, open a new command prompt and run `> ping 192.168.100.24`.
-    * Note that on Windows, the ping stops after four replies.
+    * Note that on Windows, the ping stops by default after four replies.
     * Run `> ping -?` to see more ping options on Windows.
 
 ### Step 4: Change Bob's Subnet
@@ -91,15 +91,25 @@ Alice and Bob are currently on the same subnetwork, or subnet. Machines on the s
 * On Bob, run `bob$ sudo ifconfig eth1 192.168.200.25` to change the IP address. Note that this command will place the computer in a different subnet.
     * The command `sudo` is used here to run the command with "root" permissions. The root account in Linux is basically the administrator account that is allowed to make changes. Often, you can run commands that display information without elevated privileges, but to make changes, you must run commands as root by prefixing them with `sudo`.
     * Note that the same command (`ifconfig`) that you used to print network configuration can also be used to modify the network configuration.
-* On Bob, run `bob$ ifconfig$ and verify that the IP address was modified.
+* On Bob, run `bob$ ifconfig` and verify that the IP address was modified.
 * On Bob, ping Alice by running `bob$ ping 192.168.100.24`.
     * The ping will be successful.
-* On Bob, run `bob$ sudo route del default` to delete the default gateway which will prevent routing between networks.
+	* On Bob, run `bob$ sudo route del default` to delete the default gateway which will prevent routing between networks.
+<!---
+^ This step needs to be explained. Kinda comes out of nowhere
+--->
+
 * On Bob, run `bob$ ping 192.168.100.24`.
     * The ping should fail. The computers are not on the same subnet, and there is no routing.
 * On Bob, run `bob$ sudo ifconfig eth1 192.168.100.25` to restore the original IP address.
 * On Bob, run `bob$ ping 192.168.100.24`.
     * The ping should succeed because Bob and Alice are on the same subnet and no routing is needed.
+
+<!---
+Things I (Ryan) want to add:
+* What happens if they are on different private networks, but with IP addresses on the same subnet?
+--->
+
  
 ### Step 5: Cleanup (Optional)
 
