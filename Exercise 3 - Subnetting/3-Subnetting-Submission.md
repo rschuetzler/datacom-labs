@@ -31,3 +31,5 @@ CIDR:
 9\) Ping google.com. Paste the output in a screenshot. What does the output tell you?
 
 10\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.
+
+11\) What error message did you receive in response to your `ping 192.1268.100.24` when Bob and Alice were on different subnets, and you had deleted the default route? Briefly explain what this error means.

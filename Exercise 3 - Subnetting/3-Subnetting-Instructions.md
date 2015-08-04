@@ -30,7 +30,7 @@ Note that *two* virtual machines will be created. The machines are named "alice"
 * Run `> vagrant ssh alice` to connect to the first machine.
 * Open a new Windows command prompt, navigate to the folder with your Vagrantfile, and run `> vagrant ssh bob` to connect to the second machine.
 * Run `$ ifconfig` to check the IP address and subnet of each machine.
-* Note that there are two ethernet connections. This lab will focus on `eth1`. This connection allows multiple guests virtual machines to communicate with each other. For the purposes of this exercise, you can pretend that `eth0` doesn't exist.
+    * Note that there are two ethernet connections. This lab will focus on `eth1`. This connection allows multiple guests virtual machines to communicate with each other. For the purposes of this exercise, you can pretend that `eth0` doesn't exist.
 * Alice and Bob have different IP addresses, but they have they same subnet mask.
     * You need two pieces of information to determine if computers are on the same network (i.e. subnetwork): 1) the IP address, and 2) the subnet mask.
 
@@ -80,6 +80,7 @@ In this section, you will have the opportunity to test what happens when compute
     * You should see a *reply* showing how fast the reply was received.
     * The Linux ping utility has several options. Run `$ man ping` to read the user manual. Press `q` to quit reading the manual.
 * On Linux, the ping command will keep running until it is stopped. Stop it by pressing `Control+c`.
+    * You can also use the `-c <#>` option to tell ping to only run a given number of times. For example, `ping -c 3 192.168.100.25` will send a total of 3 ping attempts.	
 * On your host machine, open a new command prompt and run `> ping 192.168.100.24`.
     * Note that on Windows, the ping stops by default after four replies.
     * Run `> ping -?` to see more ping options on Windows.
@@ -101,13 +102,14 @@ Alice and Bob are currently on the same subnetwork, or subnet. Machines on the s
 
 * On Bob, run `bob$ ping 192.168.100.24`.
     * The ping should fail. The computers are not on the same subnet, and there is no routing.
+    * Record the error message in the assignment submission
 * On Bob, run `bob$ sudo ifconfig eth1 192.168.100.25` to restore the original IP address.
 * On Bob, run `bob$ ping 192.168.100.24`.
     * The ping should succeed because Bob and Alice are on the same subnet and no routing is needed.
 
 <!---
 Things I (Ryan) want to add:
-* What happens if they are on different private networks, but with IP addresses on the same subnet?
+* What happens if they are on different private networks, but with IP addresses on the same subnet? This will take some advanced provider-specific configuration
 --->
 
  
