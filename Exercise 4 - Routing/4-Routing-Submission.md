@@ -10,6 +10,8 @@ Questions
 
 1\) What is a network? (~50 words)
 
+2. What information is available in the Windows routing table? Record the names of the fields shown in the "Active Routes" list.
+
 
 2\) In your own words, explain the pros and cons of using each of the following routing methods:
 
