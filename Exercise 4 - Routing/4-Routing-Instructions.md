@@ -185,7 +185,7 @@ Currently, Alice still will not be able to route to 192.168.20.11. Her routing t
 
 <!---
 TODO: Add something in the middle to show what happens when the route is only half set-up. Need to throw some ping -v in there to see the error messages that come back
-* Also add some more to do after we've set up the routing table. They did all that work, there should be some reward other than being able to see the router
+* Also add some more to do after we've set up the routing table. They did all that work, there should be some reward other than being able to see the router. To do that they may need to set up routing on billy as well.
 --->
 
 ### Step 6: Cleanup (Optional)
