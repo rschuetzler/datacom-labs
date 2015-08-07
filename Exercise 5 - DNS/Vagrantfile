@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: "echo Starting alice and bob"
-  
+
   config.vm.define "alice" do |alice|
     alice.vm.box = "ubuntu/Trusty64"
     alice.vm.network "private_network", ip: "192.168.100.24"
@@ -15,6 +15,7 @@ Vagrant.configure(2) do |config|
     bob.vm.box = "ubuntu/Trusty64"
     bob.vm.network "private_network", ip: "192.168.100.25"
     bob.vm.box_check_update = false
+    bob.vm.provision "shell", path: "webminrepo.sh"
   end
 
 end
