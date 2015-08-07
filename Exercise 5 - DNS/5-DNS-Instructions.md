@@ -52,7 +52,7 @@ Consider the example of the website google.com. If your computer has never conne
 6. The resolving nameserver sends the IP address for google.com back to your computer.
 
 * Run `> vagrant ssh bob`
-* Run `bob$ sudo apt-get install bind9`
+* Run `bob$ sudo apt-get update && sudo apt-get install bind9`
     * This will download and install the bind9 software.
     * Answer `y` when prompted to install.
 * Run `bob$ cat /etc/bind/named.conf.local`
