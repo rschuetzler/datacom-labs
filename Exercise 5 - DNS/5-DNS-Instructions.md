@@ -51,19 +51,29 @@ Consider the example of the website google.com. If your computer has never conne
 5. The resolving nameserver queries google.com's authoritative nameserver for the IP address.
 6. The resolving nameserver sends the IP address for google.com back to your computer.
 
+Webmin is a web interface to administer various aspects of your system. For this lab we will use Webmin to configure DNS in Bind9. While it is possible to configure DNS entirely through the command line, the process is tedious and unforgiving. Small typos will break your configuration. It is available through third-party repositories which were added to your VM when it booted. Instructions for setting up Webmin on your own server are available [here](https://www.digitalocean.com/community/tutorials/how-to-install-webmin-with-ssl-on-ubuntu-14-04).
+
 * Run `> vagrant ssh bob`
-* Run `bob$ sudo apt-get update && sudo apt-get install bind9`
-    * This will download and install the bind9 software.
+* Run `bob$ sudo apt-get install bind9 webmin`
+    * This will download and install the bind9 software and webmin.
     * Answer `y` when prompted to install.
 * Run `bob$ cat /etc/bind/named.conf.local`
     * This will print the DNS configuration. Currently, nothing is configured. The only lines in the configuration file are commented out (using two forward slashes).
+* Run `bob$ ifconfig` and verify the IP address for eth1
+* On your host computer, open a web browser and navigate to `https://192.168.100.25:10000`. Webmin runs a web server on port 10000.
+    * You will likely get a warning that your connection is not private, or that there is an error with the certificate. In this case it is safe to ignore this error. The webmin server uses a self-signed certificate to encrypt your communications. This is not trusted by your host OS, so it displays the warning. Bypass the error and continue to 192.168.100.25
+* Sign into webmin with the username and password `vagrant`.
+* Under "Servers" in the menu on the left, select "BIND DNS Server". You will then see a large list of options and actions you can run on BIND.
+* Under "Existing DNS Zones," select "Create master zone."
+* 
+
 * Run `bob$ sudo cp /etc/bind/db.local /etc/bind/db.networkclass.com`
     * This will create a template we can use to modify a valid DNS configuration file. The `db.local` file contains information for resolving `localhost.`
 * Run `bob$ sudo nano /etc/bind/db.networkclass.com`
     * `nano` is a text editor that is fairly easy to use. More powerful text editing programs like `vi` and `emacs` exist, but they have steeper learning curves. If you are going to work with Linux professionally, you must learn `vi` basics. But for now, `nano` will work fine.
 * Make the following changes to `db.networkclass.com`:
-    * Change `localhost. root.localhost.` to `ns.networkclass.com. root.networkclass.com.`
-    * Change `localhost.` to `ns.networkclass.com`
+    * Change `localhost. root.localhost.` to `ns.networkclass.com. root.networkclass.com.` (The periods at the end are important. DO NOT leave them out.)
+    * Change `localhost.` to `ns.networkclass.com.`
     * Change `127.0.0.1` to `192.168.100.25`
     * Add the line `ns  IN  A   192.168.100.25`
     * Add the line `www IN  A   192.168.100.24`
