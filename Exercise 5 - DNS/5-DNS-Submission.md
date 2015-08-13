@@ -22,4 +22,6 @@ Questions
 
 7. What is a reverse lookup? (~50 words)
 
+8. What did you get for the `nslookup` commands on Alice before changing the DNS servers?
+
 8. At a high level, describe how to configure bind9 on Linux. (~200 words)

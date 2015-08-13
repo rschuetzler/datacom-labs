@@ -64,61 +64,52 @@ Webmin is a web interface to administer various aspects of your system. For this
     * You will likely get a warning that your connection is not private, or that there is an error with the certificate. In this case it is safe to ignore this error. The webmin server uses a self-signed certificate to encrypt your communications. This is not trusted by your host OS, so it displays the warning. Bypass the error and continue to 192.168.100.25
 * Sign into webmin with the username and password `vagrant`.
 * Under "Servers" in the menu on the left, select "BIND DNS Server". You will then see a large list of options and actions you can run on BIND.
-* Under "Existing DNS Zones," select "Create master zone."
-* 
-
-* Run `bob$ sudo cp /etc/bind/db.local /etc/bind/db.networkclass.com`
-    * This will create a template we can use to modify a valid DNS configuration file. The `db.local` file contains information for resolving `localhost.`
-* Run `bob$ sudo nano /etc/bind/db.networkclass.com`
-    * `nano` is a text editor that is fairly easy to use. More powerful text editing programs like `vi` and `emacs` exist, but they have steeper learning curves. If you are going to work with Linux professionally, you must learn `vi` basics. But for now, `nano` will work fine.
-* Make the following changes to `db.networkclass.com`:
-    * Change `localhost. root.localhost.` to `ns.networkclass.com. root.networkclass.com.` (The periods at the end are important. DO NOT leave them out.)
-    * Change `localhost.` to `ns.networkclass.com.`
-    * Change `127.0.0.1` to `192.168.100.25`
-    * Add the line `ns  IN  A   192.168.100.25`
-    * Add the line `www IN  A   192.168.100.24`
-* Type Control+O, [enter] to save the file, and Control+X to exit.
-* Create a reverse zone file by running the command `bob$ sudo cp /etc/bind/db.127 /etc/bind/db.192`
-* Run `bob$ sudo nano /etc/bind/db.192`
-    * Change `localhost. root.localhost.` to `ns.networkclass.com. root.networkclass.com.`
-    * Change `@ IN  NS  localhost.` to `@ IN  NS  ns.networkclass.com`
-    * Change `1.0.0 IN  PTR  localhost.` to `25  IN  PTR ns.networkclass.com.`
-    * Add `24   IN  PTR www.networkclass.com.`
-    * Save the files as before and exit.
-    * Note that "25" and "24" refer to the last number in the IP address of the server (e.g. 192.168.100.25).
-* You have now created two configuration files, but bind9 is not looking for them, yet. Edit the `named.conf.local` file to point to these new configuration files.
-* Run `bob$ sudo nano /etc/bind/named.conf.local`
-* Add the following to the file:
-
-```
-// Forward zone
-zone "networkclass.com" {
-  type master;
-  file "/etc/bind/db.networkclass.com";
-};
-//reverse zone
-zone "100.168.192.in-addr.arpa" {
-  type master;
-  file "/etc/bind/db.192";
-};
-```
-
-* Run `bob$ sudo service bind9 restart` to restart the bind9 service to reload the configuration files.
-    * If you see a message ending with "...fail!" then you probably missed a semicolon or misconfigured one of the files. Double check that you have them exactly right. Bind9 is not forgiving. Fix your configuration files until you see "...done." when restarting bind9.
-* Run `bob$ named-checkzone networkclass.com /etc/bind/db.networkclass.com`
-    * You should see "OK"
-* Run `bob$ named-checkzone 100.168.192.in-addr.arpa. /etc/bind/db.192`
-    * You should see "OK"
-* Run `bob$ nslookup www.networkclass.com 192.168.100.25` to run a DNS query on the machine.
-* Run `bob$ nslookup ns.networkclass.com 192.168.100.25` to query the nameserver.
-* Run a reverse lookup with `bob$ nslookup 192.168.100.24 192.168.100.25`
-    * You should see that www.networkclass.com resolves to that IP address.
-* Run a reverse lookup with `bob$ nslookup 192.168.100.25 192.168.100.25`
-    * You should see that ns.networkclass.com resolves to that IP address.
+* We will create two DNS Zones: first the forward zone, then the reverse zone. The forward zone converts names to IP addresses, while the reverse zone converts IP addresses back to names.
+* Create the forward zone
+    * Under "Existing DNS Zones," select "Create master zone."
+    * Ensure that Zone type is Forward
+    * For Domain name, enter "example.com"
+    * For master server, enter "ns.example.com"
+    * For email address, enter "admin@example.com"
+    * Check the box to "Add NS record for master server?"
+    * Click Create
+* Add records to the master zone
+    * On the "Edit Master Zone" screen, click "Address (0)". This is where we will add our A records for our subdomains.
+    * For Name, put "ns"
+    * For Address, put 192.168.100.25. This is the IP address of Bob's computer, which is the DNS _name server_.
+    * Click Create.
+    * Do the same for the subdomain www, with the address 192.168.100.24
+    * Make sure you click Create before moving on.
+	* Click "Return to record types" at the bottom of the page.
+* Add a reverse DNS Zone
+    * Click "Return to zone list" at the bottom of the record types page.
+    * Under Existing DNS Zones, click "Create master zone."
+    * Zone type: Reverse
+    * Domain name/Network: 192.168.100
+    * Master server: ns.example.com
+    * Click "Create"
+* Add reverse DNS records to the zone
+    * Click "Reverse Address (0)"
+    * Create two reverse lookup records
+        * Address: 192.168.100.24, hostname: www.example.com
+        * Address: 192.168.100.25, hostname: ns.example.com
+* Click "Return to zone list"
+* Click "Apply Configuration" in the top right corner of the screen
+* Check to see if your configuration is working
+    * Run `bob$ nslookup www.example.com 192.168.100.25` to run a DNS query on the machine.
+    * Run `bob$ nslookup ns.example.com 192.168.100.25` to query the nameserver.
+    * Run a reverse lookup with `bob$ nslookup 192.168.100.24 192.168.100.25`
+        * You should see that www.example.com resolves to that IP address.
+    * Run a reverse lookup with `bob$ nslookup 192.168.100.25 192.168.100.25`
+        * You should see that ns.example.com resolves to that IP address.
 
 ### Step 4: Configure Alice to Point to Bob's DNS
 
-TODO
+Now we will set up Alice to use Bob as her DNS server. 
+
+* First test the existing configuration. Run `alice$ nslookup www.example.com` and `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains.
+* Record the results of those `nslookup` commands in the submission sheet
+* 	
 
 ### Step 5: Cleanup (Optional)
 
