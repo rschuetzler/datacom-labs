@@ -14,7 +14,7 @@ By the end of this lesson, you will be able to:
 
 Conventions
 --------------------------
-In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "\$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
 For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows. If that is not the case, you may need to adapt some of the instructions to your primary operating system. You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
 
@@ -100,7 +100,11 @@ Your Ubuntu virtual machine is now running. You will not see a graphical user in
 Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communicate and run commands within your virtual machine.
 
 * In your command prompt, run the following command in the Exercise1 folder:
-    * `> vagrant ssh`
+
+```
+> vagrant ssh
+```
+
 * You should see a connection made to the virtual machine similar to the following image.
 
     ![ssh screenshot](ssh-success.png "SSH Connection Screenshot")
