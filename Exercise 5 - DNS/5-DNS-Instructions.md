@@ -1,3 +1,10 @@
+---
+header-includes:
+- \usepackage{xcolor}
+- \definecolor{Light}{gray}{0.90}
+- \let\OldTexttt\texttt
+- \renewcommand{\texttt}[1]{\OldTexttt{\colorbox{Light}{#1}}}
+---
 Exercise 5: Domain Name System (DNS)
 ==========================
 
