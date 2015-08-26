@@ -1,3 +1,10 @@
+---
+header-includes:
+- \usepackage{xcolor}
+- \definecolor{Light}{gray}{0.90}
+- \let\OldTexttt\texttt
+- \renewcommand{\texttt}[1]{\OldTexttt{\colorbox{Light}{#1}}}
+---
 Exercise 2: IP Configuration
 ==========================
 
@@ -20,7 +27,8 @@ By the end of this lesson, you will be able to:
 1. Use `ipconfig` and `ipconfig /all` on Windows to view network configuration.
 2. Use `ifconfig` to view Linux network configuration.
 3. Use `ip route show` to view Linux the default gateway on Linux.
-4. Display the Linux network configuration file.
+4. Display the Linux network configuration.
+5. Use network tools `ping` and `tracert`, and understand what they do
 
 Steps
 --------------------------
@@ -119,6 +127,18 @@ iface eth0 inet dhcp
 * Close the network configuration screens.
 
 Note that in Windows, you could discover network configuration from the command prompt (using `ipconfig`). Changes are typically made using the graphical user interface. Microsoft has a more sophisticated version of the command prompt called PowerShell which can also be used to view and make changes to system configurations. PowerShell has a unique scripting language that is beyond the scope of this class. If network administrators were to make changes to a large number of computers on a network, it would be much easier to create a Powershell script to do it than to use the GUI. If a single network configuration had to be diagnosed, it is often easier to use the graphical user interface.
+
+### Step 6: Ping and Tracert
+
+Modern computers come equipped with several tools to help troubleshoot your network.  The most common network troubleshooting command is `ping`. Ping is one of the tools in the Internet Control Message Protocol (ICMP). Every modern operating system comes with the `ping` command, which sends out message called an *echo request*. This is a polite way that your computer can ask another computer if it is there. If the echo request has any trouble getting to its destination, the router that identifies the issue can send back an error message.  If the message arrives successfully at its destination, the destination computer can respond with an *echo reply* message.  In this portion of the lab, we will use the `ping` command to talk to a server.
+
+* Open a connection to your VM with `> vagrant ssh`
+* Once you are connected, type the following command to send an echo request to one of Facebook's servers: `$ ping -c 4 www.facebook.com`. On Linux, the `ping` command will run until you tell it to stop. The `-c 4` we put in tells it to run just 4 times.
+    * Enter the required information for question 6 on the submission page.
+* Now ping the localhost IP address: `127.0.0.1`. This is your computer's way of checking on itself.
+
+Another very useful tool for larger network troubleshooting is the trace route. This tool uses a series of pings with increasing time-to-live (TTL) to create a map of the route between your host and your destination. It is installed by default on Windows with the command `tracert`. 
+
 
 ### Step 6: Cleanup (Optional)
 

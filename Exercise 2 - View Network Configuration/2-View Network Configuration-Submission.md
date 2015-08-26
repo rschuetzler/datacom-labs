@@ -17,4 +17,8 @@ Questions
 
 5\) Paste a screenshot here of your Windows TCP/IPv4 settings for you active network connection.
 
+6\) Record the following information from the results of your `ping` of www.facebook.com: IP address, percentage of packets lost, minimum/average/maximum round trip time in milliseconds, and time to live (TTL) of one of the packets.
+
+7\) What was the average round trip time (rtt) when pinging 127.0.0.1?
+
 6\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.
