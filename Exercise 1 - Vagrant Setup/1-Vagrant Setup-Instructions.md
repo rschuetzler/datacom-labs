@@ -43,7 +43,7 @@ VirtualBox is a an excellent open source tool for running virtual machines on yo
 
 Git is a distributed source control application originally built to manage the Linux kernel. Git is now widely used for general software development and version tracking. The Git Windows installation package comes with many helpful command line tools, such as SSH.exe which is required for these exercises. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrate easily with Vagrant. Follow the steps below to install Git for Windows.
 
-* Open https://msysgit.github.io/
+* Open https://github.com/git-for-windows/git/releases/latest
 * Click "Download" and install the application once the download completes.
 
 ### Step 3: (Windows) Configure your PATH environment variable
@@ -64,7 +64,7 @@ Use the following steps to view your PATH variable and add Git's executables to 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
+* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\usr\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
 * Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.
 
 ### Step 4: Download and install Vagrant
