@@ -137,7 +137,12 @@ Modern computers come equipped with several tools to help troubleshoot your netw
     * Enter the required information for question 6 on the submission page.
 * Now ping the localhost IP address: `127.0.0.1`. This is your computer's way of checking on itself.
 
-Another very useful tool for larger network troubleshooting is the trace route. This tool uses a series of pings with increasing time-to-live (TTL) to create a map of the route between your host and your destination. It is installed by default on Windows with the command `tracert`. 
+Another very useful tool for larger network troubleshooting is the trace route. This tool uses a series of pings with increasing time-to-live (TTL) to create a map of the route between your host and your destination. It is installed by default on Windows with the command `tracert`. On OS X, the command is `traceroute`, and is also installed by default. In newer versions of Linux, you may need to install the `traceroute` package separately.
+
+* From your host OS, issue the appropriate traceroute command, followed by google.com. On Windows, that would be `tracert google.com`. Wait while the command executes.
+    * Fill out the approriate answers to the questions on the submission form.
+* Now go to http://www.monitis.com/traceroute/ This website is a visual traceroute tool that allows you to visualize the route from their company's servers to whatever site you specify.
+    * On the site, enter whatever website you like as the URL to perform the traceroute. Report the results in the submission form.
 
 
 ### Step 6: Cleanup (Optional)

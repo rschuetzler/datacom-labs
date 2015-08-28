@@ -21,4 +21,8 @@ Questions
 
 7\) What was the average round trip time (rtt) when pinging 127.0.0.1?
 
+8\) How many routers did your traceroute to google.com pass through on its way?
+
+9\) What site did you use for the visual traceroute tool? How many states did the route visit?
+
 6\) What parts of this exercise was most confusing? This could be a concept that was not explained clearly, a command that did not work as you expected, or anything else that you think could be improved.
