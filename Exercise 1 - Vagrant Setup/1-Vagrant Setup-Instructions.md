@@ -46,7 +46,7 @@ VirtualBox is a an excellent open source tool for running virtual machines on yo
 * Download the latest version of VirtualBox for Windows hosts (or your computer's primary operating system if it is not Windows)
 * Install VirtualBox when the download completes
 
-### Step 2: Download and Install Git
+### Step 2: (Windows) Download and Install Git
 
 Git is a distributed source control application originally built to manage the Linux kernel. Git is now widely used for general software development and version tracking. The Git Windows installation package comes with many helpful command line tools, such as SSH.exe which is required for these exercises. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrate easily with Vagrant. Follow the steps below to install Git for Windows.
 
