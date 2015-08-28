@@ -112,13 +112,41 @@ Webmin is a web interface to administer various aspects of your system. For this
 
 ### Step 4: Configure Alice to Point to Bob's DNS
 
-Now we will set up Alice to use Bob as her DNS server. 
+Now we will set up Alice to use Bob as her DNS server. Currently Alice is configured to use herself as a DNS server. 
 
-* First test the existing configuration. Run `alice$ nslookup www.example.com` and `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains.
+* First test the existing configuration. Run `alice$ nslookup www.example.com` or `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains.
 * Record the results of those `nslookup` commands in the submission sheet
-* 	
+* Make Bob the DNS server by modifying the last line of `/etc/dhcp/dhclient.conf` with the command `alice$ nano /etc/dhcp/dhclient.conf` to say:
 
-### Step 5: Cleanup (Optional)
+```
+supersede domain-name-servers 192.168.100.25;
+```
+
+* Restart Alice's computer to force the networking changes to take effect. This is done with the command: `alice$ sudo shutdown -r now`. This will disconnect you from Alice and restart the VM.
+* Reconnect to Alice and test the new DNS settings. Run `alice$ nslookup ns.example.com` and `alice$ nslookup www.example.com` to see what the DNS server is, and what addresses are returned.
+
+### Step 5: HOSTS file
+
+In addition to DNS, you can manually set up host records for your local machine to make it easier to access commonly visited servers. The easiest way is to add a record to your hosts file (`/etc/hosts` on Linux/Mac, `C:\Windows\System32\drivers\etc\hosts` on Windows). This is usually the first place your computer checks for host names (before even going to DNS), so records in your hosts file can be used to override DNS.
+
+* First, try to ping Bob from Alice by typing `alice$ ping bob`. What is the result? Why?
+* On Alice, open the hosts file with `alice$ nano /etc/hosts`
+* On the last line, add a line with Bob's IP address and the word "bob":
+
+```
+192.168.100.25  bob
+```
+
+* Save and close the file, now try to `ping bob`. What is the result now?
+* Try to ping `google.com`. What is the result? What is Google's IP address?
+* Now edit the hosts file again to include the following line:
+
+```
+127.0.0.1  www.google.com
+```
+* Save and close the hosts file and ping google.com one more time. What IP address is pinged when you do this?
+
+### Step 6: Cleanup (Optional)
 
 After submitting your work, you can destroy any boxes you used.
 

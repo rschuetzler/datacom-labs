@@ -24,4 +24,6 @@ Questions
 
 8. What did you get for the `nslookup` commands on Alice before changing the DNS servers?
 
-8. At a high level, describe how to configure bind9 on Linux. (~200 words)
+9. What is the happens when you put `127.0.0.1 google.com` in the HOSTS file? What is the significance of the 127.0.0.1 IP address?
+
+10. At a high level, describe how to configure bind9 on Linux. (~200 words)

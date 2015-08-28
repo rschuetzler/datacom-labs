@@ -2,3 +2,9 @@
 *.docx
 .vagrant
 *.pcap
+
+# Ignore the LaTeX compilation crap
+*.aux
+*.synctex.gz
+*.log
+*.out

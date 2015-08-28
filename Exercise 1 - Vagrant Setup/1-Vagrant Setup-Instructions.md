@@ -21,11 +21,13 @@ By the end of this lesson, you will be able to:
 
 Conventions
 --------------------------
-In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as "`> cd ~`". The ">" should not be typed. Commands run in a Linux shell will be prefixed with "\$", such as "`$ ls -al`". This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
 For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows. If that is not the case, you may need to adapt some of the instructions to your primary operating system. You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
 
+<!---
 /TODO: Is this what we want to say here ^^? It's what I've done in the past. If you choose to use a Mac or Linux, then you need to figure out what commands to run, etc., to make the labs work for you.
+-->
 
 Steps
 --------------------------
@@ -44,14 +46,14 @@ VirtualBox is a an excellent open source tool for running virtual machines on yo
 * Download the latest version of VirtualBox for Windows hosts (or your computer's primary operating system if it is not Windows)
 * Install VirtualBox when the download completes
 
-### Step 2: Download and Install Git for Windows
+### Step 2: Download and Install Git
 
-Git is a distributed source control application originally built to manage the Linux kernel. Git is now widely used for general software development and version tracking. The Git Windows installation package comes with many helpful command line tools, such as SSH.exe which is required for these exercises. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrate as easily with Vagrant. Follow the steps below to install Git for Windows.
+Git is a distributed source control application originally built to manage the Linux kernel. Git is now widely used for general software development and version tracking. The Git Windows installation package comes with many helpful command line tools, such as SSH.exe which is required for these exercises. Other SSH applications exist for Windows (such as Putty.exe), but they do not integrate easily with Vagrant. Follow the steps below to install Git for Windows.
 
-* Open https://msysgit.github.io/
+* Open https://github.com/git-for-windows/git/releases/latest
 * Click "Download" and install the application once the download completes.
 
-### Step 3: Configure your PATH environment variable
+### Step 3: (Windows) Configure your PATH environment variable
 
 Older versions of Windows required users to run commands at a "command prompt." But most users of Windows XP and after likely never need to open a command prompt, and may not have ever seen it.
 
@@ -64,12 +66,12 @@ Older versions of Windows required users to run commands at a "command prompt." 
     * You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping.exe" is in a folder specified in your path environment variable.
     * The path environment variable tells Windows what directories to look in for commands, such as executables. Ping.exe is in c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
     
-Use the following steps to view and edit your PATH variable.
+Use the following steps to view your PATH variable and add Git's executables to your path.
 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
+* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\usr\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
 * Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.
 
 ### Step 4: Download and install Vagrant
@@ -87,7 +89,7 @@ In this section, you will use Vagrant to create and start an Ubuntu Linux virtua
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
     * Click Start > cmd.exe [enter]
     * `> cd Documents\NetworkingClass\Vagrant`
-        * Or you can open the directory in Windows Explorer, hold down the Shift key while right-clicking in an empty part of the folder, then click "Open command window here"
+        * Or you can open the directory in Windows Explorer: hold down the Shift key while right-clicking in an empty part of the folder, then click "Open command window here"
 * Create a new folder called "Exercise1"
     * `> md Exercise1` [enter]
 * Navigate to the Exercise1 folder
@@ -105,7 +107,11 @@ Your Ubuntu virtual machine is now running. You will not see a graphical user in
 Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communicate and run commands within your virtual machine.
 
 * In your command prompt, run the following command in the Exercise1 folder:
-    * `> vagrant ssh`
+
+```
+> vagrant ssh
+```
+
 * You should see a connection made to the virtual machine similar to the following image.
 
     ![ssh screenshot](ssh-success.png "SSH Connection Screenshot")
@@ -116,7 +122,7 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
 
 ### Step 7: Suspend, Resume, and Destroy
 
-* Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
+* Run "`$ exit`" or press Ctrl+D to leave the SSH session. You will be back at your regular command prompt.
 * Run "`> vagrant suspend`" to suspend your machine. Suspending the machine saves its running state to your hard drive and allows you to bring it back up quickly.
 * Run "`> vagrant ssh`". This should fail because the machine is not running.
 * Run "`> vagrant up`" to bring the machine into a running state again.
