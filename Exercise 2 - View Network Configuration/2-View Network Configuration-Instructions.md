@@ -113,7 +113,7 @@ iface eth0 inet dhcp
 * In the "Search Control Panel" text box, type "network connections."
 * Click the "View network connections" link.
 * The list of network adapters you see should be the same as the list you saw when you ran `ipconfig.`
-* Right-click on your active network interface and choose "Properties." Your active network connection will likely be your wireless or local area network. If there is a red X on a network connection, it means that it is not being used (such as not having an Ethernet cable plugged in). Some connections might be disabled. Be sure to choose the connection that is enabled and connected. You should see something like the following screenshot.
+* Right-click on your active network interface and choose "Properties." Your active network connection will likely be your wireless or local area network. If there is a red X on a network connection, it means that it is not being used (such as not having an Ethernet cable plugged in). Some connections might be disabled. Be sure to choose the connection that is enabled and connected. You should see something like the screenshot in Figure 1.
 
 ![Windows Connection Properties](windows_connection_properties.png "Windows Connection Properties")
 
