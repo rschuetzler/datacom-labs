@@ -15,7 +15,7 @@ By the end of this lesson, you will be able to:
 Prerequisites
 ---------------------------
 - Vagrant installed and configured
-- A Windows Server 2012 virtual machine
+- A Windows Server 2012 virtual machine or a Windows computer
 
 Signing Files
 ------------------------------------
@@ -24,16 +24,15 @@ There are times when you want to sign a file so that people can verify who sent 
 ### Create an Ubuntu Virtual Machine
 
 Run the following commands in a new folder to create an Unbuntu virtual machine.
-  - `> vagrant init ubuntu/trusty64`
-  - `> vagrant up`
-  - `> vagrant ssh`
+1. `> vagrant init ubuntu/trusty64`
+2. `> vagrant up`
+3. `> vagrant ssh`
 
 ### Gnu Privacy Guard in Linux Installation and Key Creation
 
-1. Run `$ sudo apt-get install gpg` to install the Gnu Privacy Guard.
-2. Run `$ sudo apt-get install rng-tools` to install random number generator tools.
-3. Run `$ sudo rngd -r /dev/urandom` to generate enough random entropy to successfully generate a GPG key.
-4. Run `$ gpg --gen-key` to start the key creation process.
+1. Run `$ sudo apt-get install rng-tools` to install random number generator tools.
+2. Run `$ sudo rngd -r /dev/urandom` to generate enough random entropy to successfully generate a GPG key.
+3. Run `$ gpg --gen-key` to start the key creation process.
   - Select (1) RSA and RSA (default)
   - Select 2048 bits
   - Select 0 so that the key does not expire, then y to confirm.
@@ -42,56 +41,29 @@ Run the following commands in a new folder to create an Unbuntu virtual machine.
   - Leave the comment blank.
   - Press O for okay.
   - Enter a password, and repeat it when prompted.
-5. Run `$ gpg --output namekey.asc --export -a 671DB6B1` but replace two elements. Replace 671DB6B1 with your key id. You can find in the output of the key creation on the line that says, "gpg: key 671DB6B1 marked as ultimately trusted." Also replace "name" with your name.
+4. Run `$ gpg --output /vagrant/namekey.asc --export -a 671DB6B1` but replace two elements. Replace 671DB6B1 with your key id. You can find in the output of the key creation on the line that says, "gpg: key 671DB6B1 marked as ultimately trusted." Also replace "name" with your first name.
   - This command outputs your public key. You can send this to others so that they can verify your signature.
+5. Open [name]key.asc in your host operating system. The file will be in the same folder where you ran "vagrant init.""
 
 ### Clearsign Files with GnuPG in Linux
 
-1. Run `$ gpg --clearsign simple.txt`
-2. Open simple.txt.asc in a text editor.
+1. Run `$nano /vagrant/simple.txt`.
+  - Add the text "This is very important."
+  - Save the file using Control+O,[enter],Control+X.
+2. Run `$ gpg --clearsign /vagrant/simple.txt`
+  - Enter your password when prompted.
+3. Open simple.txt.asc in a text editor.
   - Notice that you can read the text of the file, but that it is wrapped with a PGP signature.
   - If you send this file to somebody, that person could read the text without having to decrypt the file. They would also be able to verify that you were the person who sent it.
 
-Hashing on Windows
-------------------------------------
+### Importing and Verifying Files in Linux
 
-### Windows Hashing with CertUtil
-
-Windows comes preinstalled with CertUtil that can be used to hash files. Run the following section in a Windows 2012 Server virtual machine.
-
-1. Open PowerShell.
-2. Navigate to the desktop folder by running `cd desktop`.
-3. Run `> notepad hashme.txt` to start notepad.
-  - You will get a message indicating that hashme.txt is not found. Click"yes" to create the file.
-4. Add the text, "This is a simple file" and save it. Use Notepad instead of other applications to avoid potential issues with character encoding.
-5. In PowerShell command prompt, run `> CertUtil -hashfile hashme.txt MD5`.
-5. You should see the following output.
-
-```
-MD5 hash of file hashme.txt:
-19 0a a3 11 7b 11 aa b3 f2 c5 f4 e5 f7 d9 e4 02
-CertUtil: -hashfile command completed successfully.
-```
-
-6. The output is in hexadecimal format, with values from 0 to 16 represented by 0-9a-f. You hash should match as long as you typed the message exactly.
-7. Change hashme.txt to add a period at the end of the sentence.
-8. Re-run the MD5 hash. You should see the following output.
-
-```
-MD5 hash of file hashme.txt:
-41 02 45 8b d1 69 b0 99 8c 01 97 ee cb 3c 2d f3
-CertUtil: -hashfile command completed successfully.
-```
-
-9. The hash is completely different from before. If you gave somebody the hash, they would have no idea what the original file was.
-10. Run the following command to compute the hash digest using the SHA-1 algorithm: `> CertUtil -hashfile hashme.txt SHA1`. You should see the following output.
-
-SHA1 hash of file hashme.txt:
-f7 1e 80 4b f7 49 30 9e 1f 32 b1 15 4c 67 88 2c d7 22 55 7e
-CertUtil: -hashfile command completed successfully.
-
-11. You can see that the SHA-1 digest is longer than the MD5 digest. SHA-1 is computationally more secure than MD5 and should be preferred.
-
+1. Rename your simple.txt file to "[name]simple.txt". Replace your name in the filename, and do not include brackets.
+  - Send your [name]key.asc and [name]simple.txt.asc to a friend.
+2. When you receive the files, copy them to your folder for this exercise.
+3. Run the command `$ gpg --import /vagrant/[name]key.asc` to import their key.
+4. Run the command `$ gpg --verify /vagrant/[name]simple.txt.asc` to verify the file.
+  - Do you trust the signature?
   
 Gnu Privacy Guard on Windows
 ------------------------------------
@@ -142,16 +114,3 @@ Fingerprint: BD94A43C05E30F42CE1E9FFA8959E4FF4531D8AD
 7. Check both boxes and click Next, Certify, and enter your passphrase (signer) when prompted.
 8. Click File > Decrypt/Verify files.
 9. Select the Gpg4win installation executable and click OK.
-
-### Bonus
-
-Check the hash on the installation file to determine if the hash matches the value publishe don the website.
-
-
-Windows: Encrypting Files with GnuPG
-------------------------------------
-
-1. Encrypt hashme.txt to create hashme.txt.gpg.
-2. Open hashme.txt.gpg in a text editor to verify that the contents are unreadable.
-3. Add yourself to the list of people this is being encrypted for.
-4. Decrypt the file, entering your passphrase when prompted.
