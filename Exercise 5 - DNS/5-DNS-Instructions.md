@@ -94,6 +94,7 @@ Webmin is a web interface to administer various aspects of your system. For this
     * Zone type: Reverse
     * Domain name/Network: 192.168.100
     * Master server: ns.example.com
+    * For email address, enter "admin@example.com"
     * Click "Create"
 * Add reverse DNS records to the zone
     * Click "Reverse Address (0)"
@@ -116,7 +117,7 @@ Now we will set up Alice to use Bob as her DNS server. Currently Alice is config
 
 * First test the existing configuration. Run `alice$ nslookup www.example.com` or `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains.
 * Record the results of those `nslookup` commands in the submission sheet
-* Make Bob the DNS server by modifying the last line of `/etc/dhcp/dhclient.conf` with the command `alice$ nano /etc/dhcp/dhclient.conf` to say:
+* Make Bob the DNS server by modifying the last line of `/etc/dhcp/dhclient.conf` with the command `alice$ sudo nano /etc/dhcp/dhclient.conf` to say:
 
 ```
 supersede domain-name-servers 192.168.100.25;
