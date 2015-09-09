@@ -24,7 +24,7 @@ In this exercise, you will install snort on CentOS. CentOS is basically the free
 
 1. Create a new folder on your system.
 2. Open a command prompt and navigate to your new folder.
-3. Run `> vagrant init puppetlabs/centos-7.0-64-puppet`
+3. Run `> vagrant init puppetlabs/centos-7.0-64-puppet`
   - Type the commands instead of copying and pasting to avoid any errors with the character encoding of the dash.
 4. Run `> vagrant up` to bring up the virtual machine.
   - If this is the first time you've used this box, it will download automatically.
@@ -50,7 +50,11 @@ The following steps install data acquisition (DAQ) modules and Snort.
   - You must register at snort.org.
   - Afer registering, access your account settings and find your "Oinkcode."
   -Your Oinkcode will look something like the following: fbee8de6567e63ed48fdc1ee750fae417c1607c4.
-4. Run `$ wget https://snort.org/rules/snortrules-snapshot-2975.tar.gz?oinkcode=<oinkcode>`
+4. Run 
+
+```
+$ wget https://snort.org/rules/snortrules-snapshot-2975.tar.gz?oinkcode=<oinkcode>
+```
   - Note that updated rules might be available. Check the download instructions on snort.org to verify the correct file name.
 5. Run `$ sudo tar -xvfz snortrules-snapshot-<version>.tar.gz -C /etc/snort/rules`
 6. Run `$ cat /etc/snort/rules/protocol-ftp.rules` and examine what the rule file looks like.
