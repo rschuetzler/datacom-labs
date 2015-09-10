@@ -43,8 +43,8 @@ Install Untangle
 12. In "Automatic Upgrades," select "Instal Upgrades Automatically."
 13. Click "Finish" when done, then "Continue."
 
-Initial Configuration
----------------------------
+Initial Untangle Configuration
+-------------------------------
 After installation, an account registration page will appear. Before filling out the registration, ensure that your computer can connect to the Internet. Because the MAC address of your virtual machine may not be registered with your organization, you may need to register. Your external network card is setup in "bridged" mode, meaning that your virtual machine will appear like another computer on the network.
 
 1. In the Iceweasel web browser, open a new tab by cliking the "+" at the top of the application.
@@ -85,11 +85,17 @@ the comments in the Vagrantfile as well as documentation on
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$script = <<SCRIPT
+echo Changing the default gateway to 192.168.2.1...
+sudo route del default
+sudo route add default gw 192.168.2.1
+SCRIPT
+
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.network "private_network", ip: "192.168.2.10"
+  config.vm.network "private_network", ip: "192.168.2.10", virtualbox__intnet: true
+  config.vm.provision "shell", inline: $script
 end
-
 ```
 
 6. Save the file.
@@ -103,21 +109,12 @@ vagrant ssh
 8. In Ubuntu, run the following commands to change your default gateway to the Untangle server.
 
 ```
-sudo route del default
-sudo route add default gw 192.168.2.1 eth1
 route
 ```
 
-The last command will display the currently configured routes.
+The last command will display the currently configured routes. The default gateway should be 192.168.2.1---the IP address of the Untangle server.
 
-9. In VirtualBox, right-click on the Ubuntu VM, click Settings.
-  - On the Network tab, select Adapter 2.
-  - Change "Attached to" to "Internal Network."
-  - Click ok.
-
-![Adapter 2 Settings](adapter-settings.png "Adapter Settings")
-  
-10. In Ubuntu, run the following command to verify that traffic is going through the Untangle server.
+9. In Ubuntu, run the following command to verify that traffic is going through the Untangle server.
 
 ```
 tracepath whitehouse.gov
