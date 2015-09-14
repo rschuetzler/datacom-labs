@@ -21,7 +21,12 @@ OpenPuff is a free steganography tool.
 
 ### OpenPuff Setup
 
-1. Download the latest version of OpenPuff from http://embeddedsw.net/OpenPuff_Steganography_Home.html.
+1. Download the latest version of OpenPuff from:
+
+```
+http://embeddedsw.net/OpenPuff_Steganography_Home.html
+```
+
 2. Install the program by simply unzipping the program into a new folder.
 3. Run OpenPuff.exe.
 4. In Windows Explorer, create 3 folders:
