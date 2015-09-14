@@ -19,7 +19,13 @@ Install Untangle
 ![VirtualBox OVA Import](1-virtualbox-import.png "VirtualBox Import")
 
 4. Select the untangle OVA file you previously downloaded, then click Next.
-5. Adjust any of the appliance settings, such as RAM based on your machine's power. You will notice that two network adapters are defined--be sure to keep two network adapters. Finalize the import when you are satisfied with the settings.
+5. Adjust any of the appliance settings, such as RAM based on your machine's power. You will notice that two network adapters are defined--be sure to keep two network adapters.
+  - Finalize the import when you are satisfied with the settings.
+
+```
+IMPORTANT: If you are connecting to the Internet through WiFi, change the type of your first adapter from "Bridged" to "NAT." VirtualBox does not currently bridge WiFi adapters properly. Right click on your untangle VM, click Settings > Network > Adapter 1. Change "Attached to: Bridged Adapter" to "Attached to: NAT."
+```
+  
 6. Highlight Untangle, then click Start.
   - The installation should proceed without any user intervention for several minutes.
   - Note that clicking in the Untangle window will likely *capture* your mouse. To releaes your mouse, press the right control key on your keepboard. Wile your mouse is captured, you will not be able to move the mouse outside of the window.
@@ -112,7 +118,12 @@ vagrant ssh
 route
 ```
 
-The last command will display the currently configured routes. The default gateway should be 192.168.2.1---the IP address of the Untangle server.
+The last command will display the currently configured routes. The default gateway should be 192.168.2.1---the IP address of the Untangle server. If the default gateway is not correct, run the following two commands to update the default gateway.
+
+```
+sudo route del default
+sudo route add default gw 192.168.2.1
+```
 
 9. In Ubuntu, run the following command to verify that traffic is going through the Untangle server.
 
@@ -121,6 +132,8 @@ tracepath whitehouse.gov
 ```
 
 The output should show the first hop being 192.168.2.1, and the command should reach its destination. You can also see if the data is going through the Untangle server by looking at the data transmission statistics while running the tracepath command. The bits send and received should go up when the tracepath command is issued.
+
+If you are connecting to the Internet through WiFi and a NAT adapter, the tracepath command will not complete. Press Control+c to stop the command. You should see, however, that the path you are taking to reach the internet goes through 192.168.2.1.
 
 ![Network Transmission Stats](5-data-transmission-stats.png "Data Transmission Statistics")
 
