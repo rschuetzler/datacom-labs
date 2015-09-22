@@ -5,6 +5,9 @@ Ryan
   in Windows. Give an estimate (~10GB free?) for how much space will be required so they
   can be sure they have enough.
 * Git path to add to %PATH% needs to be fixed to specify either the 32 or 64 bit versions
+    * For some reason, one recent version of Git did not install ssh.exe or any
+	of the other typical command-line tools. Need to double-check the steps to
+	make sure the steps we have will get that installed
 * Bad timing on Windows 10 release. Virtualbox not officially supported, so we just had to
   hope it worked. Thankfully it did without too much trouble. It could have been nasty if
   class had started just 2 weeks earlier. Hopefully Microsoft doesn't do anything like
