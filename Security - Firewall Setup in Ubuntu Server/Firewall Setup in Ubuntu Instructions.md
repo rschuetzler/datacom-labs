@@ -1,7 +1,7 @@
 Firewall Setup in Ubuntu Server
 =====================================
 
-Ubuntu uses the Netfilter subsystem to filter packets. To learn more about the way Ubuntu manages its firewall, refer to their [server guide](https://help.ubuntu.com/14.04/serverguide/firewall.html). In this exercise, you will setup Ubuntu host-based firewall rules.
+Ubuntu uses the Netfilter subsystem to filter packets. To learn more about the way Ubuntu manages its firewall, refer to their [server guide](https://help.ubuntu.com/14.04/serverguide/firewall.html). In the first part of this exercise, you will setup Ubuntu host-based firewall rules. In the second part, you will configure IP masquerading to turn the server into a network-based firewall.
 
 Prerequisites
 ---------------------
@@ -19,57 +19,88 @@ Run the following commands to create an Ubuntu server virtual machine and connec
 > vagrant ssh
 ```
 
+Run the following command to elevate to root privileges.
+
+```
+$ su -
+```
+
+Note that the command prefix in your shell now ends with `#`.
+
+You should see output similar to the following screenshot.
+
+
 Host-Based Firewall Configuration
 ---------------------------------
 
 1. Run the following command to enable the "uncomplicated firewall" service.
 
 ```
-sudo ufw enable
+# ufw enable
 ```
 
+Type `y` to confirm that you want to enable the firewall. Note that if the default firewall rules bocked port 22, enabling the firewall would immediately terminate your SSH session and prevent you from connecting via SSH in the future.
+
 Note that you will receive a message warning you that turning on the firewall may interrupt ssh connections. If port 22 were blocked in the firewall configuration, the current ssh session would be terminated. Fortunately, port 22 is not blocked by default.
+
+Run the following ufw command to see the status of the firewall rules.
+
+```
+# ufw status verbose
+```
 
 2. Run the following command to open a port (web traffic in this example).
 
 ```
-sudo ufw allow 80
+# ufw allow 80
+```
+
+Check the status again by running the following command.
+
+```
+# ufw status verbose
+```
+
+Ubuntu uses ufw to manage the firewall rules, but it uses iptables as the actual firewall. Run the following command to see the iptables output. You may need to expand your command window to avoid line wrapping.
+
+```
+# iptables -L
 ```
 
 3. Run the following command to close a port (port 53 for DNS in this example).
 
 ```
-sudo ufw deny 53
+# ufw deny 53
 ```
 
 4. Run the following command to delete a firewall rule:
 
 ```
-sudo ufw delete deny 53
+# ufw delete deny 53
 ```
 
 5. Run the following command to allow SSH access from 192.168.2.1 to any IP address on the server.
 
 ```
-sudo ufw allow proto tcp from 192.168.2.1 to any port 22
+# ufw allow proto tcp from 192.168.2.1 to any port 22
 ```
 
 6. Run the following command to allow SSH access from any IP address on the 192.168.2.0/24 subnet.
 
 ```
-sudo ufw allow proto tcp from 192.168.2.0/24 to any port 22
+# ufw allow proto tcp from 192.168.2.0/24 to any port 22
 ```
 
 7. Use the "--dry-run" option to list the firewall rules without applying them.
 
 ```
-sudo ufw --dry-run allow smtp
+# ufw --dry-run allow smtp
 ```
 
 8. To check the status of the firewall, run the following command:
 
 ```
-sudo ufw status
+# ufw status
 ```
 
 ![Firewall Status](status.png "status")
@@ -77,7 +108,7 @@ sudo ufw status
 9. Run the following command to disable the firewall.
 
 ```
-sudo ufw disable
+# ufw disable
 ```
 
 10. Enable the firewall again.
@@ -85,13 +116,13 @@ sudo ufw disable
 11. Turn logging on:
 
 ```
-sudo ufw logging on
+# ufw logging on
 ```
 
 12. Turn logging off:
 
 ```
-sudo ufw logging on
+# ufw logging off
 ```
 
 ### Configuring the Firewall for Applications
@@ -102,7 +133,7 @@ Many applications help the operating system determine the firewall rules needed 
 1. Run the following command to see which applications have installed a profile.
 
 ```
-sudo ufw app list
+# ufw app list
 ```
 
 You should see output similar to the following figure.
@@ -112,13 +143,13 @@ You should see output similar to the following figure.
 2. Run the following command to add a registered application's firewall rules to the current firewall rules.
 
 ```
-sudo ufw allow OpenSSH
+# ufw allow OpenSSH
 ```
 
 3. Run the following command to see the ports, protocols, and other settings defined for applications.
 
 ```
-sudo ufw app info OpenSSH
+# ufw app info OpenSSH
 ```
 
 ![OpenSSH Firewall Rules](openssh.png "openssh")
@@ -148,24 +179,25 @@ Several Ubuntu configurations must be updated to allow IP masquerading.
 1. Edit /etc/default/ufw by running the following command.
 
 ```
-sudo nano /etc/default/ufw
+# nano /etc/default/ufw
 ```
 
-Change "DEFAULT_FORWARD_POLICY" TO "ACCEPT.
+Change "DEFAULT_FORWARD_POLICY" TO "ACCEPT".
 
 2. Edit /etc/ufw/sysctl.conf
 
 ```
-sudo nano /etc/ufw/sysctl.conf
+# nano /etc/ufw/sysctl.conf
 ```
 
   - Uncomment "net/ipv4/ip_forward=1" by deleting the "#" at the beginning of the line.
   - Uncomment "net/ipv6/conf/default/forwarding=1" by deleting the "#" at the beginning of the line.
+  - Save the file and exit.
 
 3. Edit /etc/ufw/before.rules
 
 ```
-sudo nano /etc/ufw/before.rules
+# nano /etc/ufw/before.rules
 ```
 
 Type the following text at the top of the file:
@@ -185,7 +217,7 @@ COMMIT
 4. Run the following command to reload ufw and apply the changes.
 
 ```
-sudo ufw disable && sudo ufw enable
+# ufw disable && ufw enable
 ```
 
 Cleanup
