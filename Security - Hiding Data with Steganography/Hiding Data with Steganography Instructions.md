@@ -24,12 +24,12 @@ OpenPuff is a free steganography tool.
   - Hidden
   - Unhidden
 
-  ![Three Folders](3-folder.png "folders")
+&nbsp;![Three Folders](3-folder.png "folders")
 
 2. Place a large jpeg image in Raw. It should be at least 100 kilobytes.
 3. Create a text file called secrets.txt inside the Raw folder.
 
-  ![Secrets.txt Text File](secrets.png "secrets")
+&nbsp;![Secrets.txt Text File](secrets.png "secrets")
 
 4. Add some text to secrets.txt, then save and close the file. The text does not need to match the example above.
 
