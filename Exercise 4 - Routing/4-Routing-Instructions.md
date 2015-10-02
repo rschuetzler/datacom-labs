@@ -76,7 +76,7 @@ RIP is limited to 15 hops, so it is unsuitable for very large networks. However,
 
 ### [Open Shortest Path First (OSPF)](https://en.wikipedia.org/wiki/Open_Shortest_Path_First)
 
-The Open Shortest Path First (OSPF) routing protocol is common in large organizations. The protocol discovers the network topology surrounding, creates routing tables based on distance, bandwidth, and reliability. OSPF can detect changes and adapt automatically. OSPF is very performant and scales to large networks.
+The Open Shortest Path First (OSPF) routing protocol is currently the most common in large organizations. The protocol discovers the network topology surrounding, creates routing tables based on distance, bandwidth, and reliability. OSPF can detect changes and adapt automatically. OSPF is very performant and scales to large networks. It has another advantage over RIP, in that it does not flood the networking with routing table updates every 30 seconds, but only when link state information changes.
 
 [Click here to compare RIP versus OSPF](http://resources.intenseschool.com/rip-vs-ospf-which-is-better-for-your-network/).
 
@@ -87,7 +87,7 @@ Hot Standby Router Protocol (HSRP) is not a routing protocol, but a way to make 
 Configuring a Router
 ----------------------
 
-In this example, we will have three networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", "billy", and "brouter". The "Intermediate" network connects the two routers. The following lists the IP addresses of the network devices.
+In this example, we will have three networks. The "Ace" network has "alice", "amy", and "arouter". The "Blaster" network has "bob", and "brouter". The "Intermediate" network connects the two routers. The following lists the IP addresses of the network devices.
 
 ![Network Configuration](Simple-routing-instructions.png "Network Configuration")
 
@@ -99,9 +99,9 @@ Note that the diagram shows distinct cables connecting the devices. However, Vag
 * Open a command prompt and navigate to the folder where you saved the Vagrantfile.
     * As a shortcut, you can open the folder in a Windows explorer folder, hold shift, right-click, and choose "Open command window here." Be sure to right-click on an empty part of the folder and not a specific file.
 * Run `vagrant up` to bring up the machines.
-    * Note that because six machines are defined in the Vagrantfile, any Vagrant command that does not target a specific machine will automatically target all machines. It will take several minutes for this to run.
+    * Note that because six machines are defined in the Vagrantfile, any Vagrant command that does not target a specific machine will automatically target all machines. Because you are creating *five* VMs, it will take several minutes for this command to complete.
 
-Note that *six* virtual machines will be created. The machines are named alice, amy, arouter, bob, billy, and brouter. You might be surprised that arouter and brouter are just regular virtual machines, but routers are basically just computers. Most router hardware strips away uneeded operating system functionality (like graphical user interfaces), but the underlying networking capabilities are equivalent to what you would find in any modern operating system.
+Note that *five* virtual machines will be created. The machines are named alice, amy, arouter, bob, and brouter. You might be surprised that arouter and brouter are just regular virtual machines, but routers are basically just computers. Most router hardware strips away uneeded operating system functionality (like graphical user interfaces), but the underlying networking capabilities are equivalent to what you would find in any modern operating system.
 
 ### Step 2: Discover the Guest Network Configuration
 
@@ -112,88 +112,103 @@ TODO: Create network diagrams for each phase, so students can see what the netwo
 --->
 
 * Run `> vagrant ssh alice`
-* Run `alice $ ifconfig`
+* Run `alice$ ifconfig`
     * eth1 will have the interface used for this exercise. We will pretend that this is the only network interface on the machine.
     * eth0 exists so that your host machine can communicate with the guest. If you delete this interface, your SSH session will die.
-* Run `alice $ tracepath 192.168.10.11`
-    * `tracepath` comes with the default Ubuntu installation. It is similar to the `tracert` command in Windows, or the `traceroute` command in *nix systems. The `tracepath` command shows the different hops or routes through a network that are required to reach a remote host.
+* Run `alice$ tracepath 192.168.10.11`
+    * `tracepath` comes with the default Ubuntu installation. It is similar to the `tracert` command in Windows, or the `traceroute` command that can be installed on *nix systems. The `tracepath` command shows the different hops or routes through a network that are required to reach a remote host.
     * This will attempt to find the path to amy. This should be successful since they are on the same network.
-    * Because alice and amy are on the same subnet, no routing is required.
-* Run `alice $ tracepath 192.168.10.5`
+    * Because alice and amy are on the same subnet, no routing is required, and so there are no routers present in the path.
+* Run `alice$ tracepath 192.168.10.5`
     * This should also be successful, since the internally facing interface of the router is on the same network.
-* Run `alice $ tracepath 192.168.3.5`
-    * This command will fail. The externally facing interface of the router is not on the same network. The command will fail at 10.0.2.2--your host machine. Your host machine does not know how to route the traffic to the appropriate network. The traffic is not being routed properly.
+* Run `alice$ tracepath 192.168.3.5`
+    * This will fail. The externally facing interface of the router is not on the same network. The command will fail at 10.0.2.2--your host machine. Your host machine does not know how to route the traffic to the appropriate network. The traffic is not being routed properly.
     * Press `control+c` to stop the tracepath command.
-* Run `alice $ netstat -rn` to show the routing table.
+* Run `alice$ netstat -rn` to show the routing table.
     * You should see output like the screenshot below.
     * ![Alice Routing Table](netstat-alice-pre.png "Alice Routing Table")
     * There are three entries in the routing table.
         * The 0.0.0.0 network (the default network if no other networks apply)
-        * The 10.0.2.0 network (your host machine)
+        * The 10.0.2.0 network (the network shared with your host machine, allowing vagrant ssh to work)
         * The 192.168.10.0 network (the local network)
-    * Because there is no routing entry for the 192.168.3.0 network, it is going to the interface defined for the 0.0.0.0 network--eth0 (your host machine). Since your host machine doesn't know how to access 192.168.3.5 either, the tracepath fails.
+    * Because there is no routing entry for the 192.168.3.0 network, it is going to the default route defined for the 0.0.0.0 network--eth0 (your host machine). Since your host machine doesn't know how to access 192.168.3.5 either, the tracepath fails.
 
 Two things must be done to fix the routing:
-    1. Add a new entry in alice's routing table
-    2. Properly configure arouter as a router. Currently it's just a computer with two network cards.
+    1. Add a new entry in alice's routing table to direct traffic through arouter
+    2. Properly configure arouter as a router. Currently it's just a computer with two network cards. It knows it is connected to the two networks, but it doesn't know what to do about it.
 
 ### Step 3: Modify Network Routing Configuration
 
-* Run `alice $ sudo route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.10.10`
+* Run `alice$ sudo route add -net 192.168.3.0 netmask 255.255.255.0 gw 192.168.10.10`
     * This previous command adds a new static route. Any traffic from alice destined for the 192.168.3.0/24 network will be directed through the 192.168.10.10 network interface.
         * sudo: runs the command in privileged mode
         * route: accesses the routing table
         * add: inserts a new entry
         * -net: specifies the network destination to add
-        * gw: the local network interface to route through
-* Run `alice $ tracepath 192.168.3.5` again
+        * gw: gateway. The local network interface to route through
+* Run `alice$ tracepath 192.168.3.5` again
     * The command should succeed.
-* Run `alice $ tracepath 192.168.20.11`
-    * The command will fail. Explain why this fails in your submission. Run `alice $ netstat -rn` and include a screenshot of the output in your answer.
+* Run `alice$ tracepath 192.168.20.11`
+    * The command will fail. Look back at the network diagram. Use the diagram to help explain why this fails in your submission. Run `alice$ netstat -rn` and include a screenshot of the output in your answer.
 
 ### Step 4: Router Configuration
 
-Currently, arouter and brouter are just computer with multiple network interfaces. Their settings need to be updated to enable routing functionality.
+Currently, arouter and brouter are just computers with multiple network interfaces. Their settings need to be updated to enable routing functionality.
 
 * Open a new command prompt and SSH into arouter with `> vagrant ssh arouter`.
-* Run `arouter $ sudo nano /etc/sysctl.conf`
+* Run `arouter$ sudo nano /etc/sysctl.conf`
     * Uncomment "net.ipv4.ip_forward = 1" by deleting the "#" character at the beginning of the line.
+        * This line enables routing by telling the computer to forward packets for other networks.
     * Save the file and exit.
-* Run `arouter $ sudo sysctl -p`
+* Run `arouter$ sudo sysctl -p`
     * This command reloads the configuration changes made with the previous command.
     * You should see the output "net.ipv4.ip_forward = 1".
 * Run `sudo /etc/init.d/networking restart`
     * This restarts the networking service to ensure that all configuration changes are running.
-* Run `arouter $ sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE`
+* Run `arouter$ sudo iptables -t nat -A POSTROUTING -o eth2 -j MASQUERADE`
     * This enables routing functionality.
 * Complete the above steps again on brouter (you should open a new command prompt).
 
 Now, some manual routes need to be added to arouter and brouter.
 
-* Run `arouter $ sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.3.6`
+* Run `arouter$ sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.3.6`
         * This command tells the `a` router how to route traffic to the `b` network.
-* Run `brouter $ sudo route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.20.5`
+* Run `brouter$ sudo route add -net 192.168.10.0 netmask 255.255.255.0 gw 192.168.20.5`
 
 http://imranasghar.blogspot.com/2009/09/how-to-make-ubuntudebian-as-router.html
 
 ### Step 5: Client Configuration
 
-Currently, Alice still will not be able to route to 192.168.20.11. Her routing tables have not been updated.
+Currently, Alice still will not be able to route to 192.168.20.11. Her routing tables have not been updated. Specifically, Alice's default gateway, or default route, is still set to the `eth0` interface, which connects to the host computer rather than to the other computers on the network. Here we'll correct that.
 
-* Run `alice $ sudo route del default`
+#### Alice
+* Run `alice$ sudo route del default`
     * This command deletes the default gateway.
-* Run `alice $ sudo ip route add default via 192.168.10.5`
+* Run `alice$ sudo ip route add default via 192.168.10.5`
     * This tells the machine that traffic should be routed through eth1 by default if it cannot find the destination.
     * Essentially, we are pointing alice to the correct router.
-* Run `alice $ tracepath 192.168.20.5`
+* Run `alice$ tracepath 192.168.20.5`
     * The command should succeed.
-* Run `alice $ netstat -rn` and examine the routing table.
+* Run `alice$ netstat -rn` and examine the routing table.
     * Include a screenshot of the output in your submission.
+* Run `alice$ ping -O 192.168.20.11`.
+  * This is an attempt to communicate with Bob on the Blaster network. 
+  * The `-O` argument tells the ping command to report when there is no response.
+  * The ping command sends an ECHO\_REQUEST message to the destination computer, which then responds with an ECHO\_REPLY message of its own. 
+  * At this point, you should not be receiving responses from Bob. The ping command should say "no answer yet for..." Why are you not getting a response yet?
+  * Leave the `ping -O` command running on Alice while we finish configuring Bob
+ 
+#### Bob
 
-<!---
-TODO: Add something in the middle to show what happens when the route is only half set-up. Need to throw some ping -v in there to see the error messages that come back
-* Also add some more to do after we've set up the routing table. They did all that work, there should be some reward other than being able to see the router. To do that they may need to set up routing on billy as well.
---->
+At this point, Alice is able to send messages to Bob, but Bob still doesn't know how to send messages back to Alice. Bob's router knows how to get back to Alice's network, but Bob isn't configured to use that router as the default gateway. We'll fix that here.
+
+* Connect to Bob with `> vagrant ssh bob` from a new host machine command prompt
+* Run `bob$ sudo route del default`
+* Before you run the next command, be sure you can see Alice's ping command running. Watch what happens when you run this next command, configuring Bob's default gateway.
+* Run `bob$ sudo ip route add default via 192.168.20.5`
+    * This tells Bob to use his router's interface as the default gateway.
+* You can use CTRL-C in Alice's command prompt to stop the ping once the output changes from "no answer yet"
+* Answer the questions in the submission form regarding what happened when you updated Bob's default gateway.
 
 ### Step 6: Cleanup (Optional)
 
