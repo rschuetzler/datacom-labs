@@ -104,3 +104,27 @@ Looking at the IPv4 configuration, you see the following.
 What do you notice about the DNS settings? What is 8.8.8.8 and 8.8.4.4? Search the Internet if you are unfamiliar with these IP addresses.
 
 Some organizations filter content by DNS. So if you tried to go to poker.com, the DNS server would recognize that site as a gambling site and instead of returning the IP address to the site, it redirects you to a web page telling you that the site is prohibited. These organizations may block DNS lookups to other DNS services to make it more difficult to circumvent their content filtering. By changing your DNS settings to 'Obain DNS server addres automatically,' you would likely be able to connect to websites using a friendly domain name.
+
+Scenario 4
+--------------------
+
+In this scenario, you are attempting to expand your network. You began with `Configuration A` which allowed the single computer to access the Internet. In `Configuration B`, an unmanaged switch was connected to common home wireless router. In both configurations, Client A is able to connect to the Internet. However, Client B and Client C are unable to connect to the Internet. Examine the network toplogies in the following figure.
+
+&nbsp;![Network Toplogies](badcable-topology.png)
+
+How would you approach troubleshooting this network connectivity problem?
+
+Here are some steps that you might consider investigating and the results. Think critically about what each piece of information tells you.
+
+  - You check Client B and Client C and they are configured to obtain network settings via DHCP.
+  - You run `ipconfig` and find the following IP addresses:
+    - Client A: 192.168.0.50/24
+	- Client B: 169.254.12.188/16
+	- Client C: 168.254.165.122/16
+  - You ping Client B from Client C and the pings are successful.
+  - Client A can ping 192.168.0.1 and has obtained its network settings from the router.
+  - The unmanaged switch and the ports on the wireless router should be able to reach speeds of 1000mb/s.
+  - The port on the unanaged switch that is connected to the wireless router shows a blinking amber light. The ports on the unmanaged switch that connect to Client B and Client C have blinking green lights.
+  - The unmanaged switch supports MDIX.
+
+The solution to this real-world problem had to do with hardware. The cable that connected Client A to the wireless router in Configuration A was bad, but not bad enough to stop working completely. Client A was able to continue working with the cable. In Configuration B, the same cable was used to connect the unmanaged switch to the wireless router. The unmanaged switch had a lower tolerance for the degraded cable. The strongest clue that the cable was a problem was the fact the blinking amber light, indicating that the switch could not negotiate a faster connection. Replacing the cable resolved the problem, and Client B and Client C could connect to the Internet without any issues.
