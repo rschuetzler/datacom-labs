@@ -13,7 +13,7 @@ Create the Linux Virtual Machine
 Run the following commands to create a new Ubuntu server virtual machine and connect to it via SSH.
 
 ```
-> vagrant init ubunty/trusty64
+> vagrant init ubuntu/trusty64
 > vagrant up
 > vagrant ssh
 ```
