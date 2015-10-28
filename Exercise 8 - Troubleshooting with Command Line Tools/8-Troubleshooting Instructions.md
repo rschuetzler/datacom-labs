@@ -128,3 +128,38 @@ Here are some steps that you might consider investigating and the results. Think
   - The unmanaged switch supports MDIX.
 
 The solution to this real-world problem had to do with hardware. The cable that connected Client A to the wireless router in Configuration A was bad, but not bad enough to stop working completely. Client A was able to continue working with the cable. In Configuration B, the same cable was used to connect the unmanaged switch to the wireless router. The unmanaged switch had a lower tolerance for the degraded cable. The strongest clue that the cable was a problem was the fact the blinking amber light, indicating that the switch could not negotiate a faster connection. Replacing the cable resolved the problem, and Client B and Client C could connect to the Internet without any issues.
+
+Scenario 5
+----------------------
+
+Ever since your roommate started using your computer, your Internet started to slow down. Websites take forever to load, the computer takes longer to open programs, and everything just feels slower. You roommate swears that he didn't change anything, but you're not sure if you believe him.
+
+If everything is working correctly, but things are just going slow, what could the problem be? Here is a partial list of things that might cause a slow-down:
+  1. WiFi interference
+  2. Degraded network cable
+  3. Degraded ISP performance
+  4. Malware
+
+If you are conneting to the Internet wirelessly, your neighbors' wireless routers might be sending signals that overlap with your own wireless router. You might consider changing the WiFi channel to see if that improves performance.
+
+If you want to rule out a degraded cable as an issue, choose another cable and test your speed again. http://www.speedtest.net/ is a website that tells you how fast your internet connection is. You can run the test multiple times with different cables to see if changing the cable makes a difference.
+
+&nbsp;![Bandwidth Test](slow-bandwidth-test.png)
+
+It can also be good to run a bandwidth test before and after power cycling your wireless router.
+
+If the cable is a problem, the ISP might be the issue. An ISP can send a `reset` command to your cable modem which sometimes can solve minor issues. This is similar to rebooting your computer. The ISP can also tell you if they are experiencing any problems with their own systems.
+
+If your computer has malware, the malicious software may be consuming your bandwidth and computer processing power. The `netstat` utility shows TCP/IP connections on your computer. The following screenshot shows a sample output from the netstat command.
+
+&nbsp;![Netstat Output Showing TCP/IP Connections](slow-netstat.png)
+
+Pass additional parameters to see the process (i.e. program) that is making the TCP/IP connection.
+
+&nbsp;![Netstat Output Showing TCP/IP Connections](slow-netstat-ano.png)
+
+Suppose I want to see what process #228 is. In Windows, this can be done in the task manager. Right-click on the task bar, then click 'Task Manager.' To show PID (process identification), right click in the task manager header and ensure that 'PID' is checked. Suppose I was curious was process #228 was. I can see in my task manager that process #228 is Dropbox, and I am fine with Dropbox opening TCP/IP connections on my computer.
+
+&nbsp;![Task Manager](slow-task-manager.png)
+
+If you think you have a virus on your machine, you can also download a program like Malwarebytes (found at https://www.malwarebytes.org/) and do a complete scan of your system. Many computer repair shops charge hundreds of dollars just do download Malwarebytes and run a scan on your machine.
