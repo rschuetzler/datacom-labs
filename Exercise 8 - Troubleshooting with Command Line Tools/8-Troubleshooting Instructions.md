@@ -74,7 +74,6 @@ You are able to browse most of the web just fine. Yahoo.com works, cnn.com loads
   - Netflix might not be working. Because you do not have direct access to the Netflix servers, we would want to check if Netflix is working for other people.
   - If DNS is not resolving, we will not be able to get to the website. However, DNS appears to be resolving other websites fine.
 
-
 There are a few ways to gather information about websites. A basic test that can provide useful information is `ping`. The following screenshot shows the output from pinging Netflix.com. By default, Windows sends four ping requsts and records the response.
 
 &nbsp;![Ping Netflix](websitedown-ping.png)
@@ -87,3 +86,21 @@ The website http://downforeveryoneorjustme.com/ allows you to enter a website an
 
 If the website is down, then it is probably not a configuration problem on your computer nor an ISP issue. If the website is down for multiple people in different locations, the web server is probably down for everybody. All you can do is wait for the website to restore its service.
 
+Scenario 3
+-----------------------
+
+You bring your laptop to the Rotary Club to give a presentation. The Rotary Club allows guests to connect to its WiFi using the password `Pioneer47`. During your presentation you want to show some YouTube videos that you failed to download ahead of time. You connect to the local access point, enter the password, and appear to connect successfully. However, when open your web browser and navigate to youtube.com, the page just hangs and eventually times out. Other people who brought their laptops are able to connect to youtube.com just fine.
+
+What steps do you use to troubleshoot the problem? Options that you might consider are:
+  - Loading another website using the domain name (e.g. yahoo.com). What would the outcome of this test tell you?
+  - Loading another website using an IP address. What would the outcome of this test tell you?
+
+Assume that loading a different website using the domain name fails, but loading the website via an IP address works. What settings on your computer would you check next?
+
+Looking at the IPv4 configuration, you see the following.
+
+&nbsp;![IP Configuration](googledns-control-panel-ip-config.png)
+
+What do you notice about the DNS settings? What is 8.8.8.8 and 8.8.4.4? Search the Internet if you are unfamiliar with these IP addresses.
+
+Some organizations filter content by DNS. So if you tried to go to poker.com, the DNS server would recognize that site as a gambling site and instead of returning the IP address to the site, it redirects you to a web page telling you that the site is prohibited. These organizations may block DNS lookups to other DNS services to make it more difficult to circumvent their content filtering. By changing your DNS settings to 'Obain DNS server addres automatically,' you would likely be able to connect to websites using a friendly domain name.
