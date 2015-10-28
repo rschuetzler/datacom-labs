@@ -81,7 +81,7 @@ You can use the '>' command to send the command output to a file. In the followi
 > google.com > google.txt
 ```
 
-In this demo, I ran 'nslookup' while I was in C:\Users\Jim. So the previous command created C:\Users\Jim\google.txt. The easiest way to change your output directory is to quit the interactive mode (using the `quit` command), changing folders, and running `nslookup` again.
+In this demo, I ran 'nslookup' while I was in C:\\Users\\Jim. So the previous command created C:\\Users\\Jim\\google.txt. The easiest way to change your output directory is to quit the interactive mode (using the `quit` command), changing folders, and running `nslookup` again.
 
 Open the file in a text editor to view the output.
 
