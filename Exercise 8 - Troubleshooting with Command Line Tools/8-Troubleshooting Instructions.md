@@ -163,3 +163,10 @@ Suppose I want to see what process #228 is. In Windows, this can be done in the 
 &nbsp;![Task Manager](slow-task-manager.png)
 
 If you think you have a virus on your machine, you can also download a program like Malwarebytes (found at https://www.malwarebytes.org/) and do a complete scan of your system. Many computer repair shops charge hundreds of dollars just do download Malwarebytes and run a scan on your machine.
+
+Scenario 6
+-------------------
+
+You're stuck in an airport for a long layover. The airport offers free WiFi, so you decide to connect and get some work done. After turning on your laptop, you find the open WiFi access point and connect. The connection appears to work fine--you were not prompted for a password, and the icon in your task bar shows that you are connected. Next, you open Outlook that you use to manage your email. However, you get an error when trying to connect to your email server, and you are unable to check your mail. So you decide to play Words with Friends, but even that app has trouble connecting.
+
+What could the issue be?
