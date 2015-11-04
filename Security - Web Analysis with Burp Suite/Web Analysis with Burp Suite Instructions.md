@@ -39,6 +39,7 @@ Iceweasel is a custom version of Mozilla Firefox.
 &nbsp;![Iceweasel Icon](iceweasel-icon.png)
 
 2. In Iceweasel, open preferences.
+
 &nbsp;![Iceweasel Proxy Settings](iceweasel-settings1.png)
 
 3. Click `Advanced`, `Network`, `Connection Settings`.
@@ -87,4 +88,29 @@ Notice that the page will begin to load in Iceweasel. Also notice that Burp Suit
 7. Reload the page in Iceweasel. Notice that the page will load almost instantly with no need to forward the requests from Burp Suite.
 
 Why do you think it would be helpful to intercept all requsts and responses?
+
+Request Analysis
+--------------------------------------
+1. Turn Burp Suite intercepting on.
+2. In Iceweasel, click the XSS Example 1 link.
+3. The `GET` request will be captured in Burp Suite.
+4. Click the `Params` tab to see all parameters being sent to the server. You may need to resize the columns to see all data.
+
+&nbsp;![Request Parameters](burp-intercept-params.png)
+
+5. Modify the `name` parameter value by double clicking on the existing value. Change it to "friend."
+
+&nbsp;![Modify Parameters](burp-intercept-params-change.png)
+
+6. Click `Forward`.
+
+7. In Iceweasel, look at the output. Notice how the name value in the URL does not match the name value in the web page. Why do you think this happened?
+
+&nbsp;![URL and Variable Mismatch](iceweasel-url-variable-mismatch.png)
+
+Reflection
+---------------------------------------
+  - Can you trust user input?
+  - Can you trust user input if you use JavaScript validation?
+  - How can you properly sanitize user input?
 
