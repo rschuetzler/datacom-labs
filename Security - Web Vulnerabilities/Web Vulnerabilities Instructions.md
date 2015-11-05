@@ -24,7 +24,7 @@ Install the PentesterLab Linux ISO
 10) The machine will boot up. You will see a command prompt. Change the IP address with the following command.
 
 ```
-user@debian:~$ `sudo ifconfig eth0 192.168.2.100 netmask 255.255.255.0`
+user@debian:~$ sudo ifconfig eth0 192.168.2.100 netmask 255.255.255.0
 ```
 
 The machine has been properly configured and is ready to be exploited.
@@ -37,7 +37,7 @@ Setup Kali Linux
 4) Launch a terminal and set the IP address with the following command.
 
 ```
-root@kali:~# `ifconfig eth0 192.168.2.50 netmask 255.255.255.0`
+root@kali:~# ifconfig eth0 192.168.2.50 netmask 255.255.255.0
 ```
 
 5) Launch the Iceweasel web browser by clicking on the icon that looks like a polar bear.

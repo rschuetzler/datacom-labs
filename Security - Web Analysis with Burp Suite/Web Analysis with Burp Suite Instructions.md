@@ -108,9 +108,76 @@ Request Analysis
 
 &nbsp;![URL and Variable Mismatch](iceweasel-url-variable-mismatch.png)
 
-Reflection
----------------------------------------
-  - Can you trust user input?
-  - Can you trust user input if you use JavaScript validation?
-  - How can you properly sanitize user input?
+Burp Suite Repeater
+-----------------------------
+1. In Burp Suite, choose the Proxy > HTTP history tab.
 
+&nbsp;![Send to Repeater](burp-send-to-repeater.png)
+
+2. Right-click on a page in the history, and choose "Send to Repeater."
+
+3. You will notice that the Repeater tab will be highlighted, but it will not be opened automatically.
+
+&nbsp;![Repeater Highlighted](repeater-highlighted.png)
+
+4. Click on the Repeater tab. The HTTP request will be shown on the left. The values can be manipulated. Click `Go` to send the request to the web server.
+
+5. After clicking `Go`, the response will be shown on the right.
+
+&nbsp;![Repeater Request and Response](repeater-request-and-response.png)
+
+6. Note that there are several view of the response. The `Raw` view contains the HTTP headers and the website HTML that was returned. The `Headers` view just show the HTTP headers, and the `HTML` tab only shows the HTML. The `Render` shows a rough idea of what the website looks like, though its rendering is not as sophisticated as a modern web browser.
+
+Why would it be useful to use the repeater functionality?
+
+Burp Intruder
+------------------------
+
+1. In Iceweasel, navigate to XSS Example 4. Make sure that the Burp Suite is intercepting the requests. You will need to forward them.
+
+2. In Burp Suite, go to the Proxy > HTTP History. Right click on the exampl4.php request, and choose "Send to Intruder."
+
+&nbsp;![Send to Intruder](intruder-send-to.png)
+
+3. Click on the Intruder tab. There will be four subtabs. Keep the Target unmodified.
+
+&nbsp;[Intruder Target](intruder-target.png)
+
+4. Click on the Positions tab. Notice that the `hacker` variable is highlighted. Burp Suite correctly guessed that we would want to manipulate this variable.
+
+&nbsp;[Intruder Target](intruder-positions.png)
+
+5. Click on the Payloads tab. Add a few values in the the list. These will replace the "hacker" text in the request.
+
+&nbsp;![Intruder Payloads]intruder-payload.png
+
+6. Explore the Intruder > Options tab, but there is no need to modify anything.
+
+7. To begin the attack, click Intruder > Start Attack.
+
+&nbsp;[Start Attack](intruder-start-attack.png)
+
+Note that with the free version, you will see a message indicating that the attack will be throttled. You can dismiss this error message.
+
+&nbsp;![Free Version Message](intruder-free-warning.png)
+
+8. When the attack runs, you will see the results in a new window. Explore the results. The output is similar to the Proxy > History tab in that you can see the requests and the response.
+
+&nbsp;![Intruder Results](intruder-results.png)
+
+When would you want to use this Intruder functionality?
+
+Refelection
+----------------------------
+
+1. Can you trust user input?
+
+2. Can you trust user input if you use JavaScript validation?
+
+3. How can you properly sanitize user input?
+  
+4. Whose responsiblity is it to run web vulnerability analysis in an organization? Web developers? Security experts? Network administrators?
+
+5. Your network analysts detected that somebody appears to be executing an attack on your website. You have the attackers IP address. It appears to be coming from a residence in a neighboring state. What are your next steps?
+
+6. You find an employee in the accounting department running Burp Suite to look for vulnerabilities in the company website. He claims he was just being proactive and trying to protect the company. However, company policy prohibits the use of penetration testing tools to authorized users, and he is not authorized. What are your next steps?
