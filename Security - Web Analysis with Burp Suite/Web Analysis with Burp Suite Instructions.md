@@ -77,6 +77,10 @@ Notice that the page does not render.
 
 &nbsp;![Burp Suite Intercept](burp-intercept-get.png)
 
+Note that if you get a warning about the proxy being disabled, ensure that the `Running` box is checked in Proxy > Options.
+
+&nbsp;![Enable Proxy](proxy-enable.png)
+
 5. Click the `Forward` button in Burp Suite.
 
 &nbsp;![Burp Suite Forward](burp-forward.png)
@@ -135,7 +139,7 @@ Burp Intruder
 
 1. In Iceweasel, navigate to XSS Example 4. Make sure that the Burp Suite is intercepting the requests. You will need to forward them.
 
-2. In Burp Suite, go to the Proxy > HTTP History. Right click on the exampl4.php request, and choose "Send to Intruder."
+2. In Burp Suite, go to the Proxy > HTTP History. Right click on the example4.php request, and choose "Send to Intruder."
 
 &nbsp;![Send to Intruder](intruder-send-to.png)
 
@@ -155,7 +159,7 @@ Burp Intruder
 
 7. To begin the attack, click Intruder > Start Attack.
 
-&nbsp;[Start Attack](intruder-start-attack.png)
+&nbsp;![Start Attack](intruder-start-attack.png)
 
 Note that with the free version, you will see a message indicating that the attack will be throttled. You can dismiss this error message.
 
