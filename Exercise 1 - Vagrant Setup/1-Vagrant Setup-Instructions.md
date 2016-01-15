@@ -25,9 +25,6 @@ In these exercises, commands run from a Windows command prompt will be prefixed 
 
 For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows. If that is not the case, you may need to adapt some of the instructions to your primary operating system. You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
 
-<!---
-/TODO: Is this what we want to say here ^^? It's what I've done in the past. If you choose to use a Mac or Linux, then you need to figure out what commands to run, etc., to make the labs work for you.
--->
 
 Steps
 --------------------------
@@ -52,6 +49,10 @@ Git is a distributed source control application originally built to manage the L
 
 * Open https://github.com/git-for-windows/git/releases/latest
 * Click "Download" and install the application once the download completes.
+	* If Windows attempts to "Protect your PC" by preventing install, select the
+    option to "Run anyway".
+	* During installation, select the option to "Use Git from the Windows
+      Command Prompt", and "Use OpenSSH".
 
 ### Step 3: (Windows) Configure your PATH environment variable
 
@@ -71,7 +72,11 @@ Use the following steps to view your PATH variable and add Git's executables to 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* Edit the PATH variable for your user account to add ";C:\\Program Files (x86)\\Git\\usr\\bin" at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.
+* Edit the PATH variable for your user account to add ";C:\\Program Files
+  (x86)\\Git\\usr\\bin" (for 32-bit Git) or ";C:\\Program Files\\Git\\usr\\bin"
+  (for 64-bit Git) at the end. The semi-colon separates entries, so make sure to
+  add the semi-colon if your PATH variable was not empty. Make sure you don't
+  delete everything that was there before.
 * Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.
 
 ### Step 4: Download and install Vagrant
