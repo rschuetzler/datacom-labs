@@ -5,7 +5,7 @@ header-includes:
 - \let\OldTexttt\texttt
 - \renewcommand{\texttt}[1]{\OldTexttt{\colorbox{Light}{#1}}}
 ---
-Exercise 6: TCP and UDP
+Exercise 5: TCP and UDP
 ==========================
 
 Internet Protocol (IP) addressing helps to identify the location of machines on a network and facilitates routing messages between machines. 
@@ -27,7 +27,10 @@ Learning Objectives
 --------------------------
 By the end of this lesson, you will be able to:
 
-1. 
+1. Explain the differences between TCP and UDP
+2. Use Wireshark to analyze TCP and UDP data streams
+3. Use `netcat` to send messages on a network
+
 
 Steps
 --------------------------
@@ -37,7 +40,7 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
 ### Step 1: Initialize VMs
 
 * Create a new folder on your computer for this exercise.
-* Copy the `Vagrantfile` and `dangerous.txt` from the lab materials to the directory
+* Copy the `Vagrantfile`, `bootstrap.sh`, and `dangerous.txt` from the lab materials to the directory
 * Open a command prompt and navigate to the folder.
     * (Remember Start > cmd [enter], `cd`, `md`)
 * Run `> vagrant up` to initialize the virtual machines for this lab.

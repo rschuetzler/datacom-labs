@@ -1,4 +1,4 @@
-Exercise 6: TCP & UDP
+Exercise 5: TCP & UDP
 ==========================
 Name:
 
