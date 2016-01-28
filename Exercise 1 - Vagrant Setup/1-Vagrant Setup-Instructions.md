@@ -67,17 +67,23 @@ Older versions of Windows required users to run commands at a "command prompt." 
     * You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping.exe" is in a folder specified in your path environment variable.
     * The path environment variable tells Windows what directories to look in for commands, such as executables. Ping.exe is in c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
     
-Use the following steps to view your PATH variable and add Git's executables to your path.
+Use the following steps to view your PATH variable and **add** Git's executables
+to your path.  Note, you are adding Git to the PATH, not creating a new PATH
+variable or replacing the existing one.
 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* Edit the PATH variable for your user account to add ";C:\\Program Files
-  (x86)\\Git\\usr\\bin" (for 32-bit Git) or ";C:\\Program Files\\Git\\usr\\bin"
-  (for 64-bit Git) at the end. The semi-colon separates entries, so make sure to
-  add the semi-colon if your PATH variable was not empty. Make sure you don't
-  delete everything that was there before.
-* Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.
+* **Edit** the PATH variable (if it exists) for your user account to add
+  ";C:\\Program Files (x86)\\Git\\usr\\bin" (for 32-bit Git) or ";C:\\Program
+  Files\\Git\\usr\\bin" (for 64-bit Git) at the end. The semi-colon separates
+  entries, so make sure to add the semi-colon if your PATH variable was not
+  empty. Make sure you don't delete everything that was there before.  If there
+  is no existing PATH variable, create one.
+* Click OK. If any command prompts are open, close them and re-open them. The
+  PATH variable is read when the command prompt is first opened; it does not
+  detect if any updates are made while it is running.  You may need to log out
+  and log back in to ensure that environment variables are changed.
 
 ### Step 4: Download and install Vagrant
 
@@ -134,3 +140,25 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
 * Run "`> vagrant ssh`". This should succeed.
 * Run "`$ exit`".
 * Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "`y`" to confirm deletion.
+
+## Common errors and issues
+
+### Virtualization disabled
+
+Symptoms: 
+
+- `vagrant up` command says it has timed out.
+- If you open Virtualbox and attempt to create or open a 64-bit VM, it will
+  display an error.
+
+Some hardware vendors ship computers with hardware virtualization turned off by
+default.  If you see that Vagrant is timing out in attempting to create your
+virtual machines, you may have to dig into your BIOS settings to enable
+virtualization.
+
+### SSH.exe is not found on the path
+
+If you are receiving this error, you have added the wrong value to your PATH variable.
+Double-check that the directory you added to your PATH contains an executable
+named `ssh.exe`.  If not, you need to find that executable on your disk and add
+the correct directory to your PATH.
