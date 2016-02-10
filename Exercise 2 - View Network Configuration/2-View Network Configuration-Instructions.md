@@ -63,7 +63,11 @@ You will become more familiar with these terms throughout the exercises. For now
 
 ### Step 3: Discover Your Windows Host Network Configuration
 
-This step assumes that you are using a Windows host. If you are not using a Windows host, use a library computer or borrow a friend's Windows computer to complete this section.
+This step assumes that you are using a Windows host.  If you are not using a
+Windows host, use a library computer or borrow a friend's Windows computer to
+complete this section.  Because you'll be using a variety of operating systems
+in your career, you'll need to be familiar with networking basics on both major
+systems---Windows and \*nix (including OS X).
 
 * Open a new command prompt on your host machine.
 * Run `> ipconfig` to show the Internet Protocol configuration.
@@ -142,7 +146,15 @@ Another very useful tool for larger network troubleshooting is the trace route. 
 * From your host OS, issue the appropriate traceroute command, followed by google.com. On Windows, that would be `tracert google.com`. Wait while the command executes.
     * Fill out the approriate answers to the questions on the submission form.
 * Now go to http://www.monitis.com/traceroute/ This website is a visual traceroute tool that allows you to visualize the route from their company's servers to whatever site you specify.
-    * On the site, enter whatever website you like as the URL to perform the traceroute. Report the results in the submission form.
+    * On the site, enter the URL of the University's homepage to perform the
+      traceroute. Report the results (including a screenshot of the map) in the
+      submission form.
+- (optional) If you want to see a geographical traceroute from your computer to
+  another server, you can check out the Open Visual Traceroute tool
+  (http://sourceforge.net/projects/openvisualtrace/). This is free software that
+  runs on Windows, OSX, and Linux. Because it's running on your computer, it can
+  show you traffic from you to the server, rather than from one server to
+  another as in the other tool used above.
 
 
 ### Step 6: Cleanup (Optional)
