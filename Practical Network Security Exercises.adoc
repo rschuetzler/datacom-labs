@@ -1,0 +1,34 @@
+= Practical Network Security Exercises
+Jim Marquardson
+v.1, 2016-02
+:doctype: book
+:toc:
+:numbered:
+
+[preface]
+= About this Book
+
+Welcome to the book.
+
+= Part 1: Networking Fundamentals
+--
+In these chapters you will explore netoworking concepts with the aim of understanding how to investigate what is happening behind the scenes.
+--
+
+// Push titles down one level.
+:leveloffset: 1
+:imagesdir: Security - Comparing Telnet and SSH with Wireshark
+<<<
+include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and SSH with Wireshark Instructions.adoc[]
+
+<<<
+:leveloffset: 0
+= Part 2: Encryption
+--
+In these chapters you will learn to use encyrption tools.
+--
+
+:leveloffset: 1
+:imagesdir: Security - Encrypting Data with VeraCrypt
+<<<
+include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCrypt Instructions.adoc[]
