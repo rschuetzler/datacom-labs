@@ -1,0 +1,63 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", inline: "echo Starting alice, amy, arouter, bob, and brouter"
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 200
+  end
+  
+$alicescript = <<SCRIPT
+echo Updating default gateway
+#sudo route del default # deletes the default gateway
+#sudo ip route add default via 192.168.10.1
+SCRIPT
+
+  config.vm.define "alice" do |alice|
+    alice.vm.box = "ubuntu/trusty64"
+    alice.vm.host_name = "alice"
+    alice.vm.network "private_network", ip: "192.168.10.10"
+    alice.vm.box_check_update = false
+    alice.vm.provision :shell, inline: $alicescript
+  end
+  
+  config.vm.define "amy" do |amy|
+    amy.vm.box = "ubuntu/trusty64"
+    amy.vm.host_name = "amy"
+    amy.vm.network "private_network", ip: "192.168.10.11"
+    amy.vm.box_check_update = false
+  end
+  
+  config.vm.define "arouter" do |arouter|
+    arouter.vm.box = "ubuntu/trusty64"
+    arouter.vm.host_name = "arouter"
+    arouter.vm.network "private_network", ip: "192.168.10.5"
+    arouter.vm.network "private_network", ip: "192.168.3.5"
+    arouter.vm.box_check_update = false
+  end
+
+  config.vm.define "bob" do |bob|
+    bob.vm.box = "ubuntu/trusty64"
+    bob.vm.host_name = "bob"
+    bob.vm.network "private_network", ip: "192.168.20.11"
+    bob.vm.box_check_update = false
+  end
+  
+  # config.vm.define "billy" do |billy|
+  #   billy.vm.box = "ubuntu/trusty64"
+  #   billy.vm.host_name = "bob"
+  #   billy.vm.network "private_network", ip: "192.168.20.12"
+  #   billy.vm.box_check_update = false
+  # end
+  
+  config.vm.define "brouter" do |brouter|
+    brouter.vm.box = "ubuntu/trusty64"
+    brouter.vm.host_name = "brouter"
+    brouter.vm.network "private_network", ip: "192.168.20.5"
+    brouter.vm.network "private_network", ip: "192.168.3.6"
+    brouter.vm.box_check_update = false
+  end
+  
+end
