@@ -5,7 +5,7 @@ header-includes:
 - \let\OldTexttt\texttt
 - \renewcommand{\texttt}[1]{\OldTexttt{\colorbox{Light}{#1}}}
 ---
-Exercise 5: TCP and UDP
+Lab Exercise: TCP and UDP
 ==========================
 
 Internet Protocol (IP) addressing helps to identify the location of machines on a network and facilitates routing messages between machines. 
@@ -28,7 +28,7 @@ Learning Objectives
 By the end of this lesson, you will be able to:
 
 1. Explain the differences between TCP and UDP
-2. Use Wireshark to analyze TCP and UDP data streams
+2. Use Wireshark to view and analyze TCP and UDP data streams
 3. Use `netcat` to send messages on a network
 
 
@@ -71,14 +71,14 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
     	automatically stopping and saving the capture to a file. Give yourself plenty of
     	time, but not so long that you have to wait a long time for the program to finish
     	its job.
-    * `-f "not broadcast and not multicast` filters all packets that are not send directly
+    * `-f "not broadcast and not multicast"` filters all packets that are not send directly
       to the computer doing the capture. 
     * `-i eth1` tells tshark to capture packets on the `eth1` interface, which in this
       case is the network interface connecting Alice and Bob. Use `ifconfig` or `tshark
       -D` to get a list of possible network interfaces.
     * The `-a duration:30` option tells tshark to run for 30 seconds before automatically
     	finishing its capture (adjust this time as necessary to give yourself enough time
-    	to finish typing all of the `netcat` commands).
+    	to finish typing all of the `netcat` commands before the capture quits).
     * The `-w /vagrant/udp.pcap` option tells tshark to save the output of the capture to
     	the file `/vagrant/udp.pcap`.
     * The `-Q` option tells tshark to do its capture quietly, without any output to the
@@ -87,7 +87,7 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
     	us to execute other commands while the capture is running.
 
 ```
-$ tshark -f "not broadcast and not multicast" -i eth1 -a duration:10 -w /vagrant/udp-short.pcap -Q &
+$ tshark -f "not broadcast and not multicast" -i eth1 -a duration:30 -w /vagrant/udp-short.pcap -Q &
 ```
 
 * Use `netcat` to set up listening on a UDP port on Alice.
@@ -176,20 +176,3 @@ After submitting your work, you can destroy any boxes you used.
 
 * Run "`$ exit`" to leave the SSH session. You will be back at your regular command prompt.
 * Run "`> vagrant destroy`" to turn off the machine and delete it completely from your system. Answer "y" to confirm deletion.
-
-Submission
-----------------------
-Create a Word document with the following:
-
-Heading:
-
-  - Name
-  - Date
-  - Course
-  - Exercise 2
-
-Questions
-
-1. What is an IP address?
-2. What command line tools would you use on Linux and Windows to display network configurations? List each tool, the operating system on which it's found, and a sentence or two about what it does.
-3. Each network adapter in a computer can have different network settings. Describe a situation in which you would want different network settings for two adapters on the same computer. (~100 words)
