@@ -8,17 +8,22 @@ v.1, 2016-02
 [preface]
 = About this Book
 
-Welcome to the book.
+This book is designed for people with foundational computer networking knowledge. The tools and techniques in this book give a deeper, practical understanding of network security concepts, tools, and techniques. One of the most difficult challenges in the world of network security is finding the right resources to learn. Most computer security books provide discussions of security concepts and theory, but fall short when it comes to hands on exercises that I feel are necessary to truly understand the reason behind the theory.
+
+The exercises in this book are a starting point for the exploration of network security. This book is in no way a comprehensive guide to all things network security realted. However, this book does provide a framework for independent study and exploration. Using the techniques in this book, you will have the skills you need to seek out new technology and gain hands on experience in a safe way.
+
+Because this book deals with network security, it is important to emphasize that the tools and techniques here should never be used to damage remote systems, invade privacy, or break any laws. Most of the exercises are performed using virtualization technology that is contained on a single computer. You should never attempt to infiltrate or harm a computer system that you do not own. Any network security testing that you conduct should be done with the full written permission of the system owner. Failure to obtain permission can land offenders in serious legal trouble. Stay safe.
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-//                           NETWORK FUNDAMENTALS
+//              FOUNDATIONAL NETWORK SECURITY TOOLS
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-= Part 1: Networking Fundamentals
+= Part 1: Foundational Network Security Tools
 --
-In these chapters you will explore netoworking concepts with the aim of understanding how to investigate what is happening behind the scenes.
+Several tools and utilities are indepespensible for learning about network security and becoming a competent information technology administrator, penetration tester, or auditor. In this section, you will be introduced to tools that can jumpstart your path to becoming an expert.
 --
 // Push titles down one level.
 :leveloffset: 1
@@ -27,6 +32,25 @@ In these chapters you will explore netoworking concepts with the aim of understa
 <<<
 include::Security - Windows Command Prompt/Windows Command Prompt.adoc[]
 
+
+//Virtualbox
+:imagesdir: Security - VirtualBox Introduction
+include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions.adoc[]
+
+//Vagrant
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//                           NETWORK FUNDAMENTALS
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+<<<
+:leveloffset: 0
+= Part 2: Network Fundamentals
+:leveloffset: 1
 
 :imagesdir: Security - Comparing Telnet and SSH with Wireshark
 <<<
