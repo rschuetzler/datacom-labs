@@ -32,14 +32,16 @@ Several tools and utilities are indepespensible for learning about network secur
 <<<
 include::Security - Windows Command Prompt/Windows Command Prompt.adoc[]
 
-
-//Virtualbox
 :imagesdir: Security - VirtualBox Introduction
 include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions.adoc[]
 
 //Vagrant
 
+//Ubuntu Basics
 
+//Kali Installation
+
+//Metasploitable Installation
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -52,6 +54,14 @@ include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions
 = Part 2: Network Fundamentals
 :leveloffset: 1
 
+//view network configuration
+
+//ping and traceroute
+
+//Netstat and TCPView
+
+//Using Wireshark
+
 :imagesdir: Security - Comparing Telnet and SSH with Wireshark
 <<<
 include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and SSH with Wireshark Instructions.adoc[]
@@ -59,6 +69,8 @@ include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and S
 :imagesdir: Security - Network Scanning with Nmap
 <<<
 include::Security - Network Scanning with Nmap/Network Scanning with Nmap Instructions.adoc[]
+
+//Angry IP Scanner?
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -74,9 +86,27 @@ In these chapters you will learn to use encyrption tools.
 --
 :leveloffset: 1
 
+//Hashing
+
+//Encrypting with GnuPG
+
+
 :imagesdir: Security - Encrypting Data with VeraCrypt
 <<<
 include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCrypt Instructions.adoc[]
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//                    NETWORK DEFENSE
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+//UTM with Untangle
+
+//Firewalls
+
+//Network monitoring?
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -100,3 +130,10 @@ include::Security - Web Vulnerabilities/Web Vulnerabilities Instructions.adoc[]
 :imagesdir: Security - Web Analysis with Burp Suite
 <<<
 include::Security - Web Analysis with Burp Suite/Web Analysis with Burp Suite Instructions.adoc[]
+
+//Denial of Service
+
+//Basic Metasploit Framework
+
+//Password Cracking
+
