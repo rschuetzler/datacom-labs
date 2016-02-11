@@ -27,8 +27,25 @@ include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and S
 --
 In these chapters you will learn to use encyrption tools.
 --
-
 :leveloffset: 1
+
 :imagesdir: Security - Encrypting Data with VeraCrypt
 <<<
 include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCrypt Instructions.adoc[]
+
+
+<<<
+:leveloffset: 0
+= Part 3: Vulnerability Detection and Exploitation
+--
+In these chapters you will learn the tools to discover and exploit vulnerabilities.
+--
+:leveloffset: 1
+
+:imagesdir: Security - Web Vulnerabilities
+<<<
+include::Security - Web Vulnerabilities/Web Vulnerabilities Instructions.adoc[]
+
+:imagesdir: Security - Web Analysis with Burp Suite
+<<<
+include::Security - Web Analysis with Burp Suite/Web Analysis with Burp Suite Instructions.adoc[]
