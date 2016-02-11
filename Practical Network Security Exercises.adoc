@@ -23,6 +23,11 @@ In these chapters you will explore netoworking concepts with the aim of understa
 // Push titles down one level.
 :leveloffset: 1
 
+:imagesdir: Security - Windows Command Prompt
+<<<
+include::Security - Windows Command Prompt/Windows Command Prompt.adoc[]
+
+
 :imagesdir: Security - Comparing Telnet and SSH with Wireshark
 <<<
 include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and SSH with Wireshark Instructions.adoc[]
