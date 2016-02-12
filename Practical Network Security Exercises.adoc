@@ -29,7 +29,6 @@ Several tools and utilities are indepespensible for learning about network secur
 :leveloffset: 1
 
 :imagesdir: Security - Windows Command Prompt
-<<<
 include::Security - Windows Command Prompt/Windows Command Prompt.adoc[]
 
 :imagesdir: Security - VirtualBox Introduction
@@ -39,11 +38,9 @@ include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions
 
 //Ubuntu Basics
 
-//Kali Installation
 :imagesdir: Security - Kali Linux Installation Instructions
 include::Security - Kali Linux Installation Instructions/Kali Linux Installation Instructions.adoc[]
 
-//Metasploitable Installation
 :imagesdir: Security - Metasploitable Installation
 include::Security - Metasploitable Installation/Metasploitable Installation Instructions.adoc[]
 
@@ -92,14 +89,16 @@ In these chapters you will learn to use encyrption tools.
 --
 :leveloffset: 1
 
-//Hashing
+:imagesdir: Security - Hashing for Integrity and Authentication
+include::Security - Hashing for Integrity and Authentication/Hashing for Integrity and Authentication Instructions.adoc[]
 
 //Encrypting with GnuPG
 
+:imagesdir: Security - Hiding Data with Steganography
+include::Security - Hiding Data with Steganography/Hiding Data with Steganography Instructions.adoc[]
 
 :imagesdir: Security - Encrypting Data with VeraCrypt
 include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCrypt Instructions.adoc[]
-
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
