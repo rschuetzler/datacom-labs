@@ -64,6 +64,9 @@ include::Security - Metasploitable Installation/Metasploitable Installation Inst
 :imagesdir: Security - Wireshark
 include::Security - Wireshark/Wireshark for Network Analysis Instructions.adoc[]
 
+:imagesdir: Security - TCPDump for Capturing Packets
+include::Security - TCPDump for Capturing Packets\TCPDump for Captuing Packets.adoc[]
+
 :imagesdir: Security - Comparing Telnet and SSH with Wireshark
 include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and SSH with Wireshark Instructions.adoc[]
 
