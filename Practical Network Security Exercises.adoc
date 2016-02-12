@@ -106,12 +106,17 @@ include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCryp
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-//UTM with Untangle
+:imagesdir: Security - Unified Threat Management with Untangle
+include::Security - Unified Threat Management with Untangle/Unified Threat Management with Untangle Instructions.adoc[]
 
 //Firewalls
+:imagesdir: Security - Firewall Setup in Ubuntu Server
+include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Instructions.adoc[]
 
 //Network monitoring?
 
+:imagesdir: Security - Exploring Group Policy
+include::Security - Exploring Group Policy/Exploring Group Policy Instructions.adoc[]
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
