@@ -40,8 +40,12 @@ include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions
 //Ubuntu Basics
 
 //Kali Installation
+:imagesdir: Security - Kali Linux Installation Instructions
+include::Security - Kali Linux Installation Instructions/Kali Linux Installation Instructions.adoc[]
 
 //Metasploitable Installation
+:imagesdir: Security - Metasploitable Installation
+include::Security - Metasploitable Installation/Metasploitable Installation Instructions.adoc[]
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -131,9 +135,13 @@ include::Security - Web Vulnerabilities/Web Vulnerabilities Instructions.adoc[]
 <<<
 include::Security - Web Analysis with Burp Suite/Web Analysis with Burp Suite Instructions.adoc[]
 
-//Denial of Service
+:imagesdir: Security - Executing a SYN Flood Denial of Service Attack
+include::Security - Executing a SYN Flood Denial of Service Attack/Executing a SYN Flood Denial of Service Attack Instructions.adoc[]
 
-//Basic Metasploit Framework
+
+//Basic Metasploitable Use
+:imagesdir: Security - Metasploitable Basic Use
+include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructions.adoc[]
 
 //Password Cracking
 
