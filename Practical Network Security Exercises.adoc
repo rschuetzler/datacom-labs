@@ -64,15 +64,17 @@ include::Security - Metasploitable Installation/Metasploitable Installation Inst
 
 //Netstat and TCPView
 
-//Using Wireshark
+:imagesdir: Security - Wireshark
+include::Security - Wireshark/Wireshark for Network Analysis Instructions.adoc[]
 
 :imagesdir: Security - Comparing Telnet and SSH with Wireshark
-<<<
 include::Security - Comparing Telnet and SSH with Wireshark/Compare Telnet and SSH with Wireshark Instructions.adoc[]
 
 :imagesdir: Security - Network Scanning with Nmap
-<<<
 include::Security - Network Scanning with Nmap/Network Scanning with Nmap Instructions.adoc[]
+
+:imagesdir: Security - NSLookup to Query the Domain Name System
+include::Security - NSLookup to Query the Domain Name System/NSLookup to Query the Domain Name System Instructions.adoc[]
 
 //Angry IP Scanner?
 
@@ -96,7 +98,6 @@ In these chapters you will learn to use encyrption tools.
 
 
 :imagesdir: Security - Encrypting Data with VeraCrypt
-<<<
 include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCrypt Instructions.adoc[]
 
 
@@ -128,18 +129,14 @@ In these chapters you will learn the tools to discover and exploit vulnerabiliti
 :leveloffset: 1
 
 :imagesdir: Security - Web Vulnerabilities
-<<<
 include::Security - Web Vulnerabilities/Web Vulnerabilities Instructions.adoc[]
 
 :imagesdir: Security - Web Analysis with Burp Suite
-<<<
 include::Security - Web Analysis with Burp Suite/Web Analysis with Burp Suite Instructions.adoc[]
 
 :imagesdir: Security - Executing a SYN Flood Denial of Service Attack
 include::Security - Executing a SYN Flood Denial of Service Attack/Executing a SYN Flood Denial of Service Attack Instructions.adoc[]
 
-
-//Basic Metasploitable Use
 :imagesdir: Security - Metasploitable Basic Use
 include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructions.adoc[]
 
