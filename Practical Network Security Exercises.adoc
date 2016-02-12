@@ -106,6 +106,12 @@ include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCryp
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
+:imagesdir: Security - Analyze Linux Security Settings
+include::Security - Analyze Linux Security Settings/Analyze Linux Security Settings Instructions.adoc[]
+
+:imagesdir: Security - Exploring Group Policy
+include::Security - Exploring Group Policy/Exploring Group Policy Instructions.adoc[]
+
 :imagesdir: Security - Unified Threat Management with Untangle
 include::Security - Unified Threat Management with Untangle/Unified Threat Management with Untangle Instructions.adoc[]
 
@@ -115,8 +121,6 @@ include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Ins
 
 //Network monitoring?
 
-:imagesdir: Security - Exploring Group Policy
-include::Security - Exploring Group Policy/Exploring Group Policy Instructions.adoc[]
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -146,3 +150,5 @@ include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructio
 
 //Password Cracking
 
+:imagesdir: Security - PENTESTIT Labs
+include::Security - PENTESTIT Labs/PENTESTIT Labs Instructions.adoc[]
