@@ -156,5 +156,8 @@ include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructio
 
 //Password Cracking
 
+:imagesdir: Security - Virus Creation in Kali
+include::Security - Virus Creation in Kali/Virus Creation in Kali Instructions.adoc[]
+
 :imagesdir: Security - PENTESTIT Labs
 include::Security - PENTESTIT Labs/PENTESTIT Labs Instructions.adoc[]
