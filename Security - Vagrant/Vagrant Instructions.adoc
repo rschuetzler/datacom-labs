@@ -1,5 +1,30 @@
 = Vagrant Introduction
 
+
+vagrant init ubuntu/trusty64
+vagrant up
+vagrant ssh
+vagrant suspend
+vagrant destroy
+
+del .vagrantfile
+rm -rf .vagrant
+
+vagrant box update
+vagrant box list
+vagrant box remove ubuntu/trusty64 --box-version 20150427.0.0
+
+
+
+
+
+
+
+
+
+
+
+
 Burp Suite is a tool used to test websites for vulnerabilities. Burp Suite can also be used simply to better understand the data that is being sent between the web browser and the web server.
 
 == Prerequisites

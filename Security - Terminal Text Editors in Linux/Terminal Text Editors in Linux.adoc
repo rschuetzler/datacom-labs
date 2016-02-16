@@ -1,0 +1,105 @@
+= Terminal Text Editors in Linux
+
+To become a competent security professional, you have to know Linux basics. One task you will do many times on many systems is editing text files. In the Windows world, Notepad is the bare bones way to edit text. Notepad is not powerful, but it is easy to use because it has a simply graphical user interface. You can discover every feature Notepad has to offer in about 5 minutes.
+
+The original Linux text editors were built to run in the terminal. Without fancy toolbars or menus, the Linux text editors relied more on keyboard shortcuts than visual prompts. Though harder to use than Notepad, you can learn the basics of the most popular text editors in a few minutes.
+
+`Vi` is a powerful text editor that exists on virtually every Linux distribution. `Vi` is extremely powerful but has a steep learning curve. `Nano` is less powerful but are easier to learn. Pico is the predecessor to nano. However, nano has replaced pico in most distributions. Running the `pico` command will usually launch nano. `Vim` is Vi Improved, and is what actually runs when you run `vi`. Generally, it does not matter if you tell people you run vi or vim, everbody who knows Linux will understand you.
+
+== Prerequisites
+
+* Vagrant installed
+
+== Connect to Ubuntu
+
+Run the following commands from the command line.
+
+```
+vagrant init ubuntu/trusty64
+vagrant up
+vagrant ssh
+```
+
+You will now be in a headless Ubuntu Linux virtual machine. This is similar to what you would see when connecting to a remote machine over SSH.
+
+== Nano
+
+```
+nano test.txt
+```
+
+image::nano-sample.png[]
+
+Notice the header and the footer.
+
+image::nano-window.png[]
+
+The header tells you that nano is running and that you are editing the file test.txt. The footer tells you that this is a new file--it does not yet exist on the disk because you have not saved it. Keyboard commands are listed at the bottom of the page. The caret (`^`) represents the control key. To save the file, press control+o (i.e. ^O). You will be prompted for a file name which is prefilled with the file name you supplied earlier on the command line. Simply press enter to accept the default.
+
+image::nano-save-prompt.png[]
+
+You will see a message that nano wrote zero lines because we have not added any text. Add a few lines of text and save the file again. This editor likely works the way you expect it to. You write some text, then issue a keyboard command to save the file. This is not very different from using Windows Notepad if you know the keyboard shortcuts.
+
+Exit from nano using the keyboard shortcut listed in the footer before continuing.
+
+== Pico
+
+Run the following command simply to see what happens when you run `pico`.
+
+```
+pico test-pico.txt
+```
+
+Notice in the following screenshot that `nano` was actually launched.
+
+image::pico-sample.png[]
+
+== Vi
+
+There are many vi tutorials on the Internet. This guide will only give you the most basic instructions for surviving with vi. The most critical point to understand about vi is that there are two editing modes: 1) command mode, and 2) text insertion mode. By default, when vi opens you will be in command mode, meaning that if you just start typing your text you will not get what you expected.
+
+```
+vi herewego.txt
+```
+
+* Type `help` to try to add some text.
+    * Notice that no text was inserted. Your computer may have beeped at you, and you got an error about nothing being in the register. 
+	* No text was added because you are in command mode.
+* Type `i` to enter insert mode.
+    * Notice that the footer changes to show that you are in insert mode.
++
+image::vi-insert.png[]
+* Type `help` again. The text should appear as you expected it.
+* To save the file, you have to enter command mode again.
+* Press the `escape` key to enter command mode.
+* There are many different commands that can be run in command mode. To save the file, type `:w` and press enter.
++
+image::vi-written.png[]
+* In command mode, you can use the keys h, j, k, and l to move left, down, up, and right respectively. Add a few lines of text and practice using these keys. It is important to know how to navigate using these keys. There are times when the arrow keys may not be available to you.
+* To quit, ensure that you are in command mode (by pressing escape), then type `:q` and press enter.
+
+== Permissions
+
+Certail files require elevated permissions to make changes. Run the following command to edit the hosts file.
+
+* Run `vi /etc/hosts`
+* Add a new line at the bottom of the file. Vi will warn you that you are editing a read-only file. Ignore this error for now.
+    * Hint, the `o` command will insert a new line and enter insert mode.
+* Try to save the file using `:w`. This command will fail. You need to exit and launch vi with elevated permissions.
+* Run `:q!` to quit without saving changes.
+* Run `sudo vi /etc/hosts`
+* Add a line at the bottom that says `127.0.0.1 timewaste.com`.
+* Save the file and quit.
+
+By running `sudo vi` you started vi with elevated permissions. You could have run `sudo nano` to start nano with elevated permissions as well.
+
+== Challenge
+
+* From the linux command terminal, run `vimtutor`.
+    * Find 4 useful commands.
+* Find a vim "cheat sheet" or start creating your own.
+
+== Cleanup
+
+* In the Linux terminal, run `exit` to disconnect your SSH session.
+* Run `vagrant destroy` in your host to delete the Ubuntu virtual machine.

@@ -38,6 +38,9 @@ include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions
 
 //Ubuntu Basics
 
+:imagesdir: Security - Terminal Text Editors in Linux
+include::Security - Terminal Text Editors in Linux/Terminal Text Editors in Linux.adoc[]
+
 :imagesdir: Security - Kali Linux Installation Instructions
 include::Security - Kali Linux Installation Instructions/Kali Linux Installation Instructions.adoc[]
 
