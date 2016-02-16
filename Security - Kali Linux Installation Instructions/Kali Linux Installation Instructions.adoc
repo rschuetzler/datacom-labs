@@ -52,3 +52,24 @@ If the internet connection is not working. Try the following:
 
 1. Ensure that the network adapter is set to `NAT` in VirtualBox.
 2. In VirtualBox, disable the network adapter the enable the network adapter. This is sometimes helpful if a virtual machine has been suspended.
+
+== Keeping Kali Up to Date
+
+The Kali Linux maintainers will publish new versions of packages in the distribution. You can get them by running the following commands from a terminal in Kali.
+
+```
+apt-get update
+apt-get upgrade
+```
+
+`apt-get udpate` gets a list of the latest packages available to install. `apt-get upgrade` installs the newst versions of the packages that you have on your system. You should run these commands fairly frequently, perhaps once a month.
+
+The above commands work well for minor version updates (e.g. Kali 2.0.1 to 2.0.2). However, when Kali Linux gets a major update (e.g. Kali 2.0 to 3.0), it may be best to install the new version from scratch. If you really want to updgrade directly without reinstalling everything, you would run the following commands.
+
+```
+apt-get update
+apt-get dist-upgrade
+reboot
+```
+
+The `apt-get dist-upgrade` command will take a long time to run. Often, it would be fast to download a pre-built VMWare image to create a new virtual machine.

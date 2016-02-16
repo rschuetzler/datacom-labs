@@ -35,6 +35,8 @@ include::Security - Windows Command Prompt/Windows Command Prompt.adoc[]
 include::Security - VirtualBox Introduction/VirtualBox Introduction Instructions.adoc[]
 
 //Vagrant
+:imagesdir: Security - Vagrant
+include::Security - Vagrant/Vagrant Instructions.adoc[]
 
 //Ubuntu Basics
 
