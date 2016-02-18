@@ -58,6 +58,9 @@ include::Security - Metasploitable Installation/Metasploitable Installation Inst
 <<<
 :leveloffset: 0
 = Part 2: Network Fundamentals
+--
+It is impossible to truly understand network security without a foundational knowledge of computer networking. This section will introduce a few key tools and techniques for analyzing network traffic, viewing active network connections, and troubleshooting networks.
+--
 :leveloffset: 1
 
 //view network configuration
@@ -93,7 +96,7 @@ include::Security - NSLookup to Query the Domain Name System/NSLookup to Query t
 :leveloffset: 0
 = Part 2: Encryption
 --
-In these chapters you will learn to use encyrption tools.
+Encryption is a key component of the confidentiality, integrity, and availability security triad. In the following chapters you will learn encryption tools to protect and verify data.
 --
 :leveloffset: 1
 
@@ -123,7 +126,9 @@ include::Security - Exploring Group Policy/Exploring Group Policy Instructions.a
 :imagesdir: Security - Unified Threat Management with Untangle
 include::Security - Unified Threat Management with Untangle/Unified Threat Management with Untangle Instructions.adoc[]
 
-//Firewalls
+:imagesdir: Security - Intrusion Detection and Prevention with Snort
+include::Security - Intrusion Detection and Prevention with Snort/Intrusion Detection and Prevention with Snort Instructions.adoc[]
+
 :imagesdir: Security - Firewall Setup in Ubuntu Server
 include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Instructions.adoc[]
 
@@ -140,7 +145,7 @@ include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Ins
 :leveloffset: 0
 = Part 3: Vulnerability Detection and Exploitation
 --
-In these chapters you will learn the tools to discover and exploit vulnerabilities.
+In these chapters you will learn the tools to discover and exploit vulnerabilities. Remember that you should only perform these scans and tests on systems where you have permission.
 --
 :leveloffset: 1
 
@@ -155,6 +160,10 @@ include::Security - Executing a SYN Flood Denial of Service Attack/Executing a S
 
 :imagesdir: Security - Metasploitable Basic Use
 include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructions.adoc[]
+
+
+:imagesdir: Security - Vulnerability Scanning with Openvas
+include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning with OpenVAS.adoc[]
 
 //Password Cracking
 

@@ -1,14 +1,13 @@
-Intrusion Detection and Prevention with Snort
-=======================================
+= Intrusion Detection and Prevention with Snort
 
-Prerequisites
---------------------
+
+== Prerequisites
+
 1. An Untangle VM
 2. Vagrant installed and working properly
 
 
-Snort Setup
-------------------------------------------------
+== Snort Setup
 
 Untangle uses Snort for intrusion prevention. However, you will not see the Snort logo or name anywhere in the Untangle interface.
 
@@ -26,25 +25,24 @@ If you have not installed the "Intrusion Prevention" app, click the Install butt
 6. After the wizard runs, click the "Rules" tab.
 7. Expand "Classtype: misc-activity."
 8. Find "SID: 384, Msg: PROTOCOL-ICMP PING" and check the box to "Log" activity.
-
-![Check Ping Logging](ping-log.png "ping-log")
-
++
+image::ping-log.png[]
 9. Click "OK."
 
-Client Configuration
-------------------------------
+== Client Configuration
+
 In this section, you will create a client VM that will use the Untangle server as its gateway. All connections to the Internet will go through the Untangle server.
 
 1. Create a new folder on your computer.
 2. Hold shift, right-click, and choose "Open command window here."
 3. Run the following command to create a Vagrantfile:
-
++
 ```
 vagrant init ubuntu/Trusty64
 ```
 
 4. You should see the following output:
-
++
 ```
 Management with Untangle>vagrant init ubuntu/trusty64
 A `Vagrantfile` has been placed in this directory. You are now
@@ -54,7 +52,7 @@ the comments in the Vagrantfile as well as documentation on
 ```
 
 5. Edit the Vagrantfile in Notepad or any other text editor. Replace the entire contents of the drive with the following text:
-
++
 ```
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
@@ -74,27 +72,27 @@ end
 
 6. Save the file.
 7. Run the following commands from the command prompt:
-
++
 ```
 vagrant up
 vagrant ssh
 ```
 
 8. In Ubuntu, run the following commands to change your default gateway to the Untangle server.
-
++
 ```
 route
 ```
-
++
 The last command will display the currently configured routes. The default gateway should be 192.168.2.1---the IP address of the Untangle server. If the default gateway is not correct, run the following two commands to update the default gateway.
-
++
 ```
 sudo route del default
 sudo route add default gw 192.168.2.1
 ```
 
 9. Run the following command to ping the Untangle server.
-
++
 ```
 ping 192.168.2.1
 ```
@@ -103,51 +101,51 @@ ping 192.168.2.1
 
 11. Go to your Untangle VM and reload the management dashboard. The Intrusion Prevention "Sessions logged" should increase. Investigate the reports by clicking Settings under "Intrusion Prevention" in the management dashboard.
 
-Update Snort Configuration to Block Pings
--------------------------------------------------------
+== Update Snort Configuration to Block Pings
+
 
 1. In your Untangle VM, edit the Intrusion Prevention settings.
 2. Click the Rules tab.
 3. Expand "Classtype: misc-activity."
 4. Find "SID: 384, Msg: PROTOCOL-ICMP PING" and check the box to "Block" activity.
-
-![Block Ping](ping-block.png "ping-block")
++
+image::ping-block.png[]
 
 5. Click "OK."
 6. The dashboard will reload. Notice that the Intrusion Prevention statistics on the dashboard will reload.
 7. From Ubuntu, runthe following command to ping the Untangle server.
-
++
 ```
 ping 192.168.2.1
 ```
-
++
 The command should fail. Press Control+c to stop the command.
 
 8. Examine the Untangle dashboard. The number of sessions scanned, sessions logged, and sessions blocked should reflect the updated ping blocking rules.
 
-Update Snort Configuration to Prevent Ping Blocking and Logging
-----------------------------------------------------------------
+== Update Snort Configuration to Prevent Ping Blocking and Logging
+
 Regular ping requsts are unlikely to cause problems. In this section, you will disable blocking logging.
 
 1. In your Untangle VM, edit the Intrusion Prevention settings.
 2. Click the Rules tab.
 3. Expand "Classtype: misc-activity."
 4. Find "SID: 384, Msg: PROTOCOL-ICMP PING" and check the box to "Log" activity.
-
-![Uncheck Ping](ping-uncheck.png "ping-uncheck")
++
+image::ping-uncheck.png[]
 
 5. Click "OK."
 6. The dashboard will reload. Notice that the Intrusion Prevention statistics on the dashboard will reload.
 7. From Ubuntu, runthe following command to ping the Untangle server.
-
++
 ```
 ping 192.168.2.1
 ```
 
 8. Examine the Untangle dashboard. The number of sessions scanned will increase, but the sessions logged will not increase.
 
-Cleanup
----------------------------------
+== Cleanup
+
 If you want to save your Ubuntu server, run the following command to exit the SSH session and save the machine state. (Note--no need to enter the dollar sign or greater-than symbols--they merely indicate the prompt that you should see when running the commands.)
 
 ```
@@ -162,3 +160,4 @@ $ exit
 > vagrant destroy
 ```
 
+Do not delete the Untangle virtual machine.
