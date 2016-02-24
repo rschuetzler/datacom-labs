@@ -87,7 +87,8 @@ In this section, the "host" refers to your computer. "Guest" refers to the virtu
     	us to execute other commands while the capture is running.
 
 ```
-$ tshark -f "not broadcast and not multicast" -i eth1 -a duration:30 -w /vagrant/udp-short.pcap -Q &
+$ tshark -f "not broadcast and not multicast" -i eth1 -a duration:30\
+-w /vagrant/udp-short.pcap -Q &
 ```
 
 * Use `netcat` to set up listening on a UDP port on Alice.
