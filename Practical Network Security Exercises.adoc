@@ -158,12 +158,14 @@ include::Security - Web Vulnerabilities/Web Vulnerabilities Instructions.adoc[]
 :imagesdir: Security - Web Analysis with Burp Suite
 include::Security - Web Analysis with Burp Suite/Web Analysis with Burp Suite Instructions.adoc[]
 
-:imagesdir: Security - Executing a SYN Flood Denial of Service Attack
-include::Security - Executing a SYN Flood Denial of Service Attack/Executing a SYN Flood Denial of Service Attack Instructions.adoc[]
+:imagesdir: Security - SYN Flood Denial of Service Attack
+include::Security - SYN Flood Denial of Service Attack/SYN Flood Denial of Service Attack with Hping3 Instructions.adoc[]
 
 :imagesdir: Security - Metasploitable Basic Use
 include::Security - Metasploitable Basic Use/Metasploitable Basic Use Instructions.adoc[]
 
+:imagesdir: Security - Armitage for Exploitation
+include::Security - Armitage for Exploitation/Armitage for Exploitation Instructions.adoc[]
 
 :imagesdir: Security - Vulnerability Scanning with Openvas
 include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning with OpenVAS.adoc[]

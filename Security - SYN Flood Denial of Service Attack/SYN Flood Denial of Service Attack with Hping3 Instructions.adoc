@@ -1,10 +1,9 @@
-= Executing a SYN Flood Denial of Service Attack
+= SYN Flood Denial of Service Attack with Hping3
 
 == Prerequisits
 
 * Kali Linux virtual machine installed
 * Vagrant installed
-
 
 == Basic Kali Configuration
 
