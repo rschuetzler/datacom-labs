@@ -41,6 +41,29 @@ The output of `ifconfig` should look similar to the following figure. The IP add
 
 image::kali-ip-config.png[]
 
+== Lock Screen Configuration
+
+Lock screens can help protect your laptop from unauthorized access. However, running Kali inside a VM makes its lock screen less necessary. If you wan to disable the lock screen, follow these steps. If you want to keep the lock screen, skip to the next section.
+
+* Click the icon with the 9 boxes to open the search menu.
++
+image::Kali-search.png[]
+* Search for `settings` and click on the settings application.
++
+image::Kali-settings.png[]
+* Click on the power options.
++
+image::Kali-settings-power.png[]
+* Change the `Blank screen` option to `never`.
++
+image::Kali-settings-power-never.png[]
+* Close the power options and use the back arrow to return to the main settings.
+* Open the `Privacy` settings.
++
+image::Kali-settings-privacy.png[]
+* Change the `Screen Lock` to off.
++
+image::Kali-settings-privacy-lock.png[]
 
 == Note About Network Adapters
 

@@ -2,6 +2,15 @@
 
 Maltego is an application that maps relationships between people, social networks, companies, organizations, and more. it provides a graphical interface to see these relationships. For security professionals, Maltego could be used in the fingerprinting stage or when  crafting a social engineering attack.
 
+In this lesson you will use the community edition which is free as in beer. The community edition comes with a few limitations.
+
+1. You cannot use the community edition for commercial use.
+2. Transforms (such as downloading DNS information) are limited to 12 results.
+3. Bug fixes are not rolled into the community edition. A new community edition is released with every major version.
+4. There are various performance limitations compared to the professional edition.
+
+Using the community edition will give you a good sense for how the tool can be used. A professional license costs about $750 with an annual license fee of about $350. If intelligence gathering and penetration testing is your full-time job, this could be money well spent.
+
 == Prerequisites
 
 * Kali Linux virtual machine
@@ -15,28 +24,6 @@ Maltego is an application that maps relationships between people, social network
 * Login with `root`/`toor` if needed.
 * Run `ifconfig eth0 192.168.2.50` to set the IP address.
 * Open a terminal and run `ping google.com` to verify connectivity. The ping should be successful. Troubleshoot connectivity before proceeding. It may take a few moments for the Internet to work under normal conditions, so just retry after 30 seconds if the ping fails.
-
-NOTE: If you wan to disable the lock screen, follow these steps. If you want to keep the lock screen, skip to the next section.
-
-* Click the icon with the 9 boxes to open the search menu.
-+
-image::Kali-search.png[]
-* Search for `settings` and click on the settings application.
-+
-image::Kali-settings.png[]
-* Click on the power options.
-+
-image::Kali-settings-power.png[]
-* Change the `Blank screen` option to `never`.
-+
-image::Kali-settings-power-never.png[]
-* Close the power options and use the back arrow to return to the main settings.
-* Open the `Privacy` settings.
-+
-image::Kali-settings-privacy.png[]
-* Change the `Screen Lock` to off.
-+
-image::Kali-settings-privacy-lock.png[]
 
 == Maltego Startup
 
