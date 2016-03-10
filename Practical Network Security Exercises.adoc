@@ -1,6 +1,6 @@
 = Practical Network Security Exercises
 Jim Marquardson
-v.1, 2016-02
+v0.11, 2016-03
 :doctype: book
 :toc:
 :numbered:
@@ -171,6 +171,12 @@ include::Security - Armitage for Exploitation/Armitage for Exploitation Instruct
 include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning with OpenVAS.adoc[]
 
 //Password Cracking
+
+:imagesdir: Security - SQL Injection with SQLMap
+include::Security - SQL Injection with SQLMap/SQL Injection with SQLMap Instructions.adoc
+
+:imagesdir: Security - Arp Poisoning for MITM Attacks
+include::Security - Arp Poisoning for MITM Attacks/Arp Poisoning for MITM Attacks.adoc[]
 
 :imagesdir: Security - Virus Creation in Kali
 include::Security - Virus Creation in Kali/Virus Creation in Kali Instructions.adoc[]
