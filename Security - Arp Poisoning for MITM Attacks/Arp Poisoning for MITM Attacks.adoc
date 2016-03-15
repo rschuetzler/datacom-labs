@@ -31,34 +31,33 @@ Copy the following text to a file. Save it in a new folder with the name `Vagran
 
 Vagrant.configure(2) do |config|
 
-  config.vm.provision "shell", inline: "echo Starting victim, middle, and server"
-  
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 200
-  end
-  
-  config.vm.define "victim" do |victim|
-    victim.vm.box = "ubuntu/trusty64"
-    victim.vm.host_name = "victim"
-    victim.vm.network "private_network", ip: "192.168.10.10"
-    victim.vm.box_check_update = false
-  end
-  
-  config.vm.define "middle" do |middle|
-    middle.vm.box = "ubuntu/trusty64"
-    middle.vm.host_name = "middle"
-    middle.vm.network "private_network", ip: "192.168.10.50"
-    middle.vm.box_check_update = false
-  end
-  
-  config.vm.define "server" do |server|
-    server.vm.box = "ubuntu/trusty64"
-    server.vm.host_name = "server"
-    server.vm.network "private_network", ip: "192.168.10.100"
-    server.vm.box_check_update = false
-  end
+config.vm.provision "shell", inline: "echo Starting victim, middle, and server"
 
- 
+config.vm.provider "virtualbox" do |v|
+v.memory = 200
+end
+
+config.vm.define "victim" do |victim|
+victim.vm.box = "ubuntu/trusty64"
+victim.vm.host_name = "victim"
+victim.vm.network "private_network", ip: "192.168.10.10"
+victim.vm.box_check_update = false
+end
+
+config.vm.define "middle" do |middle|
+middle.vm.box = "ubuntu/trusty64"
+middle.vm.host_name = "middle"
+middle.vm.network "private_network", ip: "192.168.10.50"
+middle.vm.box_check_update = false
+end
+
+config.vm.define "server" do |server|
+server.vm.box = "ubuntu/trusty64"
+server.vm.host_name = "server"
+server.vm.network "private_network", ip: "192.168.10.100"
+server.vm.box_check_update = false
+end
+  
 end
 ```
 
