@@ -173,7 +173,10 @@ include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning w
 //Password Cracking
 
 :imagesdir: Security - SQL Injection with SQLMap
-include::Security - SQL Injection with SQLMap/SQL Injection with SQLMap Instructions.adoc
+include::Security - SQL Injection with SQLMap/SQL Injection with SQLMap Instructions.adoc[]
+
+:imagesdir: Security - XSS Exploitation
+include::Security - XSS Exploitation/Cross Site Scription (XSS) Exploitation Instructions and ZAP.adoc[]
 
 :imagesdir: Security - Arp Poisoning for MITM Attacks
 include::Security - Arp Poisoning for MITM Attacks/Arp Poisoning for MITM Attacks.adoc[]
