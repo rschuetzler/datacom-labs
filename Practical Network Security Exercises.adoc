@@ -149,6 +149,9 @@ In these chapters you will learn the tools to discover and exploit vulnerabiliti
 --
 :leveloffset: 1
 
+:imagesdir: Security - WEP Cracking with Aircrack-NG
+include::Security - WEP Cracking with Aircrack-NG/WEP Cracking with Aircrack-NG.adoc[]
+
 :imagesdir: Security - Maltego for Intelligence Mapping
 include::Security - Maltego for Intelligence Mapping/Maltego for Intelligence Mapping Instructions.adoc[]
 
