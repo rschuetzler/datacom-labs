@@ -49,6 +49,8 @@ include::Security - Kali Linux Installation Instructions/Kali Linux Installation
 :imagesdir: Security - Metasploitable Installation
 include::Security - Metasploitable Installation/Metasploitable Installation Instructions.adoc[]
 
+:imagesdir: Security - Security Onion Installation
+include::Security - Security Onion Installation/Security Onion Installation Instructions.adoc[]
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -85,6 +87,9 @@ include::Security - Network Scanning with Nmap/Network Scanning with Nmap Instru
 include::Security - NSLookup to Query the Domain Name System/NSLookup to Query the Domain Name System Instructions.adoc[]
 
 //Angry IP Scanner?
+
+:imagesdir: Security - Switch Monitoring Ports
+include::Security - Switch Monitoring Ports/Switch Monitoring Ports Instructions.adoc[]
 
 :imagesdir: Security - Cygwin Instllation
 include::Security - Cygwin Instllation/Cygwin Installation and Basic Use.adoc[]
@@ -137,6 +142,8 @@ include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Ins
 
 //Network monitoring?
 
+:imagesdir: Security - Security Onion Usage
+include::Security - Security Onion Usage/Security Onion Usage Instructions.adoc[]
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
