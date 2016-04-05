@@ -1,6 +1,6 @@
 = Practical Network Security Exercises
-Jim Marquardson
-v0.11, 2016-03
+Dr. Jim Marquardson
+v0.12, 2016-04
 :doctype: book
 :toc:
 :numbered:
@@ -145,6 +145,9 @@ include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Ins
 :imagesdir: Security - Security Onion Usage
 include::Security - Security Onion Usage/Security Onion Usage Instructions.adoc[]
 
+:imagesdir: Security - Kippo Honeypots
+include::Security - Kippo Honeypots/Kippo Honeypot Instructions.adoc[]
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 //                    VULNERABILITY DETECTION AND EXPLOITATION
@@ -199,3 +202,14 @@ include::Security - Virus Creation in Kali/Virus Creation in Kali Instructions.a
 
 :imagesdir: Security - PENTESTIT Labs
 include::Security - PENTESTIT Labs/PENTESTIT Labs Instructions.adoc[]
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//                    APPENDICES
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+:imagesdir: Security - Appendix - Monthly Maintenance
+include::Security - Appendix - Monthly Maintenance/Monthly Maintenance Instructions.adoc[]

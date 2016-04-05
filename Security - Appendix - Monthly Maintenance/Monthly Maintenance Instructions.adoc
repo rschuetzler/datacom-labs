@@ -1,0 +1,45 @@
+[appendix]
+= Monthly Maintenance
+
+Software must be properly maintained otherwise your system may become vulnerable. Both your host operating system and guest operating systems need to be updated.
+
+== Host Operating System Maintenance
+
+* Install security updates at least monthly. On Windows, use Windows Update to install patches for your operating system and other Microsoft applications. Linux distributions differ in the commands to run to update your software. For Debian based systems (such as Ubuntu), you can run the following commands:
++
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+* Update your software. Install updates for the Java runtime, Adobe Acrobat, your web browsers, and other software. A bug in any application can leave you vulnerable.
+* Run a full virus scan.
+
+== Vagrant Maintenance
+
+* Many vendors release updates to their Vagrant boxes and publish them online. After running `vagrant init x` (where "x" is the name of a Vagrant box), run the following command to download potential updates for the box.
++
+```
+vagrant box update
+```
++
+The command can also be run by providing a specific box name instead of using the value provided in the Vagrantfile.
++
+```
+vagrant box update --box ubuntu/xenial64
+```
+* Run `vagrant box list` to show the different boxes installed on your system.
+* Remove boxes that are no longer necessary. For example, if the box named `puppetlabs/centos-7.0-64-puppet` is no longer needed, I can remove it with the following command.
++
+```
+vagrant box remove puppetlabs/centos-7.0-64-puppet
+```
++
+If you have multiple versions of a box, you can delete an old version by passing the `--box-version` parameter.
++
+```
+vagrant box remove ubuntu/trusty64 --box-version 20151021.0.0
+```
+
+== Guest Virtual Machine Maintenance
+
+You may have some virtual machines (such as Kali) that you do not recreate often. These operating systems should be maintained the same way you maintain your host operating system. Update the system software, meaning use Windows Update or the appropriate commands for other operating systems.

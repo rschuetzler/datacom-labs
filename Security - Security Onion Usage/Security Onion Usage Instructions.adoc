@@ -86,6 +86,15 @@ Squert is a web application that is used to query and view event data stored in 
 
 * Double-click the Squert icon to launch a web broser. You may need to accept the security risk of browsing the site because it uses a self-signed certificate.
 * Investigate the Squert interface.
+* Click on the interval to select a different time period to display.
++
+image::squert-interval.png[]
+* Click the double-right arrows for a friendlier view.
++
+image::squert-interval-arrows.png[]
+* Manually enter new date ranges. Click the refresh button to load the events in the selected time period.
++
+image::squert-interval-arrows-save.png[]
 
 What benefits (if any) does Squerty offer over Sguil? What benefits (if any) does Sguil offer over Squert?
 
@@ -147,6 +156,10 @@ Use the following steps to investigate the log data. Remember that the vast majo
 image::elsa-top-sites.png[]
 * Expand Weird and choose Top Weird Types.
 * Expand Snort/Suricata and choose Top NIDS Alerts.
+* Notice that when you click on one of the links in the navigation pane, the web interface is populated with a query.
++
+image::elsa-query.png[]
+* Use the interface to investigate and query some of the search parameters.
 
 How would this information be useful to you as an administrator?
 
@@ -159,3 +172,4 @@ How would this information be useful to you as an administrator?
 
 * Create a new case in Xplico. Use sample capture files in /opt/samples/ to upload data instead of capturing it live. Investigate what you can find from previously captured data.
 * Start Wireshark on your host machine. Capture a web browsing session. Save the capture file, then copy it to the Security Onion VM. Start a new case, upload, and analyze the capture file.
+* Create a custom ELSA query.
