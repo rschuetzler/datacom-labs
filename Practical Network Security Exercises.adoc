@@ -187,6 +187,8 @@ include::Security - Armitage for Exploitation/Armitage for Exploitation Instruct
 include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning with OpenVAS.adoc[]
 
 //Password Cracking
+:imagesdir: Security - Exploit - Password Cracking
+include::Security - Exploit - Password Cracking/Password Cracking Instructions.adoc[]
 
 :imagesdir: Security - SQL Injection with SQLMap
 include::Security - SQL Injection with SQLMap/SQL Injection with SQLMap Instructions.adoc[]

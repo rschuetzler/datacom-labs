@@ -125,3 +125,6 @@ Operating system maintainers periodically make changes to update the software. T
 +
 image::error-invalid-state.png[]
 * Vagrant and VirtualBox work closely together. Sometimes, VirtualBox may not be working properly (especially after operating system updates). Sometimes problems can be fixed simply by rebooting your computer.
+* If you run `vagrant init x/y" where "x/y" is the name of a box and get an error, double check for typos. The following screenshot shows what happens when you type a box name that does not exist. Notice that the `vagrant init` command succeeds because all it does is create a Vagrantfile. However, the `vagrant up` command fails. Vagrant attempts to find a box with the supplied name, but fails to find it locally and on the internet.
++
+image::init-typo.png[]
