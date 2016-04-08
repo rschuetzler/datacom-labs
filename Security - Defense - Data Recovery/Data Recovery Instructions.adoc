@@ -129,19 +129,19 @@ You must enter `Yes` when prompted ('y') will not suffice. Why do you think this
 
 == Securely Erase a Hard Disk
 
-* Exit from the SSH session.
-* Run `vagrant halt to stop the VM.
-* Add a hard disk to the VM in the VirtualBox manager. Make it a fixed disk only 0.01 GB large. Save the changes.
-* Run `vagrant up` to boot up the VM again. The new hard disk will show up in the operating system as /dev/sdb.
-* Run the following commands. Take not in each step what is happening.
+* Elevate to root permissions and then run `parted` to create a partition on your second disk. This second disk will simulate a second physical hard drive on your computer.
 +
 ```
 sudo su
 parted
-(parted) select /dev/sdb
-(parted) mklabel msdos
-(parted) mkpart primary 0 2
-(parted) quit
+select /dev/sdb
+mklabel msdos
+mkpart primary 0 2
+quit
+```
+*After the partition has been made, you need to create a file system on the partition. The following commands format the disk as ext2, create a folder where the drive should be mounted, and mount the drive.
++
+```
 mke2fs /dev/sdb1
 mkdir /mnt/data
 mount -t ext2 /dev/sdb /mnt/data
@@ -153,22 +153,20 @@ cd /mnt/data
 echo "testing again" > testing.txt
 ls
 ```
-* Nagivate outside of the disk. Unmount the disk from the file system, then "shred" it.
+* Nagivate outside of the data folder with `cd ~`. The, go ahead and "shred" the disk. The `shred` command will securely write over all data on the disk.
 +
 ```
 cd ~
-sudo umount /dev/sdb
 sudo shred -vzn 3 /dev/sdb
 ```
 +
 The `vzn 3` parameters tell the shredding program to overwrite the bits three times.
-* Attempt to mount the disk again.
+* List the contents of /mnt/data.
 +
 ```
-mount -t ext2 /dev/sdb /mnt/data
+ls /mnt/data
 ```
-
-The last command failed. Why would the disk fail to mount at this point. What should exist on the disk?
++ The folder should be empty.
 
 == Challenge
 
