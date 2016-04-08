@@ -54,8 +54,8 @@ the comments in the Vagrantfile as well as documentation on
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.network "private_network", ip: "192.168.2.10", virtualbox__intnet: true
+config.vm.box = "ubuntu/trusty64"
+config.vm.network "private_network", ip: "192.168.2.10", virtualbox__intnet: true
 end
 ```
 

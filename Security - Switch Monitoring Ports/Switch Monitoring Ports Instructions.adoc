@@ -4,7 +4,7 @@ A monitoring port on a switch will mirror all traffic destined for specific port
 
 == Prerequisites
 
-* Access to a managed Cisco switch, such as the Cisco 2960
+* Access to a managed Cisco switch, such as the Cisco 2960. Packet Tracer will not work for this exercise. If you do not have access to a switch, read critically through the lab about what you think should happen. The summary section will explain the results.
 
 == Reload the Switch
 
@@ -54,10 +54,14 @@ Use one of the computers to configure the switch. Run the following commands so 
 Switch> en
 Switch# config t
 Switch(config)# no monitor session 1
-Switch(config)# monitor session 1 source int f0/1-2,f0/4-24
+Switch(config)# monitor session 1 source int f0/1
+Switch(config)# monitor session 1 source int f0/2
+Switch(config)# monitor session 1 source int f0/4
 Switch(config)# monitor session 1 destination int f0/3 encapsulation replicate
 Switch(config)# end
 ```
+
+Repease the `monitor session 1 source int f0/x` commands as many times as necessary to monitor the ports.
 
 Run the following command to review the monitoring setup.
 
@@ -76,3 +80,12 @@ When Machine A pings Machine B, can Machine C see the traffic?
 
 * Use the instructions above to reset the switch configuration.
 * Enable any firewall or anti-virus that may have been disabled.
+
+== Summary
+
+In a default configuration, a switch will only send traffic to the intended recipient. For example, if A and B are communicating, C will not see their packets. However, if the switch has a monitor port configured, that port can essentially snoop on the network traffic. So if C is connectected to a monitor port, C and see the traffic flowing from A and B.
+
+== Reflection
+
+* When would you want to use port mirroring?
+* If A is connected to an unmonitored port and B is connected to a monitored port, what will the monitor see when A pings B?

