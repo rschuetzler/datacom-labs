@@ -124,6 +124,13 @@ include::Security - Encrypting Data with VeraCrypt/Encrypting Data with VeraCryp
 //                    NETWORK DEFENSE
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
+<<<
+:leveloffset: 0
+= Part 3: Network Defense
+--
+A variety of technical and non-technical safeguards must exist to provide adequate network defense.
+--
+:leveloffset: 1
 
 :imagesdir: Security - Analyze Linux Security Settings
 include::Security - Analyze Linux Security Settings/Analyze Linux Security Settings Instructions.adoc[]
@@ -140,25 +147,28 @@ include::Security - Intrusion Detection and Prevention with Snort/Intrusion Dete
 :imagesdir: Security - Firewall Setup in Ubuntu Server
 include::Security - Firewall Setup in Ubuntu Server/Firewall Setup in Ubuntu Instructions.adoc[]
 
-//Network monitoring?
-
 :imagesdir: Security - Security Onion Usage
 include::Security - Security Onion Usage/Security Onion Usage Instructions.adoc[]
 
 :imagesdir: Security - Kippo Honeypots
 include::Security - Kippo Honeypots/Kippo Honeypot Instructions.adoc[]
 
+:imagesdir: Security - Defense - Physical Security
+include::Security - Defense - Physical Security/Physical Security Instructions.adoc[]
+
+:imagesdir: Security - Defense - Data Recovery
+include::Security - Defense - Data Recovery/Data Recovery Instructions.adoc[]
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 //                    VULNERABILITY DETECTION AND EXPLOITATION
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-
 <<<
 :leveloffset: 0
-= Part 3: Vulnerability Detection and Exploitation
+= Part 4: Vulnerability Detection and Exploitation
 --
-In these chapters you will learn the tools to discover and exploit vulnerabilities. Remember that you should only perform these scans and tests on systems where you have permission.
+Professionals must understand the way attackers work if they can hope to defense their information systems. This section of the book covers many techniques for discovering and exploiting vulnerabilities. As a reminder, all techniques demonstrated here should be done on authorized computer systems. Never attempt to exploit a third party's systems without written consent.
 --
 :leveloffset: 1
 
@@ -186,7 +196,6 @@ include::Security - Armitage for Exploitation/Armitage for Exploitation Instruct
 :imagesdir: Security - Vulnerability Scanning with Openvas
 include::Security - Vulnerability Scanning with Openvas/Vulnerability Scanning with OpenVAS.adoc[]
 
-//Password Cracking
 :imagesdir: Security - Exploit - Password Cracking
 include::Security - Exploit - Password Cracking/Password Cracking Instructions.adoc[]
 
@@ -211,6 +220,13 @@ include::Security - PENTESTIT Labs/PENTESTIT Labs Instructions.adoc[]
 //                    APPENDICES
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
+<<<
+:leveloffset: 0
+= Appendices
+--
+
+--
+:leveloffset: 1
 
 
 :imagesdir: Security - Appendix - Monthly Maintenance
