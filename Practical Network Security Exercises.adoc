@@ -15,6 +15,10 @@ The exercises in this book are a starting point for the exploration of network s
 Because this book deals with network security, it is important to emphasize that the tools and techniques here should never be used to damage remote systems, invade privacy, or break any laws. Most of the exercises are performed using virtualization technology that is contained on a single computer. You should never attempt to infiltrate or harm a computer system that you do not own. Any network security testing that you conduct should be done with the full written permission of the system owner. Failure to obtain permission can land offenders in serious legal trouble. Stay safe.
 
 
+= Copyright
+
+This book is (C) copyright 2016 by Jim Marquardson. This book may not be distributed in any form without the express written consent of the author.
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 //              FOUNDATIONAL NETWORK SECURITY TOOLS
@@ -51,6 +55,9 @@ include::Security - Metasploitable Installation/Metasploitable Installation Inst
 
 :imagesdir: Security - Security Onion Installation
 include::Security - Security Onion Installation/Security Onion Installation Instructions.adoc[]
+
+:imagesdir: Security - Windows Virtual Machine
+include::Security - Windows Virtual Machine/Windows Virtual Machine Instructions.adoc[]
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

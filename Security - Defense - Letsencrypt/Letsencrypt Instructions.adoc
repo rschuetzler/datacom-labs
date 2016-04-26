@@ -1,0 +1,40 @@
+
+
+```
+vagrant init ubuntu/trusty64
+vagrant up
+vagrant ssh
+```
+
+== Install the Letsencrypt Client
+
+A number of client's exist that use the Letsencrypt API. These instructions use the official client.
+
+```
+sudo apt-get update
+sudo apt-get install git
+git clone https://github.com/letsencrypt/letsencrypt
+cd letsencrypt
+./letsencrypt-auto --help
+```
+
+== Install Apache
+
+```
+sudo apt-get install apache2
+sudo nano /etc/apache2/sites-enabled/000-default.co
+nf
+```
+
+Edit the servername. Change it to `TODO!`.
+
+== Star the Client
+
+* Start the client.
++
+```
+./letsencrypt-auto --apache
+```
+* Select the website.
+* Enter your email address.
+* Accept the terms of service.
