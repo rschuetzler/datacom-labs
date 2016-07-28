@@ -1,1 +1,0 @@
-asciidoctor-pdf "Practical Network Security Exercises.adoc"
