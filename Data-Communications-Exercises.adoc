@@ -13,16 +13,39 @@ This book is a work in progress.  The ultimate goal is to provide a set of
 computer exercises that will allow anyone who is interested to get hands-on
 experience with networking using modern technologies
 
-== Required Equipment
+// = Required Equipment
 
-The only required equipment for the completion of these labs is a computer
-capable of running multiple 64-bit virtual machines.  Most of the instructions
-will assume you are using a Windows computer, but it is likely possible to
-complete all the exercises with some modification on Linux or macOS.
+// The only required equipment for the completion of these labs is a computer
+// capable of running multiple 64-bit virtual machines.  Most of the instructions
+// will assume you are using a Windows computer, but it is likely possible to
+// complete all the exercises with some modification on Linux or macOS.
 
-Part of the goal of the book is to minimize software and hardware requirements
-to make it possible to gain practical networking experience without specialized
-networking hardware.  If you have access to enterprise grade switches, routers,
-and firewalls that you can practice with and configure, then there are likely
-other books that provide more instruction in that area.
+// Part of the goal of the book is to minimize software and hardware requirements
+// to make it possible to gain practical networking experience without specialized
+// networking hardware.  If you have access to enterprise grade switches, routers,
+// and firewalls that you can practice with and configure, then there are likely
+// other books that provide more instruction in that area.
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//              Getting Started
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+= Introduction to Software Tools
+--
+Throughout these exercises you will be using several different software tools to
+do your networking.  Several of these will be used across multiple labs.  These
+general tools, like VirtualBox and WireShark, are introduced in the following
+chapters.  This way you can get acquainted with the software before putting to
+the test in the later exercises.
+--
+
+// Push titles down a level
+// This allows me to write each lab as a standalone document, but represent them
+// as chapters when compiled all together.  Pretty awesome.
+:leveloffset: 1
+
+:imagesdir: Intro - Vagrant-VirtualBox
+include::Intro - Vagrant-VirtualBox/Vagrant-VirtualBox Intro.adoc[]
