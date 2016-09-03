@@ -19,7 +19,7 @@ By the end of this lesson, you will be able to:
 . Use `ifconfig` to view Linux network configuration.
 . Use `ip route show` to view Linux the default gateway on Linux.
 . Display the Linux network configuration.
-. Use network tools `ping` and `tracert`, and understand what they do
+. Use network tools `ping`, `tracert`, and `netcat` and understand what they do
 
 == Steps
 
