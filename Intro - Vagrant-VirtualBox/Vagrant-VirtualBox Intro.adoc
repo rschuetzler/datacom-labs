@@ -176,6 +176,8 @@ image::ssh-success.png[title="SSH Connected"]
 
 Symptoms: 
 
+* `vagrant up` command returns an error message of "`VT-x is disabled in the
+  BIOS`" or "`AMD-V is disabled in the BIOS`"
 * `vagrant up` command says it has timed out.
 * If you open Virtualbox and attempt to create or open a 64-bit VM, it will
   display an error.
@@ -191,3 +193,10 @@ If you are receiving this error, you have added the wrong value to your PATH var
 Double-check that the directory you added to your PATH contains an executable
 named `ssh.exe`.  If not, you need to find that executable on your disk and add
 the correct directory to your PATH.
+
+=== Other issues
+
+It is possible that you have other issues as you try to use Vagrant and
+VirtualBox together.  Keep a close eye out for any error messages along
+the way.  If you see an error message, stop working on the lab and figure out
+how to fix that error before moving on. 
