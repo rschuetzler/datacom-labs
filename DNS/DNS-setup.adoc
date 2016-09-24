@@ -221,11 +221,13 @@ After submitting your work, you can destroy any boxes you used.
 completely. Answer "y" to confirm deletion.
 
 == Questions
+
+=== Quick questions
 1. What is DNS?
 
 2. What is an authoritative nameserver?
 
-3. What is a TLD nameserver?
+3. What is an example of a TLD nameserver?
 
 4. What is a root nameserver?
 
@@ -237,7 +239,13 @@ completely. Answer "y" to confirm deletion.
 
 8. What did you get for the `nslookup` commands on Alice before changing the DNS servers?
 
+=== Do some research
+
 9. What happens when you put `127.0.0.1 google.com` in the HOSTS file? What is
 the significance of the 127.0.0.1 IP address?
 
 10. At a high level, describe how to configure bind9 on Linux.
+
+11. Look up the list of ICANN-era top-level domains.  What is your favorite new TLD?
+
+12. When you update DNS for Internet domains, it can take up to 24 hours for your changes to make their way across the network.  Why?
