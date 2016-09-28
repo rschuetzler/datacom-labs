@@ -1,8 +1,6 @@
 = Lab Exercise: TCP and UDP
 
-Internet Protocol (IP) addressing helps to identify the location of
-machines on a network and facilitates routing messages between machines.
-
+The two most common transport layer protocols are TCP and UDP.  While both protocols have a few things in common, like ports, they are very different in the way that they operate.  In this exercise you will look at the differences in the way the two protocols operate as they send both short and long messages to their destination.
 == Prerequisites
 
 Before starting this lesson, you should have a basic understanding of
@@ -89,7 +87,8 @@ output to the terminal. This is important due to the next command...
 background. This will allow us to execute other commands while the
 capture is running.
 
- $ tshark -f "not broadcast and not multicast" -i eth1 -a duration:30\ -w /vagrant/udp-short.pcap -Q &
+ $ tshark -f "not broadcast and not multicast" -i eth1 -a duration:30 \
+ -w /vagrant/udp-short.pcap -Q &
 
 * Use `netcat` to set up listening on a UDP port on Alice.
 ** `-u` tells netcat we'll be using UDP.
@@ -192,10 +191,12 @@ completely from your system. Answer "y" to confirm deletion.
 
 1. What are the IP addresses of Alice and Bob?
 
-| VM name | IP address |
+[width=40%,options="header"]
 |==============================
-| Alice   |            |
-| Bob     |            |
+| VM name | IP address 
+| Alice   |            
+| Bob     |            
+|==============================
 
 
 === UDP short message
@@ -243,4 +244,4 @@ completely from your system. Answer "y" to confirm deletion.
 === Brainstorming
 [start=18]
 18. Why don't you have to close netcat manually when you use TCP to send a long file?
-19. How many packets did UDP take to send the message? What about TCP?
+19. How many packets did UDP take to send the message? What about TCP? Can you explain why?
