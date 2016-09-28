@@ -1,6 +1,7 @@
 = Lab Exercise: TCP and UDP
 
 The two most common transport layer protocols are TCP and UDP.  While both protocols have a few things in common, like ports, they are very different in the way that they operate.  In this exercise you will look at the differences in the way the two protocols operate as they send both short and long messages to their destination.
+
 == Prerequisites
 
 Before starting this lesson, you should have a basic understanding of
@@ -189,7 +190,7 @@ After submitting your work, you can destroy any boxes you used.
 
 * Run "`$ exit`" to leave the SSH session. You will be back at your
 regular command prompt.
-* Run "`> vagrant destroy`" to turn off the machine and delete it
+* Run "`> vagrant destroy`" to turn off the machines and delete them
 completely from your system. Answer "y" to confirm deletion.
 
 == Questions
@@ -218,6 +219,7 @@ completely from your system. Answer "y" to confirm deletion.
    "Data" section).
 
 === TCP short message
+
 [start=8]
 8. What are the source and destination IP addresses of the message?
 9. What are the source and destination ports of the TCP datagram?
@@ -237,16 +239,17 @@ completely from your system. Answer "y" to confirm deletion.
    computer using the `netcat [ip] [port] < filename.txt` syntax on Bob. If you had typed
    `netcat -l [port] > filename.txt` on Alice, that output would have gone into a
    file. Would TCP or UDP be better used for a file transfer like this, and why?
+15. How many packets did UDP take to send the message? What about TCP? Can you explain why?
 
 === Critical thinking
 
-[start=15]
+[start=16]
 15. What are two important differences between TCP and UDP when sending short messages?
 16. Why would someone choose to use TCP to send short messages (e.g. IRC for chat
    or SMTP for short emails)?
 17. Name a service that uses UDP, and explain why.
 
 === Brainstorming
-[start=18]
+
+[start=19]
 18. Why don't you have to close netcat manually when you use TCP to send a long file?
-19. How many packets did UDP take to send the message? What about TCP? Can you explain why?
