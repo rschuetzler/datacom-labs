@@ -1,4 +1,4 @@
-= Email Encryption Lab
+= Email Encryption
 
 For this lab, you will use public key encryption to send and receive
 encrypted emails. You will receive full credit after you send me your
