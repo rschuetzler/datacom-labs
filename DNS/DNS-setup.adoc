@@ -25,8 +25,7 @@ contains the configuration options for your virtual machine.  For this exercise,
 a Vagrantfile has already been created.
 
 * Copy the Vagrantfile for this exercise to a folder.
-* Copy the `webminrepo.txt` and `nodns.txt` files to the same folder and rename
-  them to have the `.sh` extensions instead of `.txt`.
+* Copy the `webminrepo.txt` and `nodns.txt` files to the same folder and rename them to have the `.sh` extensions instead of `.txt`. Accept the warnings that the file may become unusable
 * Open a command prompt and navigate to the folder where you saved the
 Vagrantfile.
 * Run `vagrant up` to bring up the machines.
@@ -95,27 +94,18 @@ server are available
 https://www.digitalocean.com/community/tutorials/how-to-install-webmin-with-ssl-on-ubuntu-14-04[here].
 
 * Run `> vagrant ssh bob`
+* Change the password for the `ubuntu` user to something you will remember. Do this by typing `bob$ sudo passwd ubuntu`, then typing the new password two times. You will use this password to log into Webmin shortly.
 * Run `bob$ sudo apt-get install bind9 webmin`
 ** This will download and install the bind9 software and webmin.
 ** Answer `y` when prompted to install.
 * Run `bob$ cat /etc/bind/named.conf.local`
-** This will print the DNS configuration. Currently, nothing is
-configured. The only lines in the configuration file are commented out
-(using two forward slashes).
-* Run `bob$ ifconfig` and verify the IP address for eth1
-* On your host computer, open a web browser and navigate to
-`https://192.168.100.25:10000`. Webmin runs a web server on port 10000.
-** You will likely get a warning that your connection is not private, or
-that there is an error with the certificate. In this case it is safe to
-ignore this error. The webmin server uses a self-signed certificate to
-encrypt your communications. This is not trusted by your host OS, so it
-displays the warning. Bypass the error and continue to 192.168.100.25
-* Sign into webmin with the username and password `vagrant`.
-* Under "Servers" in the menu on the left, select "BIND DNS Server". You
-will then see a large list of options and actions you can run on BIND.
-* We will create two DNS Zones: first the forward zone, then the reverse
-zone. The forward zone converts names to IP addresses, while the reverse
-zone converts IP addresses back to names.
+** This will print the DNS configuration. Currently, nothing is configured. The only lines in the configuration file are commented out (using two forward slashes).
+* Run `bob$ ifconfig` and verify the IP address for the 192.168.100.0 subnet (probably interface `eth1`)
+* On your host computer, open a web browser and navigate to `https://192.168.100.25:10000`. Webmin runs a web server on port 10000.
+** You will likely get a warning that your connection is not private, or that there is an error with the certificate. In this case it is safe to ignore this error. The webmin server uses a self-signed certificate to encrypt your communications. This is not trusted by your host OS, so it displays the warning. Bypass the error and continue to 192.168.100.25
+* Sign into webmin with the username `ubuntu` and the password that you set a few steps ago.
+* Under "Servers" in the menu on the left, select "BIND DNS Server". You will then see a large list of options and actions you can run on BIND.
+* We will create two DNS Zones: first the forward zone, then the reverse zone. The forward zone converts names to IP addresses, while the reverse zone converts IP addresses back to names.
 * Create the forward zone
 ** Under "Existing DNS Zones," select "Create master zone."
 ** Ensure that Zone type is Forward
@@ -125,8 +115,7 @@ zone converts IP addresses back to names.
 ** Check the box to "Add NS record for master server?"
 ** Click Create
 * Add records to the master zone
-** On the "Edit Master Zone" screen, click "Address (0)". This is where
-we will add our A records for our subdomains.
+** On the "Edit Master Zone" screen, click "Address (0)". This is where we will add our A records for our subdomains.
 ** For Name, put "ns"
 ** For Address, put 192.168.100.25. This is the IP address of Bob's
 computer, which is the DNS __name server__.
@@ -166,86 +155,54 @@ nameserver.
 Now we will set up Alice to use Bob as her DNS server. Currently Alice
 is configured to use herself as a DNS server.
 
-* First test the existing configuration. Run
-`alice$ nslookup www.example.com` or `alice$ nslookup ns.example.com` to
-see the IP addresses that resolve for those domains.
-* Record the results of those `nslookup` commands in the submission
-sheet
-* Make Bob the DNS server by modifying the last line of
-`/etc/dhcp/dhclient.conf` with the command
-`alice$ sudo nano /etc/dhcp/dhclient.conf` to say:
+* First test the existing configuration. Run `alice$ nslookup www.example.com` or `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains. This should not work, as `alice` was configured not to have a DNS server.
+* Make Bob the DNS server by modifying the last line of `/etc/dhcp/dhclient.conf` with the command `alice$ sudo nano /etc/dhcp/dhclient.conf` to say:
 
  supersede domain-name-servers 192.168.100.25;
 
-* Restart Alice's computer to force the networking changes to take
-effect. This is done with the command: `alice$ sudo shutdown -r now`.
-This will disconnect you from Alice and restart the VM.
-* Reconnect to Alice and test the new DNS settings. Run
-`alice$ nslookup ns.example.com` and `alice$ nslookup www.example.com`
-to see what the DNS server is, and what addresses are returned.
+* Restart Alice's computer to force the networking changes to take effect. This is done with the command: `alice$ sudo shutdown -r now`. This will disconnect you from Alice and restart the VM.
+* Wait a minute, then reconnect to Alice and test the new DNS settings. Run `alice$ nslookup ns.example.com` and `alice$ nslookup www.example.com` to see what the DNS server is, and what addresses are returned.
 
 === HOSTS file
 
-In addition to DNS, you can manually set up host records for your local
-machine to make it easier to access commonly visited servers. The
-easiest way is to add a record to your hosts file (`/etc/hosts` on
-Linux/Mac, `C:\Windows\System32\drivers\etc\hosts` on Windows). This is
-usually the first place your computer checks for host names (before even
-going to DNS), so records in your hosts file can be used to override
-DNS.
+In addition to DNS, you can manually set up host records for your local machine to make it easier to access commonly visited servers. The easiest way is to add a record to your hosts file (`/etc/hosts` on Linux/Mac, `C:\Windows\System32\drivers\etc\hosts` on Windows). This is usually the first place your computer checks for host names (before even going to DNS), so records in your hosts file can be used to override DNS.
 
-* First, try to ping Bob from Alice by typing `alice$ ping bob`. What is
-the result? Why?
-* On Alice, open the hosts file with `alice$ nano /etc/hosts`
+* First, try to ping Bob from Alice by typing `alice$ ping bob`. What is the result? Why?
+* On Alice, open the hosts file with `alice$ sudo nano /etc/hosts`
 * On the last line, add a line with Bob's IP address and the word "bob":
 
  192.168.100.25  bob
 
-* Save and close the file, now try to `ping bob`. What is the result
-now?
-* Try to ping `google.com`. What is the result? What is Google's IP
-address?
+* Save and close the file, now try to `ping bob`. What is the result now?
+* Try to ping `google.com`. What is the result? What is Google's IP address?
 * Now edit the hosts file again to include the following line:
 
  127.0.0.1  www.google.com
 
-* Save and close the hosts file and ping google.com one more time. What
-IP address is pinged when you do this?
+* Save and close the hosts file and ping google.com one more time. What IP address is pinged when you do this?
 
 === Cleanup (Optional)
 
 After submitting your work, you can destroy any boxes you used.
 
 * Run `$ exit` on Bob and Alice to leave the SSH sessions.
-* Run `> vagrant destroy` to turn off the machines and delete them
-completely. Answer "y" to confirm deletion.
+* Run `> vagrant destroy` to turn off the machines and delete them completely. Answer "y" to confirm deletion.
 
 == Questions
 
 === Quick questions
-1. What is DNS?
-
-2. What is an authoritative nameserver?
-
-3. What is an example of a TLD nameserver?
-
-4. What is a root nameserver?
-
-5. What is a resolving nameserver?
-
-6. What is a forward lookup?
-
-7. What is a reverse lookup?
-
-8. What did you get for the `nslookup` commands on Alice before changing the DNS servers?
+. What is DNS?
+. What is an authoritative nameserver?
+. What is an example of a TLD nameserver?
+. What is a root nameserver?
+. What is a resolving nameserver?
+. What is a forward lookup?
+. What is a reverse lookup?
+. What did you get for the `nslookup` commands on Alice before changing the DNS servers?
 
 === Do some research
-
-9. What happens when you put `127.0.0.1 google.com` in the HOSTS file? What is
-the significance of the 127.0.0.1 IP address?
-
-10. At a high level, describe how to configure bind9 on Linux.
-
-11. Look up the list of ICANN-era top-level domains.  What is your favorite new TLD?
-
-12. When you update DNS for Internet domains, it can take up to 24 hours for your changes to make their way across the network.  Why?
+[start=9]
+. What happens when you put `127.0.0.1 google.com` in the HOSTS file? What is the significance of the 127.0.0.1 IP address?
+. At a high level, describe how to configure bind9 on Linux.
+. Look up the list of https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#ICANN-era_generic_top-level_domains[ICANN-era top-level domains].  What is your favorite new TLD?
+. When you update DNS for Internet domains, it can take up to 24 hours for your changes to make their way across the network.  Why?
