@@ -9,11 +9,11 @@ DNS server in Linux.
 
 By the end of this lesson, you will be able to:
 
-1.  Define the different types of DNS server (root, TLD, authoritative,
+.  Define the different types of DNS server (root, TLD, authoritative,
 resolving)
-2.  Explain how caching is used in DNS and the consequences of caching.
-3.  Configure an authoritative DNS server.
-4.  Configure a client to connect to a specific DNS server.
+.  Explain how caching is used in DNS and the consequences of caching.
+.  Configure an authoritative DNS server.
+.  Configure a client to connect to a specific DNS server.
 
 == Steps
 
@@ -70,18 +70,18 @@ never connected to google.com, and your ISP has not cached google.com's
 IP address, you need to do a full DNS lookup. The steps would look like
 this.
 
-1.  Your computer uses the DNS protocol to query the resolving DNS
+.  Your computer uses the DNS protocol to query the resolving DNS
 server configured for your network.
-2.  The resolving DNS server checks its cache for google.com, cannot
+.  The resolving DNS server checks its cache for google.com, cannot
 find it, so it queries the root DNS server for the `.com` top level
 domain (TLD).
-3.  The root nameserver gives the IP address for a `.com` TLD and sends
+.  The root nameserver gives the IP address for a `.com` TLD and sends
 it to the resolving nameserver.
-4.  The resolving nameserver queries the `.com` TLD and asks for
+.  The resolving nameserver queries the `.com` TLD and asks for
 google.com's authoritative nameserver.
-5.  The resolving nameserver queries google.com's authoritative
+.  The resolving nameserver queries google.com's authoritative
 nameserver for the IP address.
-6.  The resolving nameserver sends the IP address for google.com back to
+.  The resolving nameserver sends the IP address for google.com back to
 your computer.
 
 Webmin is a web interface to administer various aspects of your system.
