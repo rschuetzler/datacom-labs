@@ -49,3 +49,12 @@ the test in the later exercises.
 
 :imagesdir: Intro - Vagrant-VirtualBox
 include::Intro - Vagrant-VirtualBox/Vagrant-VirtualBox Intro.adoc[]
+
+:leveloffset: 0
+= Application Layer Protocols
+
+:leveloffset: 1
+
+include::DNS/DNS-setup.adoc[]
+
+:leveloffset: 0
