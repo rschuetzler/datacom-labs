@@ -1,0 +1,32 @@
+= Wireshark
+
+Description
+
+== Learning Objectives
+
+By the end of this lesson, you will be able to:
+
+.  
+
+== Steps
+
+=== Install Wireshark
+
+* Go to https://www.wireshark.org/#download and download the latest Stable Release of Wireshark for your OS.
+* Run through the installer.
+** If you are on Windows, make sure you install WinPcap. This program allows you to do a packet capture on Windows, which is the whole point of installing Wireshark in the first place.
+
+=== My First Packet Capture
+
+* Open Wireshark
+* 
+
+== Questions
+
+=== Quick questions
+
+. List of questions
+
+=== Do some research
+[start=9]
+. List of tougher questions
