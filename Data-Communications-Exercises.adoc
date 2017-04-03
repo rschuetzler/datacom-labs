@@ -58,3 +58,12 @@ include::Intro - Vagrant-VirtualBox/Vagrant-VirtualBox Intro.adoc[]
 include::DNS/DNS-setup.adoc[]
 
 :leveloffset: 0
+
+= The Network Layer
+
+:leveloffset: 1
+
+:imagesdir: Routing
+include::Routing/routing.adoc[]
+
+:leveloffset: 0
