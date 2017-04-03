@@ -19,14 +19,69 @@ By the end of this lesson, you will be able to:
 === My First Packet Capture
 
 * Open Wireshark
-* 
+* You should see a screen somewhat like the screenshot below. Identify which is your active interface by looking under the "Capture" heading for the interface displaying a moving graph.
+* Double-click on your active interface to begin a packet capture.
+* Let the packet capture run while complete the following steps:
+** Open your web browser and visit your favorite websites.
+** As one of your selected sites, go to http://www.ieee.org, or some other site that does not use HTTPS encryption, and that you have not visited today.
+** Open a command prompt (Windows) or terminal (macOS or Linux) and type `ping www.schuetzler.net` and hit ENTER. If you are on Mac or Linux, you can press CTRL-C to stop the ping, or type `ping -c 4 www.schuetzler.net` to ping only 4 times instead of forever.
+* Return to Wireshark and stop the capture by clicking the red square in the top left corner of the window.
+
+You have now completed your first packet capture! You can look through this capture file to see all network traffic that your computer created or saw during the time of the capture.
+
+* Save the capture file just in case you accidentally close Wireshark. You can do this from the `File` menu in the top left corner. Save the file as a `.pcapng` file somewhere on your computer.
+
+=== Wireshark Interface
+
+The Wireshark packet capture analysis interface is divided into three panes.
+
+==== Packet List
+
+The top pane shows a list of every packet that your computer created and every packet your computer heard during the time of the packet capture. For each packet, Wireshark assigns a sequential number. The interface also shows the time the packet was captured (relative to the time the capture was started). Source and destination IP addresses are shown, along with the protocol used. You should recognize some of the protocols you'll see in this list, including SSL, TCP, ARP, and others. There may be some protocols you do not recognize, and that's okay. The packet listing also has an Info column that shows a summary of the contents of the packet.
+
+* Scroll through your capture's Packet List.
+** What information looks familiar to you?
+** What information does not look familiar?
+
+==== Packet Details
+
+The middle pane in the default Wireshark view shows the details of the selected packet as a collapsible tree.
+Here you can see all the details from each layer of the TCP/IP model.
+You can click on the arrows to expand each layer and view more detail.
+For example, expanding the "Ethernet II" tree will show you all of the Data Link layer's header information, including source and destination MAC addresses.
+If there is payload data in the packet, it will either be listed as a separate header below the transport layer protocol, or as a subheader in the transport layer protocol tree.
+
+* Find a packet in the Packet List that uses a protocol like TCP, HTTP, or SSL. Click on that packet, then turn your attention to the Packet Details pane.
+* Expand the tree for the Data Link Layer. What data do you see there? If there are any sub-trees, expand those as well to examine all of the data.
+* Repeat that process for the Network and Transport layers. You probably won't recognize all pieces of all of the headers. Find a piece you don't recognize, and do some research to figure out why  it is there. Every part of these headers serves some purpose, even if some of them are rarely used.
+
+==== Packet Bytes
+
+The bottom pane in your Wireshark view displays the raw bytes that were transmitted.
+Every part of the packet was transmitted across the wire (or through the air) as a series of ones and zeros, called bits.
+A byte is eight bits that are all together.
+Wireshark represents the transmitted bytes as two _hexadecimal_ digits.
+Hexadecimal refers to base-16.
+This is different from the numbers we normally talk about, which are base-10.
+A single hexadecimal digit can represent the numbers 0-15.
+They do this using the typical numerical digits you are used to seeing (0-9) and the first six letters of the English alphabet (A-F), so don't be surprised to see some letters mixed into your numbers.
+Hexadecimal is frequently used to represent binary numbers (base-2) because four binary bits matches perfectly to a single hexadecimal digit.
+They match perfectly because with four binary digits, you can represent 2^4^, or 16 different numbers.
+A byte, then, can be represented either with 8 ones and zeros (e.g., 11010111) or with 2 hexadecimal digits, each representing 4 of the bits (e.g., D7).
+
+You can see the raw bytes in Wireshark represented as hexadecimal on the left side of the bottom pane. On the right, Wireshark does its best to translate the bytes to 
+
+=== Filtering Packets
 
 == Questions
 
 === Quick questions
 
-. List of questions
+. What data is stored in the Ethernet header?
+. What data is in the network layer (IP) header?
+. What data is in the transport layer header (either TCP or UDP)?
 
 === Do some research
 [start=9]
-. List of tougher questions
+. Identify a packet in the panel that uses a protocol that you do not recognize. What protocol does it use? Use your Internet skills to find more information on that protocol. What is it used for?
+. Identify one section from the Packet Details pane that has data you don't recognize. What is the packet doing, and what does that data refer to?
