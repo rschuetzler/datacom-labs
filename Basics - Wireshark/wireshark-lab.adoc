@@ -1,12 +1,21 @@
-= Wireshark
+= Introduction to Wireshark
+Ryan Schuetzler <rschuetzler@unomaha.edu>
+v1.0, 2017-04-10
+:imagesdir: figs
 
-Description
+Wireshark is a free and open source tool for capturing and analyzing network traffic.
+You will use Wireshark throughout the labs to view the traffic going around your networks.
+This lab is intended as an introduction to familiarize you with the interface components.
+You will capture packets on your network and use Wireshark to view and analyze them so that you can gain a better understanding of what network traffic looks like.
 
 == Learning Objectives
 
 By the end of this lesson, you will be able to:
 
-.  
+. Initiate a Wireshark capture
+. Analyze packets in Wireshark
+. Filter packets in Wireshark
+. Analyze packet capture protocol statistics
 
 == Steps
 
@@ -20,6 +29,10 @@ By the end of this lesson, you will be able to:
 
 * Open Wireshark
 * You should see a screen somewhat like the screenshot below. Identify which is your active interface by looking under the "Capture" heading for the interface displaying a moving graph.
+
+.Starting a packet capture in Wireshark
+image::start-capture.png[Starting a packet capture in Wireshark]
+
 * Double-click on your active interface to begin a packet capture.
 * Let the packet capture run while complete the following steps:
 ** Open your web browser and visit your favorite websites.
@@ -27,15 +40,24 @@ By the end of this lesson, you will be able to:
 ** Open a command prompt (Windows) or terminal (macOS or Linux) and type `ping www.schuetzler.net` and hit ENTER. If you are on Mac or Linux, you can press CTRL-C to stop the ping, or type `ping -c 4 www.schuetzler.net` to ping only 4 times instead of forever.
 * Return to Wireshark and stop the capture by clicking the red square in the top left corner of the window.
 
+.Stop capture by clicking the red square
+image::stop-capture.png[]
+
 You have now completed your first packet capture! You can look through this capture file to see all network traffic that your computer created or saw during the time of the capture.
 
-* Save the capture file just in case you accidentally close Wireshark. You can do this from the `File` menu in the top left corner. Save the file as a `.pcapng` file somewhere on your computer.
+TIP: Save the capture file just in case you accidentally close Wireshark. You can do this from the `File` menu in the top left corner. Save the file as a `.pcapng` file somewhere on your computer.
 
 === Wireshark Interface
 
 The Wireshark packet capture analysis interface is divided into three panes.
 
+.Wireshark interface
+image::wireshark-interface.png[]
+
 ==== Packet List
+
+.Wireshark Packet List Pane
+image::packet-list.png[]
 
 The top pane shows a list of every packet that your computer created and every packet your computer heard during the time of the packet capture. For each packet, Wireshark assigns a sequential number. The interface also shows the time the packet was captured (relative to the time the capture was started). Source and destination IP addresses are shown, along with the protocol used. You should recognize some of the protocols you'll see in this list, including SSL, TCP, ARP, and others. There may be some protocols you do not recognize, and that's okay. The packet listing also has an Info column that shows a summary of the contents of the packet.
 
@@ -44,6 +66,9 @@ The top pane shows a list of every packet that your computer created and every p
 ** What information does not look familiar?
 
 ==== Packet Details
+
+.Wireshark Packet Details Pane
+image::packet-details.png[]
 
 The middle pane in the default Wireshark view shows the details of the selected packet as a collapsible tree.
 Here you can see all the details from each layer of the TCP/IP model.
@@ -57,6 +82,9 @@ If there is payload data in the packet, it will either be listed as a separate h
 
 ==== Packet Bytes
 
+.Wireshark Packet Bytes Pane
+image::packet-bytes.png[]
+
 The bottom pane in your Wireshark view displays the raw bytes that were transmitted.
 Every part of the packet was transmitted across the wire (or through the air) as a series of ones and zeros, called bits.
 A byte is eight bits that are all together.
@@ -69,9 +97,107 @@ Hexadecimal is frequently used to represent binary numbers (base-2) because four
 They match perfectly because with four binary digits, you can represent 2^4^, or 16 different numbers.
 A byte, then, can be represented either with 8 ones and zeros (e.g., 11010111) or with 2 hexadecimal digits, each representing 4 of the bits (e.g., D7).
 
-You can see the raw bytes in Wireshark represented as hexadecimal on the left side of the bottom pane. On the right, Wireshark does its best to translate the bytes to 
+You can see the raw bytes in Wireshark represented as hexadecimal on the left side of the bottom pane.
+On the right, Wireshark attempts to translate the bytes into human-readable characters.
+For many of the packets, this isn't going to work very well, because the data represented by the bytes is not human-readable characters.
+If you find an HTTP packet, however, you may be able to view actual website data in the raw data.
+If you click on a section in the middle Packet Details pane, the appropriate bytes will be highlighted in the Bytes pane below.
+You won't typically spend much time looking at this area, because the same data is shown in the center pane in a more readable format.
+The bottom can be useful, though, to get an idea how exactly all of the data fits together.
 
-=== Filtering Packets
+* Expand the Ethernet II section of the Packet Details pane for any packet, and click on the source MAC address.
+* Look at the highlighted section of the Packet Bytes pane. Notice that the MAC address appears exactly the same in both sections. That is because the MAC address is already represented as hexadecimal digits
+* Now expand the Internet Protocol section of a packet, then click on the source address.
+* Look at the highlighted section of the Packet Bytes and compare it to what you see in the Packet Details. While the two numbers may look very different (one with dotted decimal, and the other with hexadecimal notation), they are in fact the same number represented in two different ways. Just as you can represent the decimal number 255 as 11111111 in binary, or FF in hexadecimal, you can represent decimal IP addresses in either decimal or hexadecimal digits.
+** Record these numbers.
+
+=== Filtering and Inspecting Packets
+
+Now that you've got a handle on the interface of Wireshark, let's take a look at ways we can look at exactly what we want to see.
+Very often when we do a packet capture we are looking for a particular type of traffic.
+For example, we may want to look and see what's going on with DNS on our network.
+Wireshark has a built-in ability to filter packets based on all sorts of criteria, including any of the addresses, the type of packet, or the type of data being carried.
+We'll look at a few examples of how to filter our packet capture to see exactly what we want to see.
+
+==== Looking at DNS
+
+* Click the "Apply a display filter ..." bar just above the Packet List (or type `CTRL-\`)
+* In the box, type `dns` and press Enter.
+
+IMPORTANT: Wireshark queries are case-sensitive. Typing "DNS" will get you nothing but an angry red search bar.
+
+** Your Packet List should be filtered down to display only DNS packets.
+* Click one of the DNS packets to inspect it. Look for one that says `Standard query`, but not `Standard query response`.
+
+.Sample DNS Query in Wireshark
+image::dns-query.png[]
+
+* Look through the packet details. What is the source and destination IP address? What about the source and destination port? How does that match up with what you know about transport layer ports? What transport layer protocol is being used?
+* Expand the `Domain Name System (query)` tree, and the `Queries` branch beneath that
+** What is the DNS name being requested?
+** What is DNS record type is being requested?
+** What is the length of the request (bytes on wire)?
+* Wireshark makes it easy to find the response to a query by placing a link to it directly underneath the `Domain Name System (query)` header. It will say something like `[Response In: #]`. You can double-click the link to be taken to the response packet.
+* Find the response to the query you were examining
+* Expand the `Domain Name System (response)` tree and the `Queries` and `Answers` subtrees beneath it. Look through the data that are available.
+** Why does the response contain the query _and_ the answer?
+** What data is contained in the answer?
+
+NOTE: The data in the answer may vary depending on the type of answer given. For example, a `CNAME` response would contain different data than an `A` record. See if you can find different types of DNS responses in your packet capture.
+
+* Now clear the filter by clicking the `X` on the right side of the filter box
+
+.Clear the filter
+image::clear-filter.png[]
+
+* Apply a new filter by typing `http.request == 1`. This will get you all of the packets in your capture that contain an HTTP REQUEST.
+* Find an inspect an HTTP request. Expand the `Hypertext Transfer Protocol` tree.
+** What is the `Host:` you are requesting data from?
+* Now expand the `GET` subtree below the HTTP tree (if it is a GET request).
+** What is the `Request URI:`
+** What is the `Request Version:`
+
+TIP: Clicking the `Expression...` link to the right of the filter box will give you a list of all the different types of filters available. There are a lot of them, because there have been a lot of networking protocols over the years. Most of these you will never use, but you can search the list to see how to filter for what you want.
+
+==== Filter by Source/Destination
+
+Another thing you might want to do is identify traffic coming from or going to a specific address. For example, you may want to look only at traffic coming from your machine.
+
+* Identify your machine's IP address from the terminal or command prompt
+** If you don't remember how to do that, follow the instructions from https://kb.iu.edu/d/aapa[this page] for your operating system (don't go to WhatIsMyIP.com)
+
+To filter for traffic coming from your going to your IP address, enter the following line into the filter line, replacing 192.168.1.1 with your machine's IP:
+
+ ip.addr == 192.168.1.1
+
+To look only at traffic coming _from_ your computer, you can use the following line instead:
+
+ ip.src == 192.168.1.1
+
+Finally, to filter traffic coming _to_ your computer only, you can use this:
+
+ ip.dst == 192.168.1.1
+
+You can use the same filters to identify traffic for any computer on your network, although you will likely not see traffic destined for other computers unless you have specifically configured your network to pass that information to your computer.
+
+==== Find your pings
+
+During the packet capture, you should have run the `ping` command to send several pings to some computer my server at www.schuetzler.net. Now we'll find those pings to see what they look like at the packet level.
+
+* Apply a new filter for `icmp`. ICMP, or the Internet Control Message Protocol, is a set of tools for troubleshooting networks. One of those tools is `ping`.
+* Find a message where the data is an ICMP echo (ping) request.
+** Notice that the ping packets do not use a transport layer protocol. They operate only at the network layer, and don't have a need for TCP or UDP.
+* Expand the `Internet Control Message Protocol` tree, and click on the `Data` subtree. In the Packet Bytes pane, you should be able to see the data that is being sent (hint: look at what's highlighted on the right side).
+* Now find the reply that matches your request. What are the differences between the ICMP echo request and the ICMP echo reply packets?
+
+=== Network Traffic Statistics
+
+In addition to the packet-by-packet inspection you can do to gather specific information, you can also do analysis of your entire capture in Wireshark to identify trends. For example, you can see how much of the traffic in your capture was IPv4, and how much was IPv6. You can also see a list of every application layer protocol identified in your packet capture.
+
+* Click `Statistics` in the menu bar at the top of Wireshark
+* Select `Protocol Hierarchy` from the menu
+** The protocol hierarchy is a nested list of all protocols used in any of the captured packets. You can expand each layer to get all the way down to the application layer protocols used, although not all packets have an application layer protocol (e.g., ARP)
+* Spend some time digging around the protocol hierarchy. Find a protocol you don't recognize, and see if you can find out what it does.
 
 == Questions
 
@@ -80,8 +206,13 @@ You can see the raw bytes in Wireshark represented as hexadecimal on the left si
 . What data is stored in the Ethernet header?
 . What data is in the network layer (IP) header?
 . What data is in the transport layer header (either TCP or UDP)?
+. Record the source IP address for a packet in dotted decimal format and in hexadecimal format.
+. What percentage of your network traffic was IPv4? What about IPv6? TCP vs. UDP?
+. What was one thing that surprised you from your capture's protocol hierarchy?
 
-=== Do some research
-[start=9]
+=== Do some research or thinking
+[start=7]
 . Identify a packet in the panel that uses a protocol that you do not recognize. What protocol does it use? Use your Internet skills to find more information on that protocol. What is it used for?
 . Identify one section from the Packet Details pane that has data you don't recognize. What is the packet doing, and what does that data refer to?
+. Why would a DNS response have to include the query that was sent, in addition to the answer?
+. Pick a protocol you don't recognize from the protocol hierarchy. Do some research and report on what it does?
