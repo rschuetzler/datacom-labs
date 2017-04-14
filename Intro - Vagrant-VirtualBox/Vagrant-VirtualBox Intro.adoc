@@ -1,4 +1,5 @@
 = Vagrant Setup
+:imagesdir: Intro - Vagrant-VirtualBox
 
 This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH. You will use these tools throughout the course to learn networking and security concepts. 
 
@@ -203,13 +204,14 @@ how to fix that error before moving on.
 
 == Thought Questions
 === Basics
-1. What is virtualization?
-2. What does Vagrant do for us in this lab?
-3. What is the command to set up a virtual machine using Vagrant?
-4. What is the command to start a virtual machine using Vagrant?
-5. Is your virtual machine shut down now?
+. What is virtualization?
+. What does Vagrant do for us in this lab?
+. What is the command to set up a virtual machine using Vagrant?
+. What is the command to start a virtual machine using Vagrant?
+. Is your virtual machine shut down now?
 
 === Do some research
-6. SSH is not the only technology we can use to access a remote machine. An older alternative is a program called `telnet`. What advantages does SSH have over telnet?
-7. What are some ways virtualization is used in the real world (outside of this lab)?
-8. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/xenial64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
+[start=6]
+. SSH is not the only technology we can use to access a remote machine. An older alternative is a program called `telnet`. What advantages does SSH have over telnet?
+. What are some ways virtualization is used in the real world (outside of this lab)?
+. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/xenial64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
