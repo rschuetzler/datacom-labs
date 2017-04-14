@@ -12,7 +12,6 @@ Questions
 
 2\) What information is available in the Windows routing table? Record the names of the fields shown in the "Active Routes" list and describe what each means.
 
-
 3\) In your own words, explain the pros and cons of using each of the following routing methods:
 
 Static Routing:
