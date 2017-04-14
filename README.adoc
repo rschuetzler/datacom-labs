@@ -1,6 +1,9 @@
 = Data Communications Lab Exercises
 
-These labs are produced as a collaborative effort to provide hands-on activities for courses in data communications. They are a way for learners to interact with networking principles and technologies without the need for expensive and specialized network hardware. Using these labs and freely available software, you can create (sort of) functioning networks on your computer. Topics covered include:
+These labs are produced as a collaborative effort to provide hands-on activities for courses in data communications.
+They are a way for learners to interact with networking principles and technologies without the need for expensive and specialized network hardware.
+Using these labs and freely available software, you can create (sort of) functioning networks on your computer.
+Topics covered include:
 
 * Routing
 * ICMP
@@ -9,7 +12,8 @@ These labs are produced as a collaborative effort to provide hands-on activities
 * Encryption
 * and more...
 
-These labs are a work in progress, and new ones will be added over time. If you have requests or ideas for lab activities that would fit within the scope of this book, add them over on the issues tab.
+These labs are a work in progress, and new ones will be added over time.
+If you have requests or ideas for lab activities that would fit within the scope of this book, add them over on the issues tab.
 
 Some of the technologies and software you will gain experience with in completing the labs include:
 
