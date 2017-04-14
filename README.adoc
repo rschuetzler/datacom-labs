@@ -1,0 +1,16 @@
+= Data Communications Lab Exercises
+
+These labs are produced as a collaborative effort between Ryan Schuetzler and Jim Marquardson. The purpose of the labs is to provide a way for learners to interact with networking principles and technologies without the need for expensive and specialized network hardware. Using these labs and freely available software, you can create (sort of) functioning networks on your computer. Topics covered include:
+
+* Routing
+* ICMP
+* DNS
+* TCP and UDP
+* Encryption
+* and more...
+
+These labs are a work in progress, and new ones will be added over time. If you have requests or ideas for lab activities that would fit within the scope of this book, add them over on the issues tab.
+
+++++
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+++++
