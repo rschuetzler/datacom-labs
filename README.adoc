@@ -14,14 +14,15 @@ Topics covered include:
 
 These labs are a work in progress, and new ones will be added over time.
 If you have requests or ideas for lab activities that would fit within the scope of this book, add them over on the issues tab.
+The labs are written in http://asciidoc.org/[Asciidoc], although we are still in a transition from the previous format, Markdown.
 
 Some of the technologies and software you will gain experience with in completing the labs include:
 
-* Python 3
-* Vagrant
-* Virtualbox
-* Ubuntu Linux
-* Wireshark
+* https://www.python.org/downloads/[Python 3]
+* https://www.vagrantup.com/[Vagrant]
+* https://www.virtualbox.org/wiki/Downloads[Virtualbox]
+* https://www.ubuntu.com/[Ubuntu Linux]
+* https://www.wireshark.org/[Wireshark]
 
 
 == License
