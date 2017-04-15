@@ -49,6 +49,7 @@ the test in the later exercises.
 
 include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[]
 
+include::intro-wireshark/wireshark-intro.adoc[]
 
 :leveloffset: 0
 = Application Layer Protocols
@@ -63,6 +64,11 @@ include::applications-dns/DNS-setup.adoc[]
 
 :leveloffset: 1
 
+include::tcpip-tcp-udp/tcp-udp.adoc[]
 include::tcpip-routing/routing.adoc[]
 
 :leveloffset: 0
+= Security
+
+include::security-email-encryption/email-encryption.adoc[]
+
