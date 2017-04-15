@@ -14,18 +14,18 @@ the following terms:
 
 === Install Wireshark
 
-1.  Go to https://www.wireshark.org/download.html and download the
+.  Go to https://www.wireshark.org/download.html and download the
 appropriate version of Wireshark for your _host_ operating system
-2.  Run the installer to install both Wireshark and the packet capture
+.  Run the installer to install both Wireshark and the packet capture
 driver (`winpcap` for Windows)
 
 == Learning Objectives
 
 By the end of this lesson, you will be able to:
 
-1.  Explain the differences between TCP and UDP
-2.  Use Wireshark to view and analyze TCP and UDP data streams
-3.  Use `netcat` to send messages on a network
+.  Explain the differences between TCP and UDP
+.  Use Wireshark to view and analyze TCP and UDP data streams
+.  Use `netcat` to send messages on a network
 
 == Steps
 
@@ -200,7 +200,7 @@ completely from your system. Answer "y" to confirm deletion.
 
 == Questions
 
-1. What are the IP addresses of Alice and Bob?
+. What are the IP addresses of Alice and Bob?
 
 [width=40%,options="header"]
 |==============================
@@ -213,46 +213,42 @@ completely from your system. Answer "y" to confirm deletion.
 === UDP short message
 
 [start=2]
-2. What are the source and destination ports of the UDP datagram?
-3. What are the source and destination IP addresses of the message?
-4. How many UDP packets did it take to send your short message (hint: only count packets
+. What are the source and destination ports of the UDP datagram?
+. What are the source and destination IP addresses of the message?
+. How many UDP packets did it take to send your short message (hint: only count packets
    captured that list UDP as the protocol)?
-5. How many total bytes (from all packets) were required to transmit this message (add up
+. How many total bytes (from all packets) were required to transmit this message (add up
    the "length" of all UDP packets)?
-6. How many bytes of data were sent (hint: click the packet in Wireshark and look at the
+. How many bytes of data were sent (hint: click the packet in Wireshark and look at the
    "Data" section).
 
 === TCP short message
 
 [start=7]
-1. What are the source and destination IP addresses of the message?
-2. What are the source and destination ports of the TCP datagram?
-3. How many TCP packets did it take to send your short message (hint: only count packets
+. What are the source and destination IP addresses of the message?
+. What are the source and destination ports of the TCP datagram?
+. How many TCP packets did it take to send your short message (hint: only count packets
    captured that list TCP as the protocol)?
-4. How many total bytes (from all packets) were required to transmit this message (add up
+. How many total bytes (from all packets) were required to transmit this message (add up
    the "length" of all TCP packets)?
-5. How many bytes of data were sent (hint: find the message in Wireshark and look at the
+. How many bytes of data were sent (hint: find the message in Wireshark and look at the
 "Data" section).
 
 === TCP & UDP long messages
 
 [start=12]
-1. The `netcat` program can be used to transfer the contents of files between
+. The `netcat` program can be used to transfer the contents of files between
    machines. You transferred a large file to the stdout (aka the terminal) on Alice's
    computer using the `netcat [ip] [port] < filename.txt` syntax on Bob. If you had typed
    `netcat -l [port] > filename.txt` on Alice, that output would have gone into a
    file. Would TCP or UDP be better used for a file transfer like this, and why?
-2. How many packets did UDP take to send the message? What about TCP? Can you explain why?
+. How many packets did UDP take to send the message? What about TCP? Can you explain why?
 
 === Critical thinking
 
 [start=14]
-1. What are two important differences between TCP and UDP when sending short messages?
-2. Why would someone choose to use TCP to send short messages (e.g. IRC for chat
+. What are two important differences between TCP and UDP when sending short messages?
+. Why would someone choose to use TCP to send short messages (e.g. IRC for chat
    or SMTP for short emails)?
-3. Name a service that uses UDP, and explain why.
-
-=== Brainstorming
-
-[start=17]
-1. Why don't you have to close netcat manually when you use TCP to send a long file?
+. Name a service that uses UDP, and explain why.
+. Why don't you have to close netcat manually when you use TCP to send a long file?
