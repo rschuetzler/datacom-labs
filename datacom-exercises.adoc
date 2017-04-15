@@ -47,7 +47,7 @@ the test in the later exercises.
 // as chapters when compiled all together.  Pretty awesome.
 :leveloffset: 1
 
-include::Intro - Vagrant-VirtualBox/Vagrant-VirtualBox Intro.adoc[]
+include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[]
 
 
 :leveloffset: 0
@@ -55,7 +55,7 @@ include::Intro - Vagrant-VirtualBox/Vagrant-VirtualBox Intro.adoc[]
 
 :leveloffset: 1
 
-include::DNS/DNS-setup.adoc[]
+include::applications-dns/DNS-setup.adoc[]
 
 :leveloffset: 0
 
@@ -63,7 +63,6 @@ include::DNS/DNS-setup.adoc[]
 
 :leveloffset: 1
 
-:imagesdir: TCPIP - Routing
-include::TCPIP - Routing/routing.adoc[]
+include::tcpip-routing/routing.adoc[]
 
 :leveloffset: 0
