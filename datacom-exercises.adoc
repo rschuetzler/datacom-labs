@@ -1,9 +1,10 @@
 = Data Communications Exercises
-Ryan Schuetzler <ryan@schuetzler.net>
+Ryan Schuetzler and Jim Marquardson
 v0.1, 2016-08-23
 :source-highlighter: pygments
 :toc:
 :doctype: book
+:chapter-label: Exercise
 :numbered:
 
 [preface]
@@ -11,7 +12,7 @@ v0.1, 2016-08-23
 
 This book is a work in progress.  The ultimate goal is to provide a set of
 computer exercises that will allow anyone who is interested to get hands-on
-experience with networking using modern technologies
+experience with networking using modern technologies.
 
 // = Required Equipment
 
@@ -41,10 +42,6 @@ general tools, like VirtualBox and WireShark, are introduced in the following
 chapters.  This way you can get acquainted with the software before putting to
 the test in the later exercises.
 --
-
-// Push titles down a level
-// This allows me to write each lab as a standalone document, but represent them
-// as chapters when compiled all together.  Pretty awesome.
 
 include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[leveloffset=+1]
 
