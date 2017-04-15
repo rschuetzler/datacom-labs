@@ -45,30 +45,22 @@ the test in the later exercises.
 // Push titles down a level
 // This allows me to write each lab as a standalone document, but represent them
 // as chapters when compiled all together.  Pretty awesome.
-:leveloffset: 1
 
-include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[]
+include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[leveloffset=+1]
 
-include::intro-wireshark/wireshark-intro.adoc[]
+include::intro-wireshark/wireshark-intro.adoc[leveloffset=+1]
 
-:leveloffset: 0
 = Application Layer Protocols
 
-:leveloffset: 1
-
-include::applications-dns/DNS-setup.adoc[]
-
-:leveloffset: 0
+include::applications-dns/DNS-setup.adoc[leveloffset=+1]
 
 = TCP/IP Layers
 
-:leveloffset: 1
+include::tcpip-tcp-udp/tcp-udp.adoc[leveloffset=+1]
 
-include::tcpip-tcp-udp/tcp-udp.adoc[]
-include::tcpip-routing/routing.adoc[]
+include::tcpip-routing/routing.adoc[leveloffset=+1]
 
-:leveloffset: 0
 = Security
 
-include::security-email-encryption/email-encryption.adoc[]
+include::security-email-encryption/email-encryption.adoc[leveloffset=+1]
 
