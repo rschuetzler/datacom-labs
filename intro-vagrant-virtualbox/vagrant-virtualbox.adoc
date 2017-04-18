@@ -1,5 +1,5 @@
 = Vagrant Setup
-:imagesdir: figs
+ifndef::bound[:imagesdir: figs]
 
 This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH. You will use these tools throughout the course to learn networking and security concepts. 
 
