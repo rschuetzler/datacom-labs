@@ -27,10 +27,10 @@ autoload :FileUtils, 'fileutils'
 
 desc 'Build the HTML5 format'
 task :html do
-  Dir['*/figs/*.png'].each do |img_path|
+  ((FileList.new '**/*.{jpg,png,svg}').exclude %(#{BUILD_DIR}/**/*)).each do |img_path|
     target_dir = File.join BUILD_DIR, (File.dirname img_path)
-    ::FileUtils.mkdir_p target_dir
-    ::FileUtils.cp img_path, target_dir
+    FileUtils.mkdir_p target_dir
+    FileUtils.cp img_path, target_dir
   end
   require 'asciidoctor'
   Asciidoctor.convert_file MASTER_FILENAME,
@@ -50,9 +50,9 @@ task :pdf do
 end
 
 desc 'Build all formats'
-task default: [:html, :pdf]
+task default: [:clean, :html, :pdf]
 
 desc 'Clean the build directory'
 task :clean do
-  FileUtils.remove_entry_secure BUILD_DIR
+  FileUtils.remove_entry_secure BUILD_DIR if File.exist? BUILD_DIR
 end
