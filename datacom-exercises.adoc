@@ -1,11 +1,12 @@
 = Data Communications Exercises
-Ryan Schuetzler and Jim Marquardson
+Ryan Schuetzler; Jim Marquardson
 v0.1, 2016-08-23
+:doctype: book
 :source-highlighter: pygments
 :toc:
-:doctype: book
 :chapter-label: Exercise
-:numbered:
+:sectnums:
+:bound:
 
 [preface]
 = About This Book
@@ -35,6 +36,8 @@ experience with networking using modern technologies.
 /////////////////////////////////////////////////////////////////////////////////////
 
 = Introduction to Software Tools
+
+[partintro]
 --
 Throughout these exercises you will be using several different software tools to
 do your networking.  Several of these will be used across multiple labs.  These
@@ -43,21 +46,27 @@ chapters.  This way you can get acquainted with the software before putting to
 the test in the later exercises.
 --
 
+:imagesdir: intro-vagrant-virtualbox/figs
 include::intro-vagrant-virtualbox/vagrant-virtualbox.adoc[leveloffset=+1]
 
+:imagesdir: intro-wireshark/figs
 include::intro-wireshark/wireshark-intro.adoc[leveloffset=+1]
 
 = Application Layer Protocols
 
+:imagesdir: applications-dns/figs
 include::applications-dns/DNS-setup.adoc[leveloffset=+1]
 
 = TCP/IP Layers
 
+:imagesdir: tcpip-tcp-udp/figs
 include::tcpip-tcp-udp/tcp-udp.adoc[leveloffset=+1]
 
+:imagesdir: tcpip-routing/figs
 include::tcpip-routing/routing.adoc[leveloffset=+1]
 
 = Security
 
+:imagesdir: security-email-encryption/figs
 include::security-email-encryption/email-encryption.adoc[leveloffset=+1]
 

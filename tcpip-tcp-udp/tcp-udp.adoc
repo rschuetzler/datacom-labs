@@ -1,5 +1,5 @@
 = Lab Exercise: TCP and UDP
-:imagesdir: images
+ifndef::bound[:imagesdir: figs]
 
 The two most common transport layer protocols are TCP and UDP.  While both protocols have a few things in common, like ports, they are very different in the way that they operate.  In this exercise you will look at the differences in the way the two protocols operate as they send both short and long messages to their destination.
 

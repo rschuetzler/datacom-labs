@@ -1,7 +1,9 @@
 = Introduction to Wireshark
+ifndef::bound[]
 Ryan Schuetzler <rschuetzler@unomaha.edu>
 v1.0, 2017-04-10
 :imagesdir: figs
+endif::[]
 
 Wireshark is a free and open source tool for capturing and analyzing network traffic.
 You will use Wireshark throughout the labs to view the traffic going around your networks.
