@@ -1,3 +1,6 @@
+/.bundle/
+/build/
+/Gemfile.lock
 *.pdf
 *.docx
 .vagrant

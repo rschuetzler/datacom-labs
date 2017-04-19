@@ -1,5 +1,5 @@
 = Routing
-:imagesdir: figs
+ifndef::bound[:imagesdir: figs]
 
 In the days of the first computer networks, communication within a
 single network provided tremendous value. Networked computers could
