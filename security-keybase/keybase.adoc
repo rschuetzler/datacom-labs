@@ -1,5 +1,5 @@
 = Keybase
-:imagesdir: figs
+ifndef::bound[:imagesdir: figs]
 
 Keybase (https://keybase.io) is a website and service dedicated to making public key encryption a little bit easier.
 In this exercise, you will sign up for and verify an account with Keybase.
@@ -113,6 +113,29 @@ NOTE: Keep in mind you will only be able to decrypt a message if you are the int
 
 Another valuable component of asymmetric encryption is the ability to digitally sign messages to verify authorship.
 The recommended practice is to https://crypto.stackexchange.com/questions/5458/should-we-sign-then-encrypt-or-encrypt-then-sign[sign the message, then encrypt the signed message].
-Signing messages in Keybase requires a separate command.
+Fortunately, Keybase makes it easy to combine encrypting and signing into a single command using PGP.
 
-//TODO Add signing messages
+* Type out the message you would like to sign and encrypt and put it in a text file. We'll use `plain.txt` as our example.
+* Type the following command to encrypt a message for me and sign it:
+
+ keybase pgp encrypt rschuetzler -s -i plain.txt -o plain.txt.asc
+
+NOTE: The new `-s` flag tells Keybase to sign the message.
+
+* This command makes a new file, `plain.txt.asc`, containing the signed and encrypted content. You can now send the contents of the file, or attach it to an email message.
+
+=== Verifying signatures
+
+Signatures of course provide no value unless they are used to verify the message.
+The benefit of verifying a signature is that you can verify (a) who sent the message and (b) that the message contents have not been modified since it was signed.
+To verify a PGP message contained in a file is a single command in Keybase:
+
+ keybase pgp verify -i plain.txt.asc
+
+Verification of a signed document uses the corresponding public key to confirm that the appropriate private key was used to generate the signature.
+If either the contents or the signature has been modified, the verification will fail.
+
+== Questions
+
+. Now that you have used asymmetric (public key) encryption, compare it to symmetric encryption. What are the advantages of using asymmetric encryption?
+. What would be an application where you would want to digitally sign a document without the need for encryption?
