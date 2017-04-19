@@ -67,6 +67,9 @@ include::tcpip-routing/routing.adoc[leveloffset=+1]
 
 = Security
 
+:imagesdir: security-keybase/figs
+include::security-keybase/keybase.adoc[leveloffset=+1]
+
 :imagesdir: security-email-encryption/figs
 include::security-email-encryption/email-encryption.adoc[leveloffset=+1]
 

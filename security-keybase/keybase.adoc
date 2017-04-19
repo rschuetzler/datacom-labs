@@ -1,0 +1,141 @@
+= Keybase
+ifndef::bound[:imagesdir: figs]
+
+Keybase (https://keybase.io) is a website and service dedicated to making public key encryption a little bit easier.
+In this exercise, you will sign up for and verify an account with Keybase.
+Then you will encrypt and send a message to someone else.
+
+== Learning Objectives
+
+. Use public and private keys to send and receive encrypted messages
+. Publish and verify your public key using social media
+. Explain the differences between and uses of encryption and digital signatures
+
+== Keybase Overview
+
+One issue with public keys is that anybody can create them with any name or identity.
+If I wanted, I could create a public key with the name "William Henry Gates III", and there is nothing anyone can do to stop me.
+Of course, doing so does not make me Bill Gates the billionaire founder of Microsoft and noted philanthropist.
+So how can we add security to public keys to verify that the person holding the private key is who they says they are?
+A few approaches are used, depending on the context.
+
+One approach to verifying the identity of a private key holder is called the Web of Trust.
+The idea behind the web of trust in PGP is that users can personally verify the key holder.
+Through PGP, the users can indicate that they have verified the keys of others by signing the verified public key with their own private key.
+This digital signature serves as evidence of validity.
+If someone you trust has signed the public key of an unknown individual, you can have more trust that the individual's private key is valid.
+You can probably identify a few issues with the Web of Trust just from reading this description.
+It is not a perfect scheme, but none is.
+However, the issue Keybase corrects is the trouble with gaining trust.
+For new users, it can take a long time to gather signatures on their key, as this often has to be done in person to reliably "prove" identity.
+
+Another approach to verifying identity is through a certificate authority.
+Just as you can do for your website to purchase an SSL/TLS certificate to verify the identity of your website, you can also purchase a personal certificate to verify your own identity.
+For $10-60 per year, you can purchase a personal certificate.
+Like the Web of Trust, however, purchasing a certificate comes with its own issues.
+One issue is that they cost money.
+Another is that they often do no more than attest to the ownership of an email address.
+For example, to obtain the lowest level of personal certificate from GlobalSign, one must only verify that they can respond to emails from an address.
+This provides little in terms of confidence in the identify of the person you are sending to.
+
+Keybase is another attempt to solve the problem of public key verification.
+Its approach is to use popular social media accounts to verify identity.
+Obviously, this makes the most sense if you are using your real name, but can also be done if you have a common pseudonymous identity across multiple sites.
+
+From the Keybase application, you can verify your identity using accounts from a list of sites, including Twitter, Facebook, Reddit, and GitHub.
+You verify this by posting a verification message from your social media account so that Keybase can see that you have done it.
+Later, when users want to verify the identity of the public key you have posted to Keybase, they can use your social media posts to do so.
+While not a perfect solution, this method at least increases the difficulty of someone falsifying your identity, because they would have to construct believable copies of your social media profiles, in addition to the public key.
+It works even better for public figures.
+I could easily create a public/private keypair pretending I was Barack Obama, but I would have a hard time verifying that with a post to https://twitter.com/BarackObama[his Twitter profile].
+
+== Steps
+
+=== Sign up for Keybase
+
+// Description of Keybase goes here. Or a longer one above.
+// Talk about how it uses social media to verify public keys
+// Weakness of public key being that anyone can create a public key to pretend to be someone
+
+* Go to https://keybase.io/ and click the "Join" button in the top right.
+* Sign up using your email address and a *_good_* passphrase.
+* Verify yourself with your email address.
+* Go to https://keybase.io/download and install the client software for your operating system.
+* Open the client and log in with your username and passphrase.
+** Set a public name for your device
+** Make sure you record the paper key given. It will be needed if you want to add more devices to your account in the future.
+
+If you have successfully completed all of these steps, you should be presented with a screen that looks something like the image below.
+You can edit the profile to include your full name, city, and a short bio, but none of that is required.
+
+.Keybase starting page
+image::keybase-start.png[]
+
+=== Prove Yourself
+
+* Complete one of the verifications by clicking one of the "Prove your ..." links in the Keybase client. Follow the instructions to verify your identity.
+
+=== Send an encrypted message
+
+When you installed the Keybase desktop application, it also installed a command line client that can be used to encrypt, decrypt, sign, and verify messages.
+Your instructor may have provided a Keybase identity and instructions to send the encrypted message.
+If you are doing this on your own, you can send me an encrypted message instead.
+My Keybase ID is https://keybase.io/rschuetzler[rschuetzler].
+
+* To create an encrypted message, you need to open the command-line editor.
+** On Windows this can be done by going to the start menu and searching for the "Keybase shell"
+//TODO: Figure out how to do this on Mac/Linux. It might just be added to the PATH for everything
+* Type `keybase login` to make sure that you are logged in
+* To encrypt a message, type the following command: `keybase encrypt <username> -m "Message"`. If you wanted to send me a message that said "I got the keybase lab working!" you could type the following command:
+
+ keybase encrypt rschuetzler -m "I got the keybase lab working!"
+
+* This command outputs a long string of gobbledygook that is, in fact, your encrypted message.
+* To send it, you need to copy it from the command line and paste it into an email.
+* If you want to encrypt a longer message, it may be easier to put it in a file first, then encrypt the contents of the file and place that in a new file. You would do that with the following command:
+
+ keybase encrypt rschuetzler -i plaintextfile.txt -o encryptedfile.txt
+
+** You could then copy the contents of `encryptedfile.txt` into an email, or just send the encrypted file itself.
+
+=== Decrypting a message
+
+* To decrypt a message in Keybase, you first have to put it in a file.
+** Create a file on your Desktop called "encrypted.txt"
+** Paste the contents of whatever encrypted message you are trying to read.
+* To decrypt it, type the following command:
+
+ keybase decrypt -i /file/path/encrypted.txt
+
+NOTE: Keep in mind you will only be able to decrypt a message if you are the intended recipient. PGP messages (like this one) can have multiple recipients, and by default Keybase includes you, the sender, as one so that you can decrypt the messages you send.
+
+=== Signing messages
+
+Another valuable component of asymmetric encryption is the ability to digitally sign messages to verify authorship.
+The recommended practice is to https://crypto.stackexchange.com/questions/5458/should-we-sign-then-encrypt-or-encrypt-then-sign[sign the message, then encrypt the signed message].
+Fortunately, Keybase makes it easy to combine encrypting and signing into a single command using PGP.
+
+* Type out the message you would like to sign and encrypt and put it in a text file. We'll use `plain.txt` as our example.
+* Type the following command to encrypt a message for me and sign it:
+
+ keybase pgp encrypt rschuetzler -s -i plain.txt -o plain.txt.asc
+
+NOTE: The new `-s` flag tells Keybase to sign the message.
+
+* This command makes a new file, `plain.txt.asc`, containing the signed and encrypted content. You can now send the contents of the file, or attach it to an email message.
+
+=== Verifying signatures
+
+Signatures of course provide no value unless they are used to verify the message.
+The benefit of verifying a signature is that you can verify (a) who sent the message and (b) that the message contents have not been modified since it was signed.
+To verify a PGP message contained in a file is a single command in Keybase:
+
+ keybase pgp verify -i plain.txt.asc
+
+Verification of a signed document uses the corresponding public key to confirm that the appropriate private key was used to generate the signature.
+If either the contents or the signature has been modified, the verification will fail.
+
+== Questions
+
+. Now that you have used asymmetric (public key) encryption, compare it to symmetric encryption. What are the advantages of using asymmetric encryption?
+. What would be an application where you would want to digitally sign a document without the need for encryption?
