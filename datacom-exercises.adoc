@@ -59,5 +59,7 @@ include::tcpip-routing/routing.adoc[leveloffset=+1]
 
 = Security
 
+include::security-keybase/keybase.adoc[leveloffset=+1]
+
 include::security-email-encryption/email-encryption.adoc[leveloffset=+1]
 
