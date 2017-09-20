@@ -56,32 +56,16 @@ Older versions of Windows required users to run commands at a "command prompt." 
 ** "ping" is a network utility that attempts to connect to a remote machine.
 ** When you run "ping" without any parameters, ping will only output the usage instructions.
 * Type "winword" [enter]
-** You probably have Microsoft Word on your computer. The Word executable is
-   called "winword.exe." However, running the "winword" command did not start
-   Microsoft Word. The reason that "ping" worked but "winword" did not is
-   because "ping.exe" is in a folder specified in your path environment
-   variable.
-** The path environment variable tells Windows what directories to look in for
-   commands, such as executables. Ping.exe is in
-   c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
+** You probably have Microsoft Word on your computer. The Word executable is called "winword.exe." However, running the "winword" command did not start Microsoft Word. The reason that "ping" worked but "winword" did not is because "ping.exe" is in a folder specified in your path environment variable.
+** The path environment variable tells Windows what directories to look in for commands, such as executables. Ping.exe is in c:\\windows\\system32. Winword.exe is in one of your Program Files folders.
     
-Use the following steps to view your PATH variable and **add** Git's executables
-to your path.  Note, you are adding Git to the PATH, not creating a new PATH
-variable or replacing the existing one.
+Use the following steps to view your PATH variable and **add** Git's executables to your path.  Note, you are adding Git to the PATH, not creating a new PATH variable or replacing the existing one.
 
 * Right-click on "Computer" and choose "Properties."
 * Click "Advanced system settings"
 * Click the "Environment Variables" button 
-* **Edit** the PATH variable (if it exists) for your user account to add
-  ";C:\\Program Files (x86)\\Git\\usr\\bin" (for 32-bit Git) or ";C:\\Program
-  Files\\Git\\usr\\bin" (for 64-bit Git) at the end. The semi-colon separates
-  entries, so make sure to add the semi-colon if your PATH variable was not
-  empty. Make sure you don't delete everything that was there before.  If there
-  is no existing PATH variable, create one.
-* Click OK. If any command prompts are open, close them and re-open them. The
-  PATH variable is read when the command prompt is first opened; it does not
-  detect if any updates are made while it is running.  You may need to log out
-  and log back in to ensure that environment variables are changed.
+* **Edit** the PATH variable (if it exists) for your user account to add ";C:\\Program Files (x86)\\Git\\usr\\bin" (for 32-bit Git) or ";C:\\Program Files\\Git\\usr\\bin" (for 64-bit Git) at the end. The semi-colon separates entries, so make sure to add the semi-colon if your PATH variable was not empty. Make sure you don't delete everything that was there before.  If there is no existing PATH variable, create one.
+* Click OK. If any command prompts are open, close them and re-open them. The PATH variable is read when the command prompt is first opened; it does not detect if any updates are made while it is running.  You may need to log out and log back in to ensure that environment variables are changed.
 
 === Step 4: Download and install Vagrant
 
@@ -94,22 +78,23 @@ Vagrant is a software package that makes setting up new virtual machines extreme
 
 In this section, you will use Vagrant to create and start an Ubuntu Linux virtual machine. If you have not yet rebooted after installing Virtual Box and Vagrant, please do so before starting this section. Ubuntu is one of the most popular versions of Linux, so it is often easy to find information and support for it online.
 
-* Create a folder to store your Vagrant files (e.g. C:\Users\John\Documents\NetworkingClass\Vagrant). 
+* Create a folder to store your Vagrant files (e.g. C:\Users\John\datacom\Vagrant). 
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
 ** Click Start > cmd.exe [enter]
-** `> cd Documents\NetworkingClass\Vagrant`
+** `> cd datacom\Vagrant`
 *** Or you can open the directory in Windows Explorer: hold down the Shift key
     while right-clicking in an empty part of the folder, then click "Open
     command window here"
+*** Or you can open the directory in Windows Explorer, click in the address bar at the top and type `cmd`, then press return. This will open the command prompt window.
 * Create a new folder called "Exercise1"
 ** `> md Exercise1` [enter]
 * Navigate to the Exercise1 folder
 ** `> cd Exercise1` [enter]
 * Create a new virtual machine with the following command:
-** `> vagrant init ubuntu/trusty64` [enter]
+** `> vagrant init ubuntu/xenial64` [enter]
 * Start the virtual machine with the following command:
 ** `> vagrant up` [enter]
-** Note that "ubuntu/trusty64" refers to a Vagrant box (i.e. template
+** Note that "ubuntu/xenial64" refers to a Vagrant box (i.e. template
    computer). If you have not already used this box, the box will be downloaded
    automatically. Depending on your Internet connection speed, this download may
    take some time.
