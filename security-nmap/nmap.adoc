@@ -1,0 +1,57 @@
+= Port Scanning with Nmap
+
+== Learning Objectives
+
+By the end of these you will have experience with the following technologies and concepts:
+
+. Network scanning with Zenmap (an `nmap` GUI)
+. Understand what information can be gained with freely available port scanning tools
+. Understand service discovery and "security through obscurity"
+
+== Installation
+
+You can download Zenmap from https://nmap.org/zenmap. This will include an installation of nmap, the command line application that does the actual network scanning. If you're on a lab computer, Zenmap is already installed. Be careful to only run Nmap (or Zenmap) port scans against services and sites you are authorized to scan. I'll give you a few to play around with in this class, but running port scans against unauthorized sites is almost always a violation of the terms of service of those sites, and can get you blocked.
+
+== Nmap Network Scanning ==
+=== First Scan ===
+
+The folks an `nmap.org` have configured a great first site to scan, at `scanme.nmap.org`. 
+
+. Launch Zenmap.
+. In the target, enter `scanme.nmap.org`.
+  - The command text box will show "nmap -T4 -A -v scanme.nmap.org"
+. In profile, keep the "Intense Scan" option.
+. Click Scan.
+  - The scan can take a minute to run.
+. Look at the output in the Nmap Output tab.
+  - Examine the different tasks that `nmap` completed.
+. Examine the Ports/Hosts tab.
+. Examine the topology tab.
+. Examine the Host Details tab.
+. Examine the Scans tab.
+
+=== Other Scans
+For this class, I've set up a few other hosts with a variety of services running. Run scans against these just like you did with `scanme.nmap.org`. Review the information in the tabs and record what you learn. What services are running, and what ports are they using? Where are the servers relative to one another?
+
+- `csm1.schuetzler.net` (104.131.151.169)
+- `csm2.schuetzler.net` (192.241.226.157)
+
+=== Service Discovery
+
+Nmap has the ability to perform service discovery. This is useful because sometimes people attempt security through obscurity by changing the port a service like SSH uses.
+
+- Set up a port scan on `csm3.schuetzler.net` (107.170.241.80)
+- Select the option to run an "Intense scan, all TCP ports"
+- Change the port scan options to include a `-sV` to instruct nmap to do service discovery
+
+What services are running, and what ports are they using?
+
+=== Think about it
+
+What have you learned about network security from running Nmap? How does this affect your view of securing network resources? What does this say about the role of the firewall.
+
+=== Learning More
+
+Now that you've got a feel for what nmap can do, dig around in the documentation at https://nmap.org/book/man.html to see what else you can do with it. What can you learn about network-connected resources? Feel free to play around with and do anything you want to the 3 csm#.schuetzler.net servers.
+
+Now that you've done some scanning, I'll tell you that `csm2.schuetzler.net` is running a special network defense application called Artillery (https://github.com/BinaryDefense/artillery). Search for more information about what Artillery can do. Their global ban list is available at https://www.binarydefense.com/banlist.txt.
