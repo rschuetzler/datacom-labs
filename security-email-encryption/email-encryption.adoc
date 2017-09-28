@@ -1,11 +1,133 @@
 = Email Encryption
+ifndef::bound[:imagesdir: figs]
+:icons: font
 
 For this lab, you will use public key encryption to send and receive encrypted emails.
-You will receive full credit after you send me your public key, receive and decrypt my reply, and respond.
-To give me time to respond, your first message to me must be sent by 8am on the day the assignment is due.
-I will reply, and you must respond to my reply by the due date and time.
+To send and receive encrypted emails requires that both you and your communication partner have created a public and private _key pair_ and have shared your *public* keys with each other.
+The private key in a key pair should always be kept private (hence the name).
+If you do not have another communication partner, or are completing this for one of my courses, you can send me an encrypted email at ryan@schuetzler.net.
+You can find my public key next to the little key icon at https://keybase.io/rschuetzler.
 
-== Installing and configuring GPG and Thunderbird
+== Learning Objectives
+
+By the end of this lesson you will have a better understanding of the following ideas:
+
+- How to send and receive encrypted email
+- How a public and private key pair can be used
+- How to digitally sign an email message
+- What encryption and digital signatures do
+
+There are two equally valid options for completing this lab.
+The first option uses your web browser and a browser extension called https://www.mailvelope.com/en/[Mailvelope].
+If you are used to using webmail like Gmail to do your emailing, you will probably want Option 1.
+The second option uses an open source mail client (https://www.mozilla.org/en-US/thunderbird/[Thunderbird]).
+If you are already using Thunderbird, or used to using something like Outlook, you may be more comfortable with Option 2.
+
+== Option 1: Mailvelope
+
+https://www.mailvelope.com/en/[Mailvelope] is a browser extension for Chrome and Firefox that allows you to use PGP keys in popular webmail clients like Gmail.
+It integrates directly into the user interface of your favorite mail client so you can send and read encrypted emails.
+
+=== Setting up Mailvelope
+. Make sure you are using either the Chrome or Firefox web browser. Mailvelope only works with those two. I use Chrome, so the tutorial steps here will be for that. Steps in Firefox should be pretty similar.
+. Go to https://www.mailvelope.com/en/ and click the link on the page to install the extension for your browser.
+. Click the extension's icon in your browser, then click "Options" at the bottom of the popup window. This should take you to the "Setup" tab of the Mailvelope extension.
+
+.Mailvelope extension options in Chrome
+[align=center]
+image::mailvelope-options.png[Mailvelope Window]
+
+. Click "Generate key" to create your first key pair.
+.. Fill out all fields.
+.. Make sure you select a unique password, as this will be used to make sure your private key stays private.
+.. Optional: You may select the box to "Upload public key to Mailvelope Key Server" if you choose.
+
+NOTE: A key server is used to distribute and share public keys.
+Putting your public key on a key server just makes it easier for people to find your public key and encrypt messages to you.
+
+
+You now have a working key pair that can be used to receive encrypted email, or digitally sign your outgoing messages.
+
+=== Sharing public keys
+
+In order to send an encrypted message to someone with public key encryption like what we are using here, you need your recipient's public key.
+For others to send you encrypted message, they will need your public key.
+One way to share public keys is to place them on the key server as we talked about in the step above.
+You could also post the public key on your website to provide some proof that the key belongs to you.
+Another option is just to send them in an email.
+
+==== Exporting your key
+
+WARNING: Remember to *_never_* share your private key.
+Be careful when you are exporting your keys that you only export your public key.
+Don't make the mistake https://nakedsecurity.sophos.com/2017/09/23/adobe-security-team-posts-public-key-together-with-private-key/[Adobe made].
+
+. Go to the "Display Keys" tab and click the key you want to export.
+. Click the "Export" tab of the modal dialog.
+. Before you export, make sure you only select "Public"!
+. Click "Save" to download your public key.
+. Share the public key with whoever you are wanting to send messages to you. You can share the key through email, a flash drive, or any other way that you would share a file. You could even post it on your website so the whole world can know the public key belongs to you.
+
+==== Importing another key
+
+To send encrypted messages, you need to have the recipient's public key.
+Once you have a text-friendly form of their public key, you can import it into Mailvelope.
+You can do that either as a file or by copying the text.
+My public key is available at https://keybase.io/rschuetzler/pgp_keys.asc?fingerprint=565df5e50b4ca56c8c08aadfd149ca54b652a40f
+
+. Go to the "Import Keys" tab of Mailvelope.
+. Import the public key
+.. If the user has shared their key with you as a text file (usually ending with a `.asc` file extension), click "Select a key text file to import", find the key file, and import it.
+.. If you have found the key somewhere else (like mine linked above) and just want to copy the raw text in, you can use the "Import key as text" field to paste the key.
+.. If the key is on a key server you can use the box for Key search to search several different key servers.
+
+WARNING: Be careful with trusting unknown public keys, as anyone can create a public key with any name or email address.
+A key server does not perform any identity proofing of the keys, so you could create a key claiming to be Ben Affleck just as easily as you could for your own name.
+Just because you find a public key with someones name on a key server does not mean the key actually belongs to that person.
+
+==== Sending encrypted and signed mail
+
+Now that you have your own key pair and the public key of your desired recipient, you are ready to send an encrypted message.
+I'll be using Gmail as an example here, but Mailvelope works for others, including Outlook.com and Yahoo.
+
+. Open your email inbox. If it was already open, make sure you refresh the page so Mailvelope's integration can load.
+. Click the button to compose a new message.
+. You will see a small compose button pop up in your new mail window
+
+.Mailvelope compose button
+[align=center]
+image::mailvelope-compose.png[Compose button]
+
+. Select the recipient of your message (e.g., ryan@schuetzler.net)
+.. If your intended recipient is not showing up, make sure you have imported their public key.
+NOTE: You must select all recipients in the Mailvelope Compose window or they will not be able to read the encrypted message.
+If you select other recipients in the regular email window, they will receive an encrypted message that they cannot decrypt.
+. Click the "Options" button at the bottom of the window, and check the box to "Sign message with key".
+. Click the "Encrypt" button.
+. Enter the password for your private key.
+
+.Mailvelope compose window
+[align=center]
+image::mailvelope-window.png[Mailvelope's compose window]
+
+You should see a whole bunch of gobbledygook in a new mail window starting with `-----BEGIN PGP MESSAGE-----`. This is your PGP encrypted message. Select a recipient, give the mail a subject line, send it.
+
+==== Reading encrypted mail
+
+When you receive an encrypted message, it is a simple process to read it.
+
+. Open the email as usual in your browser
+. Mailvelope will detect that it is an encrypted message and display a pop-over allowing you to click to decrypt the message.
+.. You may need to enter the password for your private key again. That is because the private key is used to decrypt a message destined for you.
+
+.Mailvelope decrypting a message
+[align=center]
+image::mailvelope-decrypt.png[Decrypt the message]
+
+. Read the encrypted message in your browser window
+. In the top right you can see if the message has been digitally signed. You can also click "Signed digitally" to view the key that was used to sign the message.
+
+== Option 2: Installing and configuring GPG and Thunderbird
 There are some great free tools for enabling you to use PGP (Pretty Good Privacy) or GPG (Gnu Privacy Guard, a free, PGP-compatible encryption tool) to encrypt and sign all of your emails.
 Here we'll use Thunderbird, an open source email client from Mozilla, the same team that makes Firefox.
 Enigmail is a popular security plugin for Thunderbird that handles the GPG encryption.
