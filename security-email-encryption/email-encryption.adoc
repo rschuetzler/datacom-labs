@@ -107,8 +107,11 @@ image::mailvelope-compose.png[Compose button]
 [start=15]
 . Select the recipient of your message (e.g., ryan@schuetzler.net)
 .. If your intended recipient is not showing up, make sure you have imported their public key.
+
 NOTE: You must select all recipients in the Mailvelope Compose window or they will not be able to read the encrypted message.
 If you select other recipients in the regular email window, they will receive an encrypted message that they cannot decrypt.
+
+[start=16]
 . Click the "Options" button at the bottom of the window, and check the box to "Sign message with key".
 . Click the "Encrypt" button.
 . Enter the password for your private key.
