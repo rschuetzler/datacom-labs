@@ -65,7 +65,7 @@ line.
 * To install `tshark` on alice, you'll need to run the command on the following line.  You can examine the `bootstrap.sh` file to see what it does.  Simply put, it fetches the latest version of the package repository for Ubuntu and installs `tshark`.  Then it changes permissions on one file which will allow you to run `tshark` without being an administrator or `sudo`.
 ** When presented with the dialog asking 'Should non-superusers be able to capture packets?': Select "<Yes>"
 
- $ sudo /vagrant/bootstrap.sh
+ $ sudo bash /vagrant/bootstrap.sh
 
 * Before executing any commands at this stage, review the entire
 section. Once you start `tshark`, you'll have a limited amount of time
