@@ -1,0 +1,61 @@
+= Intro to Python
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1
+:source-highlighter: pygments
+:pygments-style: friendly
+
+In this lab, we'll get familiar with Python syntax. In other labs we'll be using Python to do some fancy networking work, and I want you to be able to be able to understand the basics of what's going on in the programs we're using. These tutorials are not meant to turn you into an expert programmer, but if you're interested in that side of things, this can be a good starting point.
+
+Python is an excellent programming language that is https://stackoverflow.blog/2017/09/06/incredible-growth-python/[growing fast]. I personally like Python because of the easy-to-understand syntax, and the fact that it requires you to properly indent your code. It can be used to create simple scripts to do https://automatetheboringstuff.com/[just about anything], including https://automatetheboringstuff.com/chapter11/[web scraping], https://automatetheboringstuff.com/chapter12/[working with Excel files], or https://automatetheboringstuff.com/chapter16/[sending email and text messages]. It can be used to create full websites with popular frameworks like https://www.djangoproject.com/[Django] and http://flask.pocoo.org/[Flask], and it has become the language of choice for data science. It's been called "the second best programming language for everything," which is a pretty great place to be, because most of the time when you're doing programming you need to do more than one thing.
+
+== Learning Objectives
+- Grasp the basics of Python syntax
+- Learn to use a text editor to edit source code files
+- Be able to create and run a python script in a VM
+
+== Dive in
+
+=== Text editors
+
+Before we dive into any programming at all, I want you to get the right tools for the job. If you were going to get into woodworking, you wouldn't do it without at least a good saw, and probably a screwdriver and hammer. If you're going to start programming, you don't want to start doing it with Notepad. You could make it work, but better tools provide support that makes the job easier.
+
+There are hundreds of programs you can use to edit code. Some of them are geared specifically toward a single language, like PyCharm for Python, or Netbeans for Java. These targeted tools are called Integrated Development Environments, or IDEs. They typically provide very sophisticated tools for writing very complex applications. We won't be writing anything very big, so an IDE is probably overkill.
+
+The other major type of program used for editing code is just a text editor. Notepad for Windows or TextEdit for Mac are the defaults for those operating systems. They work fine for editing basic text files, but aren't very helpful when editing code. More specialized tools provide support for features like "syntax highlighting", which colors words in the file differently to highlight their function. For example, here is a snippet of code without any highlighting:
+
+.nohighlights.py
+----
+x = 7
+if x > 5:
+    print("X is big")
+else:
+    print("X is small")
+----
+
+And here is the same code with syntax highlighting turned on:
+
+.highlights.py
+[source,python]
+----
+x = 7
+if x > 5:
+    print("X is big")
+else:
+    print("X is small")
+----
+
+Notice that the text is exactly the same, but the colors have changed. Numbers are one color, and python keywords `if`, `print`, and `else` are a different color. This can help understand what's going on in the code, and can help you recognize if you've made a mistake while typing something; `prnit` would not be highlighted in green.
+
+Like I mentioned, there are hundreds\--if not thousands\--of text editors you can use to edit your code. If you already have a favorite, go ahead and keep using it. My personal favorite is Emacs, but I wouldn't recommend it to someone just getting into programming. If you don't already have an editor, we'll walk through installing and using Visual Studio Code (VS Code). VS Code is a cross-platform code editor created by Microsoft, and it's both free and open source. All of this means that you can use it on your Mac, on your PC, and on your Linux computer for free.
+
+=== Installing VS Code
+
+- Go to https://code.visualstudio.com/Download and download the appropriate version of VS Code for your operating system.
+- When running the installer (at least on Windows), you'll get the option to `Add "Open with Code" action to Windows Explorer file context menu`. I recommend choosing that option. It makes it possible to right-click a file and open it right in VS Code.
+
+
+.hello.py
+[source,python]
+----
+print("Hello World")
+----
