@@ -51,8 +51,10 @@ Like I mentioned, there are hundreds\--if not thousands\--of text editors you ca
 === Installing VS Code
 
 - Go to https://code.visualstudio.com/Download and download the appropriate version of VS Code for your operating system.
-- When running the installer (at least on Windows), you'll get the option to `Add "Open with Code" action to Windows Explorer file context menu`. I recommend choosing that option. It makes it possible to right-click a file and open it right in VS Code.
 
+TIP: When running the installer (at least on Windows), you'll get the option to `Add "Open with Code" action to Windows Explorer file context menu`, or something along those lines. I recommend choosing that option. It makes it possible to right-click a file and open it right in VS Code.
+
+=== Working with Python
 
 .hello.py
 [source,python]
