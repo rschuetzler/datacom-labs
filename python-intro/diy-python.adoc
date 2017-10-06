@@ -74,6 +74,11 @@ Now you've got VS Code all set up and ready to roll. Kick the tires a little bit
 
 === Working with Python
 
+==== REPL
+- Create Python-friendly Vagrantfile (python3 as default)
+
+==== Files
+
 .hello.py
 [source,python]
 ----
