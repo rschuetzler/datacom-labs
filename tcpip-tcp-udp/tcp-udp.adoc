@@ -1,12 +1,14 @@
 = Lab Exercise: TCP and UDP
 ifndef::bound[:imagesdir: figs]
+:icons: font
 
-The two most common transport layer protocols are TCP and UDP.  While both protocols have a few things in common, like ports, they are very different in the way that they operate.  In this exercise you will look at the differences in the way the two protocols operate as they send both short and long messages to their destination.
+The two most common transport layer protocols are TCP and UDP.
+While both protocols have a few things in common, like ports, they are very different in the way that they operate.
+In this exercise you will look at the differences in the way the two protocols operate as they send both short and long messages to their destination.
 
 == Prerequisites
 
-Before starting this lesson, you should have a basic understanding of
-the following terms:
+Before starting this lesson, you should have a basic understanding of the following terms:
 
 * TCP
 * UDP
@@ -14,18 +16,16 @@ the following terms:
 
 === Install Wireshark
 
-.  Go to https://www.wireshark.org/download.html and download the
-appropriate version of Wireshark for your _host_ operating system
-.  Run the installer to install both Wireshark and the packet capture
-driver (`winpcap` for Windows)
+.  Go to https://www.wireshark.org/download.html and download the appropriate version of Wireshark for your _host_ operating system
+.  Run the installer to install both Wireshark and the packet capture driver (`winpcap` for Windows)
 
 == Learning Objectives
 
 By the end of this lesson, you will be able to:
 
-.  Explain the differences between TCP and UDP
-.  Use Wireshark to view and analyze TCP and UDP data streams
-.  Use `netcat` to send messages on a network
+-  Explain the differences between TCP and UDP
+-  Use Wireshark to view and analyze TCP and UDP data streams
+-  Use `netcat` to send messages on a network
 
 == Steps
 
@@ -99,6 +99,10 @@ capture is running.
 
  $ tshark -f "not broadcast and not multicast" -i enp0s8 -a duration:30 \
  -w /vagrant/udp-short.pcap -Q &
+
+NOTE: The `\` in the above command is only needed because this command spans two lines.
+If you type it out in one line, you can omit the `\` after `duration:30`.
+The backslash tells the shell that you're going to keep typing parts of the command on the next line.
 
 * Start wireshark (with `tshark` on Alice)
 * Use `netcat` to set up listening on a UDP port on Alice.
