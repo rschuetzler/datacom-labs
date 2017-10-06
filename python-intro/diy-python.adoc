@@ -3,7 +3,7 @@ Ryan Schuetzler <ryan@schuetzler.net>
 v0.1
 :source-highlighter: pygments
 :pygments-style: friendly
-:imagesdir: figs
+ifndef::bound[:imagesdir: figs]
 
 In this lab, we'll get familiar with Python syntax. In other labs we'll be using Python to do some fancy networking work, and I want you to be able to be able to understand the basics of what's going on in the programs we're using. These tutorials are not meant to turn you into an expert programmer, but if you're interested in that side of things, this can be a good starting point.
 
