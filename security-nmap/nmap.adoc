@@ -1,4 +1,5 @@
 = Port Scanning with Nmap
+ifndef::bound[:imagesdir: figs]
 
 == Learning Objectives
 
