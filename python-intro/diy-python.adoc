@@ -74,6 +74,13 @@ Now you've got VS Code all set up and ready to roll. Kick the tires a little bit
 
 === Working with Python
 
+There are many ways that you can work with Python.
+It is available for all major operating systems, so feel free to download it for your computer from https://www.python.org/downloads/.
+If you do, make sure you get the `3.x` version of Python (3.6.3 at the time I wrote this).
+Python 2 is an old version that is currently kept around only for legacy support.
+
+We can also work with Python within a VM. That is how we'll do this lab so that we can be sure we're all working from the same environment.
+
 ==== REPL
 - Create Python-friendly Vagrantfile (python3 as default)
 
