@@ -1,0 +1,50 @@
+= Encryption & Hashing
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1
+ifndef::bound[:imagesdir: figs]
+:icons: font
+
+For this lab you'll do some encryption and hashing to
+
+These activities will work best if you partner with someone to send encrypted messages back and forth.
+
+== Learning Objectives
+
+- How to encrypt a volume with Veracrypt
+- How to encrypt a single file with (tool)
+- How to use a hash to verify file integrity
+- Possible - rot13
+- Python?
+
+== Simplest Encryption: Rot13
+
+Rot13 is an easy to use "encryption" tool that barely counts as encryption at all.
+It would really only fool the least determined attackers because anyone who knows anything about encryption would probably think to try Rot13, and might even recognize it on sight.
+Rot13 is a simple Caesar cipher.
+The idea behind a Caesar cipher is to shift letters of the alphabet when writing the message.
+If you were doing the simplest Caesar cipher by shifting letters by 1 position, A becomes B, B becomes C, ... and Z becomes A.
+To "decrypt" a message encoded with a Caesar cipher, you just need to know the key, or the number of characters to shift.
+Then you can take the message and unshift the characters back to what they should be: B -> A, C -> B, A -> Z, etc.
+
+Rot13 is a Caesar cipher where you shift letters by 13 positions.
+It works very conveniently in the English alphabet because we have 26 letters.
+Half of 26 is 13, and so with Rot13 you encode messages by shifting them by half the alphabet: A -> N, B -> O, Z -> M.
+With any shift besides 13, you need to do a separate reversal operation to decode the message.
+The nice thing about Rot13 is that, in order to shift back, you can simply run Rot13 over the message again.
+
+Let's say I wanted to send a secret message and don't want anybody to read it.
+We'll start with a secret message:
+
+.Secret message
+----
+This is my super secret message.
+----
+
+If I run Rot13 over my message, I get the following:
+
+.Rot13 encoded message
+----
+Guvf vf zl fhcre frperg zrffntr.
+----
+
+Create your own encoded message by going to http://www.rot13.com
