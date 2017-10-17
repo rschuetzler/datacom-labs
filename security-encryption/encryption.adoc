@@ -16,10 +16,14 @@ These activities will work best if you partner with someone to send encrypted me
 - Possible - rot13
 - Python?
 
+== Hashing
+
 == Simplest Encryption: Rot13
 
 Rot13 is an easy to use "encryption" tool that barely counts as encryption at all.
-It would really only fool the least determined attackers because anyone who knows anything about encryption would probably think to try Rot13, and might even recognize it on sight.
+It would really only fool the least determined attackers, because anyone who knows anything about encryption would probably think to try Rot13, and might even recognize it on sight.
+It is sometimes used on web forums to "hide" spoiler information when discussing movies or video games, so that people don't accidentally learn something they didn't want to learn.
+
 Rot13 is a simple Caesar cipher.
 The idea behind a Caesar cipher is to shift letters of the alphabet when writing the message.
 If you were doing the simplest Caesar cipher by shifting letters by 1 position, A becomes B, B becomes C, ... and Z becomes A.
@@ -47,4 +51,6 @@ If I run Rot13 over my message, I get the following:
 Guvf vf zl fhcre frperg zrffntr.
 ----
 
-Create your own encoded message by going to http://www.rot13.com
+Create your own encoded message by going to http://www.rot13.com and entering some text.
+Send a rot13 encoded message to someone.
+
