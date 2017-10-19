@@ -1,0 +1,185 @@
+= Encrypting and Signing
+Jim Marquardson & Ryan Schuetzler <ryan@schuetzler.net>
+v0.2
+ifndef::bound[:imagesdir: figs]
+:icons: font
+
+It is critical to protect data from prying eyes and to assure that the
+data comes from a trusted sender. Hashes are often used to store
+passwords, but using the wrong hashing algorithm or choosing passwords
+that are too weak can still lead to problems. This exercise will teach
+you how to better protect data.
+
+== Learning Objectives
+
+By the end of this lesson, you will be able to:
+
+.  Encrypt a message.
+.  Decrypt a message.
+.  Sign a message.
+.  Verify a digitally signed file.
+
+== Prerequisites
+
+. Vagrant installed and configured
+
+== Exercises
+
+=== Signing Files
+
+There are times when you want to sign a file so that people can verify
+who sent it. The GNU Privacy Guard application uses the industry
+standard PGP algorithm to sign and encrypt data.
+
+Run the following commands in a new folder to create an Unbuntu virtual
+machine.
+
+. `> vagrant init bento/ubuntu-16.04`
+. `> vagrant up`
+. `> vagrant ssh`
+
+==== Gnu Privacy Guard in Linux Installation and Key Creation
+
+IMPORTANT: If you already have a public/private key pair from completing the email encryption lab, skip to the next section: "Importing Keys"
+
+.  Run `$ sudo apt-get install rng-tools` to install random number
+generator tools.
+.  Run `$ sudo rngd -r /dev/urandom` to generate enough random entropy
+to successfully generate a GPG key.
+.  Run `$ gpg --gen-key` to start the key creation process.
++
+* Select (1) RSA and RSA (default)
+* Select 2048 bits
+* Select 0 so that the key does not expire, then y to confirm.
+* Enter your first name and a fake last name (you won't be using this key again)
+* Enter a fake email address.
+* Leave the comment blank.
+* Press O for okay.
+* Enter a password, and repeat it when prompted.
+
+.  Run `$ gpg --output /vagrant/namekey.asc --export -a 671DB6B1` but
+replace two elements. Replace `671DB6B1` with your key id. You can find in
+the output of the key creation on the line that says, `gpg: key 671DB6B1
+marked as ultimately trusted`. Also replace "name" with your first name.
++
+* This command outputs your public key. You can send this to others so
+that they can verify your signature.
+
+.  Open `[name]key.asc` in your host operating system. The file will be
+in the same folder where you ran `vagrant init`. This is your public key in plain text. You can share this with anyone to allow them to encrypt messages to you, or to verify your digital signature.
+
+==== Importing Keys
+
+If you've already created a public/private keypair for another lab--or for some other reason--you can import them here and use your existing key.
+
+. Open the Mailvelope options screen and click your key.
+. Under export, click the option to export "All".
+. Save the file.
++ IMPORTANT: Make sure you name the file something special to indicate that it contains your private key. Remember, you do not want to share this private key with anyone.
+
+. At the same time, create a separate export of your public key only with a different filename. This is what you will share with others.
+. Place the private key file in the same directory as your Vagrantfile (where you're doing the lab).
+. In the VM, run the following command to import your private key:
++
+ gpg --import /vagrant/filename_all.asc
+
+. Included in the output of the GPG command, you should get a message like the following. Where mine says `B234A40D`, yours will have something else. You'll need that value for the next command.
++
+ gpg: key B234A40D: secret key imported
+
+. Enter the following command to tell GPG that you trust this newly imported key, substituting your own key ID:
++
+ gpg --edit-key B234A40D trust quit
+
+. Type `5` to indicate "ultimate" trust, then confirm.
+
+==== Clearsign Files with GnuPG in Linux
+
+A digital signature is a way of verifying both the integrity and authenticity of a message.
+This is accomplished with a combination of multiple security measures.
+First, a hash of your file contents is taken to ensure that the integrity of the message is intact.
+Any changes to the file contents will result in the hash not matching.
+
+Second, the hash (and only the hash) is encrypted with your private key.
+Usually when we talk about asymmetric encryption, we talk about using someone's public key to send them a message that only they will be able to decrypt.
+That type of encrypted message is used to ensure confidentiality: only the intended recipient should be able to read the message or file.
+The same principle works in reverse.
+A message encrypted with Alice's private key will only be able to be decrypted using Alice's public key.
+That way, if we have done proper verification of Alice's public key, we can know that a message decrypted by that public key must have been sent by Alice.
+
+Let's create a digital signature in a file.
+
+.  Run `$nano /vagrant/simple.txt`.
++
+* Add the text "This is very important."
+* Save the file using Control+O,[enter],Control+X.
+
+.  Run `$ gpg --clearsign /vagrant/simple.txt`
++
+* Enter your password when prompted.
+
+.  Open simple.txt.asc in a text editor.
++
+* Notice that you can read the text of the file, but that it is wrapped
+with a PGP signature.
+* If you send this file to somebody, that person could read the text
+without having to decrypt the file. They would also be able to verify
+that you were the person who sent it if they had your public key.
+
+==== Importing and Verifying Files in Linux
+
+.  Rename your simple.txt file to "[name]simple.txt". Replace your name
+in the filename, and do not include brackets.
++
+* Send your [name]_pub.asc and [name]simple.txt.asc to a friend
+
+.  When you receive the files, copy them to your folder for this
+exercise.
+.  Run the command `$ gpg --import /vagrant/[name]key.asc` to import their public key.
+.  Run the command `$ gpg --verify /vagrant/[name]simple.txt.asc` to verify the file.
++
+* Do you trust the signature? Why?
+
+=== Encrypting Files
+In addition to signing files, you may also want to encrypt them to ensure that no unauthorized person can read them.
+You can encrypt files using either symmetric or asymmetric encryption.
+
+==== Symmetric Encryption
+Symmetric encryption uses a single shared key to both encrypt and decrypt a file.
+Anyone who knows the key can access the file.
+
+////
+Things to add:
+- Uses of symmetric encryption
+- Benefits: plausible deniability, easier, faster
+////
+
+. Create a new file called `/vagrant/secret.txt` and put a secret message inside (nothing too secret, since you need to share it with others).
+. Type the following command to encrypt the file with symmetric encryption. GPG will ask you for a passphrase for the file. Use a simple password, and make sure you remember what it is.
++
+ gpg -c /vagrant/secret.txt
+
+. This will create a new file called `/vagrant/secret.txt.gpg` that is encrypted using that passphrase you created.
+. To decrypt a file, run the following command and enter the passphrase for the file
++
+ gpg /vagrant/secret.txt.gpg
+
+==== Asymmetric Encryption
+
+You can also encrypt files using asymmetric encryption.
+In fact, with asymmetric encryption it is possible to create an encrypted file that you cannot even open (by encrypting it only with someone else's public key).
+
+. Create a new file called `vagrant/asymmetric_secret.txt` and put a new secret message in there.
+. Check your list of imported keys with the following command:
++
+ gpg --list-keys
+
+. Run the following command (all on one line) using one of the public keys you have from the signing process above:
++
+ gpg --output /vagrant/name_asym.gpg --encrypt --recipient ryan@schuetzler.net /vagrant/asymmetric_secret.txt
+
+NOTE: To add multiple recipients, you can repeat the `--recipient email@example.com` option. If you want to be able to read the file, you'll need to add yourself as a recipient.
+
+. To decrypt a message sent to you, you can use the following command:
++
+ gpg --output /vagrant/sender_name_asym.txt --decrypt filename.gpg
