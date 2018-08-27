@@ -1,0 +1,53 @@
+= Lab Instructions
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.2, 2018-08-27
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:experimental:
+
+The purpose of the lab activities for the IT Infrastructure topics is to give you hands-on experience with the things you are learning about.
+As you configure applications, capture packets, and test things, you'll better understand the principles of IT infrastructure.
+This document outlines the instructions for your submission of the lab assignment.
+
+== Submisison instructions
+Your submission for each of the lab assignments will be a single document in PDF format containing three things:
+
+. Evidence that you have completed the activities outlined in the lab
+. Evidence that you have gone beyond the lab instructions and experimented with the technologies used in the lab
+. Your thoughts on what you learned and what was challenging
+
+Below, I will describe the contents of each of these sections.
+
+TIP: To create a PDF from a Microsft Word document, Go to menu:File[Export > Create a PDF/XPS Document] and save your document as a PDF
+
+=== Evidence of lab completion
+For most labs, the evidence of lab completion will be screenshots taken at various points while you complete the lab.
+There will often not be specific guidance about when to take a screenshot or how many to take.
+Use your judgment as you complete the lab. 
+Take screenshots of activities while you complete them and when you are finished.
+At least one screenshot should include both your lab stuff and the current date and time (feel free to use https://www.timeanddate.com/ or another website).
+
+TIP: On Windows, you can use the built-in Snipping Tool to take a screenshot of a part of your screen. You can use the shortcut kbd:[Shift+Win+S] to quickly take a screenshot of a part of your screen and save it to the clipboard. Then you can paste it into your lab document.
+
+TIP: On a Mac, you can use kbd:[Shift+Cmd+4] to take a rectangular screenshot. It is automatically saved to your desktop.
+
+== Evidence of experimentation
+One of the best ways to learn about technology is playing around, experimenting, and breaking things.
+In addition to following the basic instructions, I want to see that you have gone beyond what you have been told to do.
+In this section, you can document what you did, and what you learned as a result.
+It's important that you document do it and document it to show me that you learned something.
+
+Here are a few ideas for what to do to go above and beyond:
+
+* Click menu options and use the Web to figure out what they do
+* Try different options for the commands that you write. Many command line programs have a `--help` or `-h` option to give you some ideas what other options there are. You can also use `man <command>` in Linux to get some more ideas what these programs can do.
+* Try something, break something, and see if you can fix it.
+
+== Reflection and Challenges
+The final section of your report will contain your answer to two questions, plus any other comments you have.
+This is your opportunity to reflect on the lab activity, so don't just write a couple words. 
+Take some time to think about what you learned.
+The two questions are these:
+
+. What was the purpose of this lab?
+. What was challenging about this lab, and do you have ideas for how to improve it?
