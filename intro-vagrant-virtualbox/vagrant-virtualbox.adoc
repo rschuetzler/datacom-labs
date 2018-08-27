@@ -1,10 +1,11 @@
 = Vagrant Setup
-Ryan Schuetzler <ryan@schuetzler.net>s
-v1.1, 2017-01-17
+Ryan Schuetzler <ryan@schuetzler.net>
+v1.2, 2018-08-27
 ifndef::bound[:imagesdir: figs]
 :icons: font
 
-This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH. You will use these tools throughout the course to learn networking and security concepts. 
+This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH.
+You will use these tools throughout the course to learn networking and security concepts.
 
 == Learning Objectives
 
@@ -17,13 +18,14 @@ By the end of this lesson, you will be able to:
 
 == Conventions
 
-In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as `> cd ~`. The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as `$ ls -al`. This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as `> cd ~`. The ">" should not be typed.
+Commands run in a Linux shell will be prefixed with "$", such as `$ ls -al`.
+This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
 The primary tools we will be using for the labs, Vagrant and VirtualBox, are available for Windows, macOS, and Linux.
 For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows.
 If that is not the case, you may need to adapt some of the instructions to your primary operating system.
 You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
-
 
 == Steps
 
@@ -52,7 +54,7 @@ It has an added advantage in that it is free.
 We will use Virtualbox for these exercises to demonstrate and try out networking concepts.
 
 * Open https://www.virtualbox.org/wiki/Downloads
-* Download the latest version of VirtualBox for computer's operating system 
+* Download the latest version of VirtualBox for computer's operating system
 * Install VirtualBox when the download completes
 
 === Step 2: Download and install Vagrant
@@ -75,7 +77,7 @@ If you have not yet rebooted after installing Virtual Box and Vagrant, please do
 
 Ubuntu is one of the most popular versions of Linux, so it is often easy to find information and support for it online.
 
-* Create a folder to store your lab files (e.g., `C:\Users\John\labs\Vagrant`). 
+* Create a folder to store your lab files (e.g., `C:\Users\John\labs\Vagrant`).
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
 ** Click Start > cmd.exe [enter]
 ** `> cd labs\Vagrant`
@@ -85,11 +87,11 @@ Ubuntu is one of the most popular versions of Linux, so it is often easy to find
 * Navigate to the Exercise1 folder
 ** `> cd Exercise1` [enter]
 * Create a new virtual machine with the following command:
-** `> vagrant init ubuntu/xenial64` [enter]
+** `> vagrant init ubuntu/bionic64` [enter]
 * Start the virtual machine with the following command:
 ** `> vagrant up` [enter]
 
-NOTE: `ubuntu/xenial64` refers to a Vagrant box (i.e. template computer).
+NOTE: `ubuntu/bionic64` refers to a Vagrant box (i.e. template computer).
 If you have not already used this box, the box will be downloaded automatically.
 Depending on your Internet connection speed, this download may take some time.
 
@@ -134,7 +136,7 @@ image::ssh-success.png[title="SSH Connected"]
 
 === Virtualization disabled
 
-Symptoms: 
+Symptoms:
 
 * `vagrant up` command returns an error message of "`VT-x is disabled in the BIOS`" or "`AMD-V is disabled in the BIOS`"
 * `vagrant up` command says it has timed out.
@@ -144,11 +146,11 @@ Some hardware vendors ship computers with hardware virtualization turned off by 
 
 === SSH.exe is not found on the path
 
-If you are receiving this error, you need to get SSH installed on your machine and added to your PATH. 
+If you are receiving this error, you need to get SSH installed on your machine and added to your PATH.
 
 === Other issues
 
-It is possible that you have other issues as you try to use Vagrant and VirtualBox together.  Keep a close eye out for any error messages along the way.  If you see an error message, stop working on the lab and figure out how to fix that error before moving on. 
+It is possible that you have other issues as you try to use Vagrant and VirtualBox together.  Keep a close eye out for any error messages along the way.  If you see an error message, stop working on the lab and figure out how to fix that error before moving on.
 
 == Thought Questions
 === Basics
