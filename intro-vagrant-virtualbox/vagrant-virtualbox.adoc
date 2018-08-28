@@ -1,6 +1,6 @@
 = Vagrant Setup
 Ryan Schuetzler <ryan@schuetzler.net>
-v1.2, 2018-08-27
+v1.2, 2018-08-28
 ifndef::bound[:imagesdir: figs]
 :icons: font
 
@@ -165,4 +165,4 @@ It is possible that you have other issues as you try to use Vagrant and VirtualB
 . SSH is not the only technology we can use to access a remote machine. An older alternative is a program called `telnet`. What advantages does SSH have over telnet?
 . What are some ways virtualization is used in the real world (outside of this lab)?
 . Go to https://app.vagrantup.com/boxes/search and look at the list of pre-created Vagrant boxes. Create a new VM with a different box on your machine. Are there any differences you can tell?
-. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/xenial64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
+. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/bionic64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
