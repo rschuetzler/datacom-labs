@@ -113,7 +113,7 @@ SSH can be used to communicate and run commands within your virtual machine.
   following image.
 
 [[img-ssh-success]]
-image::ssh-success.png[title="SSH Connected"]
+image::logged-in.png[title="SSH Connected",500]
 
 * If you see a message similar to the screenshot, congratulations! You have
   successfully installed Virtual Box and Vagrant. You now know how to create a
