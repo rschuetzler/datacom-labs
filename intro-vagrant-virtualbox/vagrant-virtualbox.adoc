@@ -1,7 +1,11 @@
 = Vagrant Setup
+Ryan Schuetzler <ryan@schuetzler.net>
+v1.2, 2018-08-28
 ifndef::bound[:imagesdir: figs]
+:icons: font
 
-This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH. You will use these tools throughout the course to learn networking and security concepts. 
+This exercise will aid you in setting up and becoming familiar with Vagrant, VirtualBox, and SSH.
+You will use these tools throughout the course to learn networking and security concepts.
 
 == Learning Objectives
 
@@ -14,64 +18,92 @@ By the end of this lesson, you will be able to:
 
 == Conventions
 
-In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as `> cd ~`. The ">" should not be typed. Commands run in a Linux shell will be prefixed with "$", such as `$ ls -al`. This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
+In these exercises, commands run from a Windows command prompt will be prefixed with ">", such as `> cd ~`. The ">" should not be typed.
+Commands run in a Linux shell will be prefixed with "$", such as `$ ls -al`.
+This notation will help you determine where to run the commands because you will frequently switch between your main computer and the virtual machines.
 
-For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows. If that is not the case, you may need to adapt some of the instructions to your primary operating system. You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
-
+The primary tools we will be using for the labs, Vagrant and VirtualBox, are available for Windows, macOS, and Linux.
+For the purposes of all of these labs, you are assumed to be running a recent version of Microsoft Windows.
+If that is not the case, you may need to adapt some of the instructions to your primary operating system.
+You are reponsible for figuring out how to complete the assignment on whatever operating system you use if it is not Windows.
 
 == Steps
 
 === Step 1: Download and Install VirtualBox
 
-Your computer has an operating system (OS), probably Windows, Mac OS, or a version of Linux. Software exists that allows you to run another OS while your main OS is still running. For example, with a Windows laptop, you could run Ubuntu Linux as if it were another application on your computer. Your Windows OS would be the "host," and the Ubuntu Linux OS would be the "guest." In this case, the guest is not connecting to your hardware directly, but virtually, and is therefore called a virtual machine. Virtual machines run on virtualization software that makes the system hardware and host platform agnostic.
+Your computer has an operating system (OS), probably Windows, macOS, or a version of Linux.
+Software exists that allows you to run another OS while your main OS is still running.
+For example, with a Windows laptop, you could run Ubuntu Linux as if it were another application on your computer.
+Your Windows OS would be the "host," and the Ubuntu Linux OS would be the "guest."
+In this case, the guest is not connecting to your hardware directly, but virtually, and is therefore called a virtual machine.
+Virtual machines run on virtualization software that makes the system hardware and host platform agnostic.
 
-There are several software platforms that allow you to run virtual machines. At the enterprise level, Microsoft's Hyper-V and VMWare ESX allow professionals to deploy virtual machines inside data centers. With these platforms, there is no host OS; the virtual machines run on the server hardware with only a thin virtualization layer between the operating system and the hardware. Virtualization is quickly becoming the de-facto option for deploying servers in an enterprise environment.
+There are several software platforms that allow you to run virtual machines.
+At the enterprise level, Microsoft's Hyper-V and VMWare ESX allow professionals to deploy virtual machines inside data centers.
+With these platforms, there is no host OS; the virtual machines run on the server hardware with only a thin virtualization layer between the operating system and the hardware.
+Virtualization is quickly becoming the de-facto option for deploying servers in an enterprise environment.
 
-Virtualization options also exist for desktop users who want to run guest operating systems. The guest operating systems can be used for software development, testing software exploits, or learning about different operating systems. By default, the guest operating system is sandboxed, meaning it cannot affect the host operating system. Guest operating systems can be configured to interact with the host operating system by sharing access to specific folders, but a guest operating system will never make configuration changes to the host operating system. Basically, you can run guest operating systems without worrying about messing up your computer.
+Virtualization options also exist for desktop users who want to run guest operating systems.
+The guest operating systems can be used for software development, testing software exploits, or learning about different operating systems.
+By default, the guest operating system is sandboxed, meaning it cannot affect the host operating system.
+Guest operating systems can be configured to interact with the host operating system by sharing access to specific folders, but a guest operating system will never make configuration changes to the host operating system.
+Basically, you can run guest operating systems without worrying about messing up your computer.
 
-VirtualBox is a an excellent open source tool for running virtual machines on your system. It has an added advantage in that it is free. We will use Virtualbox for these exercisesto demonstrate and try out networking concepts. 
+VirtualBox is a an excellent open source tool for running virtual machines on your system.
+It has an added advantage in that it is free.
+We will use Virtualbox for these exercises to demonstrate and try out networking concepts.
 
 * Open https://www.virtualbox.org/wiki/Downloads
-* Download the latest version of VirtualBox for Windows hosts (or your computer's primary operating system if it is not Windows)
+* Download the latest version of VirtualBox for computer's operating system
 * Install VirtualBox when the download completes
 
 === Step 2: Download and install Vagrant
 
-Vagrant is a software package that makes setting up new virtual machines extremely simple. Without Vagrant, if you were to install an operating system you would need to download the DVD or CD installation media, start a new virtual machine instance, follow the on-screen prompts, wait, follow more prompts, etc. Without Vagrant, it can easily take an hour to get a basic virtual machine running. Vagrant simplifies this process by creating "boxes" that come 99% ready for use. Instead of creating a new virtual machine from scratch, Vagrant provisions a box and finishes the last 1% of the configuration. This way, Vagrant can create a virtual machine in minutes instead of hours. Follow the steps below to download and install Vagrant.
+Vagrant is a software package that makes setting up new virtual machines extremely simple.
+Without Vagrant, if you were to install an operating system you would need to download the DVD or CD installation media, start a new virtual machine instance, follow the on-screen prompts, wait, follow more prompts, etc.
+Without Vagrant, it can easily take an hour to get a basic virtual machine running and configured the way you want it to be.
+Vagrant simplifies this process by creating "boxes" that come 99% ready for use.
+Instead of creating a new virtual machine from scratch, Vagrant provisions a box and finishes the last 1% of the configuration.
+This way, Vagrant can create a virtual machine in minutes instead of hours.
+Follow the steps below to download and install Vagrant.
 
 * Open http://www.vagrantup.com/downloads.html
 * Install the Windows universal version (or the version that matches your computer's operating system if not Windows)
 
 === Step 3: Setup an Ubuntu Virtual Machine
 
-In this section, you will use Vagrant to create and start an Ubuntu Linux virtual machine. If you have not yet rebooted after installing Virtual Box and Vagrant, please do so before starting this section. Ubuntu is one of the most popular versions of Linux, so it is often easy to find information and support for it online.
+In this section, you will use Vagrant to create and start an Ubuntu Linux virtual machine.
+If you have not yet rebooted after installing Virtual Box and Vagrant, please do so before starting this section.
 
-* Create a folder to store your Vagrant files (e.g. C:\Users\John\datacom\Vagrant). 
+Ubuntu is one of the most popular versions of Linux, so it is often easy to find information and support for it online.
+
+* Create a folder to store your lab files (e.g., `C:\Users\John\labs\Vagrant`).
 * Open a command prompt and navigate to your Vagrant folder. (The folders that you use might be different based on the folder names on your computer.)
 ** Click Start > cmd.exe [enter]
-** `> cd datacom\Vagrant`
-*** Or you can open the directory in Windows Explorer: hold down the Shift key
-    while right-clicking in an empty part of the folder, then click "Open
-    command window here"
-*** Or you can open the directory in Windows Explorer, click in the address bar at the top and type `cmd`, then press return. This will open the command prompt window.
+** `> cd labs\Vagrant`
+** Or you can open the directory in Windows Explorer: navigate to the directory in Explorer, click on the address bar at the top, type `cmd` and press Enter. This shortcut opens a command prompt to the directory you are currently viewing.
 * Create a new folder called "Exercise1"
 ** `> md Exercise1` [enter]
 * Navigate to the Exercise1 folder
 ** `> cd Exercise1` [enter]
 * Create a new virtual machine with the following command:
-** `> vagrant init ubuntu/xenial64` [enter]
+** `> vagrant init ubuntu/bionic64` [enter]
 * Start the virtual machine with the following command:
 ** `> vagrant up` [enter]
-** Note that "ubuntu/xenial64" refers to a Vagrant box (i.e. template
-   computer). If you have not already used this box, the box will be downloaded
-   automatically. Depending on your Internet connection speed, this download may
-   take some time.
 
-Your Ubuntu virtual machine is now running. You will not see a graphical user interface (GUI) because by default, Vagrant virtual machines are "headless." There are ways to turn on the GUI, but for now it is not needed.
+NOTE: `ubuntu/bionic64` refers to a Vagrant box (i.e. template computer).
+If you have not already used this box, the box will be downloaded automatically.
+Depending on your Internet connection speed, this download may take some time.
+
+Your Ubuntu virtual machine is now running.
+You will not see a graphical user interface (GUI) because by default, Vagrant virtual machines are "headless."
+There are ways to turn on the GUI, but for now it is not needed.
 
 === Step 6: Connect to the Ubuntu Virtual Machine with SSH
 
-Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands. A guest OS is treated much like a remote machine. SSH can be used to communicate and run commands within your virtual machine.
+Secure Shell (SSH) is a secure protocol for connecting to a remote machine to run commands.
+A guest OS is treated much like a remote machine.
+SSH can be used to communicate and run commands within your virtual machine.
 
 * In your command prompt, run the following command in the Exercise1 folder:
 
@@ -81,12 +113,11 @@ Secure Shell (SSH) is a secure protocol for connecting to a remote machine to ru
   following image.
 
 [[img-ssh-success]]
-image::ssh-success.png[title="SSH Connected"]
+image::logged-in.png[title="SSH Connected",500]
 
 * If you see a message similar to the screenshot, congratulations! You have
   successfully installed Virtual Box and Vagrant. You now know how to create a
   virtual machine and connect to it.
-* Take a screenshot of your own command prompt and copy it into your submission Word document.
 * Connecting to a machine with SSH is commonly called an SSH session. You close
   your session when you close the window or log out of the machine.
 
@@ -105,7 +136,7 @@ image::ssh-success.png[title="SSH Connected"]
 
 === Virtualization disabled
 
-Symptoms: 
+Symptoms:
 
 * `vagrant up` command returns an error message of "`VT-x is disabled in the BIOS`" or "`AMD-V is disabled in the BIOS`"
 * `vagrant up` command says it has timed out.
@@ -115,11 +146,11 @@ Some hardware vendors ship computers with hardware virtualization turned off by 
 
 === SSH.exe is not found on the path
 
-If you are receiving this error, you need to get SSH installed on your machine and added to your PATH. 
+If you are receiving this error, you need to get SSH installed on your machine and added to your PATH.
 
 === Other issues
 
-It is possible that you have other issues as you try to use Vagrant and VirtualBox together.  Keep a close eye out for any error messages along the way.  If you see an error message, stop working on the lab and figure out how to fix that error before moving on. 
+It is possible that you have other issues as you try to use Vagrant and VirtualBox together.  Keep a close eye out for any error messages along the way.  If you see an error message, stop working on the lab and figure out how to fix that error before moving on.
 
 == Thought Questions
 === Basics
@@ -133,4 +164,5 @@ It is possible that you have other issues as you try to use Vagrant and VirtualB
 [start=6]
 . SSH is not the only technology we can use to access a remote machine. An older alternative is a program called `telnet`. What advantages does SSH have over telnet?
 . What are some ways virtualization is used in the real world (outside of this lab)?
-. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/xenial64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
+. Go to https://app.vagrantup.com/boxes/search and look at the list of pre-created Vagrant boxes. Create a new VM with a different box on your machine. Are there any differences you can tell?
+. Open the Vagrantfile that was created when you typed `vagrant init ubuntu/bionic64`. All lines in that file that start with `#` are comments. There may only be 2 or 3 lines in the entire file not commented out. What do you think the Vagrantfile does?
