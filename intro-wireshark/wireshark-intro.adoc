@@ -23,7 +23,7 @@ By the end of this lesson, you will be able to:
 
 === Install Wireshark
 
-* Go to https://www.wireshark.org/#download and download the latest Stable Release of Wireshark for your OS.
+* Go to https://www.wireshark.org/download.html and download the latest Stable Release of Wireshark for your OS.
 * Run through the installer.
 ** If you are on Windows, make sure you install WinPcap. This program allows you to do a packet capture on Windows, which is the whole point of installing Wireshark in the first place.
 
@@ -38,7 +38,7 @@ image::start-capture.png[Starting a packet capture in Wireshark]
 * Double-click on your active interface to begin a packet capture.
 * Let the packet capture run while complete the following steps:
 ** Open your web browser and visit your favorite websites.
-** As one of your selected sites, go to http://www.ieee.org, or some other site that does not use HTTPS encryption, and that you have not visited today.
+** As one of your selected sites, go to http://neverssl.com, or some other site that does not use HTTPS encryption, and that you have not visited today.
 ** Open a command prompt (Windows) or terminal (macOS or Linux) and type `ping www.schuetzler.net` and hit ENTER. If you are on Mac or Linux, you can press CTRL-C to stop the ping, or type `ping -c 4 www.schuetzler.net` to ping only 4 times instead of forever.
 * Return to Wireshark and stop the capture by clicking the red square in the top left corner of the window.
 
