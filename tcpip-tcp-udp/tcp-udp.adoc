@@ -292,4 +292,3 @@ completely from your system. Answer `y` to confirm deletion.
 . Why would someone choose to use TCP to send short messages (e.g. IRC for chat
    or SMTP for short emails)?
 . Name a service that uses UDP, and explain why.
-. Why don't you have to close netcat manually when you use TCP to send a long file?
