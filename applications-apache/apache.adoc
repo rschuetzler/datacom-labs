@@ -1,0 +1,239 @@
+= Apache Web Server
+Matt Germonprez <germonprez@gmail.com>
+v1.1, Sept 18, 2018
+ifndef::bound[:imagesdir: figs]
+:source-highlighter: rouge
+:rouge-style: github
+:icons: font
+:experimental:
+
+This exercise will help you set up and configure the Apache Web Server. This will give you exposure to how to work with the web server in your existing Vagrant/VirtualBox environment.
+
+== Learning Objectives
+
+By the end of this lesson, you will be able to:
+
+* Setup an Apache Web Server
+* Connect to Apache via your local browser
+* Modify Apache directives to change the server behavior
+* Install Apache modules to enhance the server capabilities
+
+== Conventions
+
+All of the examples are demonstrated using Vagrant and VirtualBox and the Ubuntu operating system.
+
+
+== Steps
+
+=== Step 1: Create and Modify your Vagrantfile -- Vagrant Up
+
+The Ubuntu operating will be deployed on Vagrant/VirtualBox. This is the OS that Apache will be installed on. However, we will be connecting to the web server on our local (host) machine. To do this, we have to modify our Vagrantfile to accommodate TCP ports that enable us to make this connection.
+
+First, create the Vagrantfile for Ubuntu 18.04 with:
+
+ > vagrant init ubuntu/bionic64
+
+Second, modify the Vagrantfile file such that you can access the (yet-to-be-intsalled) Apache Web Server from your local machine:
+
+.Vagrantfile
+[source,ruby]
+----
+# Create a forwarded port mapping which allows access to a specific port
+# within the machine from a port on the host machine. In the example below,
+# accessing "localhost:8080" will access port 80 on the guest machine.
+# NOTE: This will enable public access to the opened port
+config.vm.network "forwarded_port", guest: 80, host: 8080
+----
+
+This will allow you to type localhost:8080 on a local machine, accessing the (yet-to-be-installed) Apache Web Server on it's normal port 80.
+
+Finally:
+
+ > vagrant up
+
+=== Step 2: SSH into Ubuntu, Install Apache, and Test the Site
+
+Apache is a very popular web server. You can check out the August 2018 Market Share Survey here to get some idea of how it stacks up against other web servers (market-wise):
+
+https://news.netcraft.com/archives/2018/08/24/august-2018-web-server-survey.html
+
+Quite simply to install the Apache on your Ubuntu machine:
+ 
+ $ sudo apt update
+ $ sudo apt install apache2
+
+Answer the one question on space requirements during the installation and the web server will be downloaded and installed via APT.
+
+Once the installation is complete, you need to start the server:
+
+ $ sudo service apache2 start
+
+That's it. The command should look like it did nothing -- just returning you to the next command prompt line. All is good.
+Now open up your browser on your local (host) computer and type the following in the address:
+
+ localhost:8080
+
+You should see the Ubuntu/Apache It Worked! page.
+
+=== Step 3: Modify Apache: Directories, Files, and Directives
+
+Up to this point, you have installed the default Apache Web Server. This includes a variety of functions but not all of them. In short, Apache doesn't ship with all functionality running -- you have to turn things on (or off as you'd like).
+
+Before you do that, you have to get some bearings on the layout of the Apache file structure.
+
+First, change the default html page. To do so, you'll have to navigate to the html directory on Ubuntu:
+
+ $ cd /var/www
+ $ ls
+
+You'll see the html folder there
+
+ $ cd html
+ $ ls
+
+You'll see index.html. Just rename that file to get it out of the way:
+
+ $ sudo mv index.html index.html.old
+
+Now create a new index.html file with your favorite editor (emacs, vim, nano):
+
+ $ sudo nano index.html
+
+(Yes, nano is awesome). Type anything you want in that file. It could be text, it could be HTML, it doesn't really matter. When you are done save and close (if you are using nano -- kbd:[Ctrl+O] and enter to save, kbd:[Ctrl+X] to exit). Now reload your localhost:8080 page on your browser -- you should see your changes.
+
+Now that you know where the HTML pages are located, track down the configuration files. They are located in
+
+ $ cd /etc/apache2
+ $ ls
+
+There are several important files in here but start with apache2.conf.
+
+ $ sudo nano apache2.conf
+
+You'll see in the file that there are a lot of comments and a few uncommented lines. These uncommented lines are the directives - they allow me to tweak existing functionality on Apache. Perhaps the most interesting part of the apache2.conf file are the following lines:
+
+.apache2.conf snippet
+[source,apache]
+----
+#
+# Timeout: The number of seconds before receives and sends time out.
+#
+Timeout 300
+
+#
+# KeepAlive: Whether or not to allow persistent connections (more than
+# one request per connection). Set to "Off" to deactivate.
+#
+KeepAlive On
+
+#
+# MaxKeepAliveRequests: The maximum number of requests to allow
+# during a persistent connection. Set to 0 to allow an unlimited amount.
+# We recommend you leave this number high, for maximum performance.
+#
+MaxKeepAliveRequests 100
+
+#
+# KeepAliveTimeout: Number of seconds to wait for the next request from the
+# same client on the same connection.
+#
+KeepAliveTimeout 5
+----
+
+In each of these you can modify directives to impact the functionality of the server. For example, MaxKeepAliveRequests is a directive that regulates the number of requests that Apache will handle for one connection. Once that max is hit, a new connection is established (helping with memory management). Go ahead and change that number to 200 and save your changes to the apache2.conf file and exit your editor.
+
+Having done that, it's important to note that Apache needs to be restarted every time a change is made to a configuration file as the files are read anew at every start/restart. To do this:
+
+ $ sudo service apache2 restart
+
+Everything should go well so long as you didn't include some extra or unrecognizable characters in the apache2.conf file. Reload your web page on your browser. Honestly, you won't see any performance change as you are the only client on the server but just note that Apache has had some performance changes done via changes to the apache2.conf file.
+
+
+=== Step 4: Modify Apache: Modules and Directives
+
+Now cd into the `/etc/apache2/mods-enabled`. Once in there `ls` to show all of the files. You'll see that a number of files end with `.load` and others with `.conf`. If you view the contents of any of the .load files (e.g., `status.load`), you'll see that the document just points to the actual location of the module (`LoadModule status_module /usr/lib/apache2/modules/mod_status.so`). There is no reason to modify the actual modules. What is important for us to know is what modules are loaded and what modules are available.
+
+Sticking with Status, open status.conf in your editor:
+
+ $ sudo nano status.conf
+
+You'll see a relatively small configuration file here. The point of the server-status module is to have Apache return server status information to the browser when requested. You can check this out by typing the following in your browser address bar:
+
+ http://localhost:8080/server-status
+
+What you should see is a Forbidden error. What this tells us is that the module is running (server-status) but the directives are not set such that we can access the information. Returning to you status.conf, locate the block that starts with
+
+ <Location /server-status>
+
+In that block, modify the text to be:
+
+.server-status.conf
+[source,apache]
+----
+SetHandler server-status
+order deny,allow
+deny from all
+allow from all
+----
+
+Save your changes and restart Apache. Then reload your page:
+
+ http://localhost:8080/server-status
+
+You should see the server-status information. Now, you have successfully identified a module and modified its directives to change its behavior. Now let's load a module that is not currently part of the core Apache functionality
+
+
+=== Step 6: Load and Start a Module
+
+You have likely noticed that there are two module related folders: mods-enabled and mods-available. Change directories into mods-available and do an 'ls'. You see a lot of modules that are available to Apache but are not currently enabled - an not all have configuration files. For this part, we are going to enable a module without a configuration file:
+
+ speling.load
+
+To do this, return to your mods-enabled folder. In this folder, we are going to create a link to speling.load that will enable its functionality. This module will allow a user in a browser to misspell a word by one letter and the module will work to find the closest match to that request. By creating the link, we don't actually have to move speling.load from one folder to another. So, from within the mods-enabled folder type:
+
+ $ sudo ln -s /etc/apache2/mods-available/speling.load /etc/apache2/mods-enabled/speling.load
+
+Then do an 'ls' in the mods-enabled folder. You should now see speling.load there. Restart the server:
+
+ $ sudo service apache2 restart
+
+All should be good but is the Speling (yes misspelled) module working? Go to your browser and type:
+
+ http://localhost:8080/imdex.html
+
+You'll see an error page. Why? The module is loaded. What we are missing is the directive to actually tell Apache to use the module. But there is no configuration file. No problem. Go back to the Apache root configuration directory and open apache2.conf
+
+ $ cd /etc/apache2
+ $ sudo nano apache2.conf
+
+Scroll all the way to the bottom of the file and add the following line:
+
+ CheckSpelling On
+
+Save your changes and exit. Restart Apache. Return to the browser and again try:
+
+ http://localhost:8080/imdex.html
+
+This time, it should load your index.html file, thanks to the Speling module.
+
+=== Step 7: Load and Start Your Own Module. This Counts as your Additional Contribution.
+
+Look at the available modules in `/etc/apache2/mods-available`. Find one that is not currently enabled, learn what it does, and enable it. This will count as the "experimentation" step of the lab.
+
+=== Other issues
+
+You have now gotten a good view of Apache. You should understand the folder and file structures, modules, and directives. If you'd like to stop the server, simply give the server a `sudo service httpd stop`. This exercise gives you an up-close an personal view of web servers and their role in managing a variety of network layers (ports, addressing, sessions, applications). As we've mentioned in class, many pieces of technology touch many network layers.
+
+== Thought Questions (No Need to Answer for the Lab)
+=== Basics
+. What is Apache?
+. What does Vagrant/VirtualBox do for us in this lab?
+. What is port forwarding with respect to the Vagrantfile?
+. What is the command to start/restart/stop Apache?
+. What is the relationship between a module and a directive?
+
+=== Do some research
+[start=6]
+. Apache is not the only web server. What are some other technologies in this space?
+. How often are you interacting with web servers in your day-to-day?
+. What happens if you type garbage in the apache2.config file and try to restart Apache?
