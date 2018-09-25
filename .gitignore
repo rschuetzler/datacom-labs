@@ -2,7 +2,6 @@
 /build/
 /Gemfile.lock
 *.pdf
-*.docx
 .vagrant
 *.pcap
 Thumbs.db
