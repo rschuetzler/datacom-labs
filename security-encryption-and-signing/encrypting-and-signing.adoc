@@ -4,11 +4,9 @@ v0.2
 ifndef::bound[:imagesdir: figs]
 :icons: font
 
-It is critical to protect data from prying eyes and to assure that the
-data comes from a trusted sender. Hashes are often used to store
-passwords, but using the wrong hashing algorithm or choosing passwords
-that are too weak can still lead to problems. This exercise will teach
-you how to better protect data.
+It is critical to protect data from prying eyes and to assure that the data comes from a trusted sender. 
+Hashes are often used to store passwords, but using the wrong hashing algorithm or choosing passwords that are too weak can still lead to problems. 
+This exercise will teach you how to better protect data.
 
 == Learning Objectives
 
@@ -34,25 +32,31 @@ standard PGP algorithm to sign and encrypt data.
 Run the following commands in a new folder to create an Unbuntu virtual
 machine.
 
-. `> vagrant init bento/ubuntu-16.04`
-. `> vagrant up`
-. `> vagrant ssh`
+.Create the VM
+[source,shell_session]
+----
+vagrant init ubuntu/bionic64
+vagrant up
+vagrant ssh
+----
 
 ==== Gnu Privacy Guard in Linux Installation and Key Creation
 
 IMPORTANT: If you already have a public/private key pair from completing the email encryption lab, skip to the next section: "Importing Keys"
 
-.  Run `$ sudo apt-get install rng-tools` to install random number
-generator tools.
+.  Install random number generator tools.
++
+.Install RNG tools
+----
+sudo apt update
+sudo apt install rng-tools
+----
 .  Run `$ sudo rngd -r /dev/urandom` to generate enough random entropy
 to successfully generate a GPG key.
 .  Run `$ gpg --gen-key` to start the key creation process.
 +
-* Select (1) RSA and RSA (default)
-* Select 2048 bits
-* Select 0 so that the key does not expire, then y to confirm.
-* Enter your first name and a fake last name (you won't be using this key again)
-* Enter a fake email address.
+* Enter your first name and a last name (you won't be using this key again)
+* Enter an email address.
 * Leave the comment blank.
 * Press O for okay.
 * Enter a password, and repeat it when prompted.
@@ -75,7 +79,8 @@ If you've already created a public/private keypair for another lab--or for some 
 . Open the Mailvelope options screen and click your key.
 . Under export, click the option to export "All".
 . Save the file.
-+ IMPORTANT: Make sure you name the file something special to indicate that it contains your private key. Remember, you do not want to share this private key with anyone.
++ 
+IMPORTANT: Make sure you name the file something special to indicate that it contains your private key. Remember, you do not want to share this private key with anyone.
 
 . At the same time, create a separate export of your public key only with a different filename. This is what you will share with others.
 . Place the private key file in the same directory as your Vagrantfile (where you're doing the lab).
@@ -109,7 +114,7 @@ That way, if we have done proper verification of Alice's public key, we can know
 
 Let's create a digital signature in a file.
 
-.  Run `$nano /vagrant/simple.txt`.
+.  Run `$ nano /vagrant/simple.txt`.
 +
 * Add the text "This is very important."
 * Save the file using Control+O,[enter],Control+X.
@@ -131,7 +136,7 @@ that you were the person who sent it if they had your public key.
 .  Rename your simple.txt file to "[name]simple.txt". Replace your name
 in the filename, and do not include brackets.
 +
-* Send your [name]_pub.asc and [name]simple.txt.asc to a friend
+* Send your [name]_pub.asc and [name]simple.txt.asc to a friend, or post it to the class discussion board.
 
 .  When you receive the files, copy them to your folder for this
 exercise.
@@ -178,7 +183,7 @@ In fact, with asymmetric encryption it is possible to create an encrypted file t
 +
  gpg --output /vagrant/name_asym.gpg --encrypt --recipient ryan@schuetzler.net /vagrant/asymmetric_secret.txt
 
-NOTE: To add multiple recipients, you can repeat the `--recipient email@example.com` option. If you want to be able to read the file, you'll need to add yourself as a recipient.
+NOTE: To add multiple recipients, you can repeat the `+--recipient email@example.com+` option. If you want to be able to read the file, you'll need to add yourself as a recipient.
 
 . To decrypt a message sent to you, you can use the following command:
 +
