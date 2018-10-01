@@ -1,8 +1,10 @@
 = Encrypting and Signing
-Jim Marquardson & Ryan Schuetzler <ryan@schuetzler.net>
-v0.2
+Jim Marquardson; Ryan Schuetzler <ryan@schuetzler.net>
+v0.3, 2018-10-01
 ifndef::bound[:imagesdir: figs]
 :icons: font
+:source-highlighter: rouge
+:rouge-style: github
 
 It is critical to protect data from prying eyes and to assure that the data comes from a trusted sender. 
 Hashes are often used to store passwords, but using the wrong hashing algorithm or choosing passwords that are too weak can still lead to problems. 
@@ -35,9 +37,9 @@ machine.
 .Create the VM
 [source,shell_session]
 ----
-vagrant init ubuntu/bionic64
-vagrant up
-vagrant ssh
+> vagrant init ubuntu/bionic64
+> vagrant up
+> vagrant ssh
 ----
 
 ==== Gnu Privacy Guard in Linux Installation and Key Creation
@@ -47,9 +49,10 @@ IMPORTANT: If you already have a public/private key pair from completing the ema
 .  Install random number generator tools.
 +
 .Install RNG tools
+[source,shell_session]
 ----
-sudo apt update
-sudo apt install rng-tools
+$ sudo apt update
+$ sudo apt install rng-tools
 ----
 .  Run `$ sudo rngd -r /dev/urandom` to generate enough random entropy
 to successfully generate a GPG key.
