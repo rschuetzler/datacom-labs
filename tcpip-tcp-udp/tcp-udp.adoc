@@ -1,6 +1,8 @@
 = Lab Exercise: TCP and UDP
 ifndef::bound[:imagesdir: figs]
 :icons: font
+:source-highlighter: rouge
+:rouge-style: github
 :experimental:
 
 The two most common transport layer protocols are TCP and UDP.
@@ -73,7 +75,11 @@ Simply put, it fetches the latest version of the package repository for Ubuntu a
 Then it changes permissions on one file which will allow you to run `tshark` without being an administrator or `sudo`.
 ** When presented with the dialog asking 'Should non-superusers be able to capture packets?': Select `<Yes>`
 
- $ sudo bash /vagrant/bootstrap.sh
+.Tshark setup
+[source,shell_session]
+----
+alice$ sudo bash /vagrant/bootstrap.sh
+----
 
 * *Before executing any commands at this stage, review the entire section.*
 Once you start `tshark`, you'll have a limited amount of time to complete the other steps, so you want to be ready for them.
@@ -95,22 +101,34 @@ NOTE: The `\` in the following command is only needed because this command spans
 If you type it out in one line, you can omit the `\` after `duration:30`.
 The backslash tells the shell that you're going to keep typing parts of the command on the next line.
 
- $ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
- -a duration:30 -w /vagrant/udp-short.pcap -Q &
+.Tshark command
+[source,shell_session]
+----
+alice$ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
+-a duration:30 -w /vagrant/udp-short.pcap -Q &
+----
 
 * Start wireshark (with `tshark` on Alice)
 * Use `netcat` to set up listening on a UDP port on Alice.
 ** The `-u` tells netcat we'll be using UDP.
 ** Finally, `-l 4242` tells netcat to listen on port 4242.
 
- $ netcat -ul 4242
+.Start listening for UDP traffic
+[source,shell_session]
+----
+alice$ netcat -ul 4242
+----
 
 * Use netcat to send a UDP message to Alice from Bob
 * Enter the following command at Bob's command prompt to open a
 connection to Alice, substituting Alice's IP address where indicated
 (remove the `<>`).
 
- $ netcat -u <Alice's IP Address> 4242
+.Send a UDP message
+[source,shell_session]
+----
+bob$ netcat -u <Alice IP Address> 4242
+----
 
 * Once the connection has started, type a brief message (1 or 2 sentences) and hit kbd:[Enter] to send.
 * After the message is sent, hit kbd:[CTRL+C] on Bob to end the `netcat` connection. 
@@ -139,11 +157,15 @@ using TCP instead of UDP.
 * Start `tshark` again, changing the name of the output file to `/vagrant/tcp-short.pcap`. 
 This is important, because you may want to review the UDP and TCP files to answer some of the questions in the submission.
 
- $ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
- -a duration:30 -w /vagrant/tcp-short.pcap -Q &
+.Tshark command
+[source,shell_session]
+----
+alice$ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
+-a duration:30 -w /vagrant/tcp-short.pcap -Q &
+----
 
 * On Alice, run `$ netcat -l 4242` to start listening on port 4242
-* On Bob, run `$ netcat <Alice's ip address> 4242` to open a connection.
+* On Bob, run `$ netcat <Alice ip address> 4242` to open a connection.
 ** Type your short message and hit Enter to send.
 ** Type Ctrl-C to end your connection. 
 Unlike with UDP, this will also close `netcat` on Alice.
@@ -171,15 +193,23 @@ As long as it's in the same directory as your Vagrantfile, can access it on your
 
 * Start `tshark`, outputting to the file `/vagrant/udp-long.pcap`.
 
- $ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
- -a duration:30 -w /vagrant/udp-long.pcap -Q &
+.Tshark command
+[source,shell_session]
+----
+alice$ tshark -f "not broadcast and not multicast and not arp" -i enp0s8 \
+-a duration:30 -w /vagrant/udp-long.pcap -Q &
+----
 
 * Start `netcat` on Alice listening for a UDP message (`-u`) on port
 4242.
 * On Bob, send the contents of the `dangerous.txt` file over UDP with
 the following command:
 
- $ netcat -u 192.168.100.10 4242 < /vagrant/dangerous.txt
+.Send a TCP message
+[source,shell_session]
+----
+bob$ netcat -u <Alice IP Address> 4242 < /vagrant/dangerous.txt
+----
 
 * You should see the contents of the file appear in Alice's terminal.
 * Press kbd:[Ctrl+C] on both VMs to stop netcat, then wait for your tshark
