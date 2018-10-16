@@ -1,5 +1,0 @@
-#!/bin/bash
-sudo ln -nsf ../run/resolvconf/resolv.conf /etc/resolv.conf
-echo 'echo "deb http://download.webmin.com/download/repository sarge contrib" >> /etc/apt/sources.list' | sudo -s
-wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
-sudo apt-get update
