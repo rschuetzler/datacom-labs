@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
 config.vm.provision "shell", inline: "echo Starting alice and bob"
 
 config.vm.define "alice" do |alice|
-alice.vm.box = "ubuntu/xenial64"
+alice.vm.box = "ubuntu/bionic64"
 alice.vm.network "private_network", ip: "192.168.100.24"
 alice.vm.hostname = "alice"
 alice.vm.box_check_update = false
@@ -13,9 +13,10 @@ alice.vm.provision "shell", path: "nodns.sh"
 end
 
 config.vm.define "bob" do |bob|
-bob.vm.box = "ubuntu/xenial64"
+bob.vm.box = "ubuntu/bionic64"
 bob.vm.network "private_network", ip: "192.168.100.25"
 bob.vm.box_check_update = false
+bob.vm.network "forwarded_port", guest: 10000, host: 10000
 bob.vm.provision "shell", path: "webminrepo.sh"
 bob.vm.hostname = "bob"
 end
