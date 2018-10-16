@@ -145,6 +145,9 @@ Now we will set up Alice to use Bob as her DNS server.
 Currently Alice is configured to use herself as a DNS server.
 
 * First test the existing configuration. Run `alice$ nslookup www.example.com` or `alice$ nslookup ns.example.com` to see the IP addresses that resolve for those domains. This should not work, as `alice` was configured not to have a DNS server.
+
+TIP: www.example.com might work because that address is registered by the IANA. That's okay.
+
 * Make Bob the DNS server by modifying the `/etc/netplan/50-vagrant.yaml` with the command `alice$ sudo nano /etc/netplan/50-vagrant.yaml` to say:
 
 .Netplan configuration
