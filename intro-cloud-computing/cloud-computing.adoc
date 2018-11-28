@@ -1,0 +1,57 @@
+= Cloud Computing
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1, 2018-11-28
+ifndef::bound[:imagesdir: figs]
+:icons: font
+
+Cloud computing plays a major part in many enterprises and organizations.
+Whether it is due to cost savings, ease of management, or simple lack of technical expertise, companies all over the world adopt cloud computing to serve their needs.
+There are thousands of cloud computing providers you could use in your organization.
+While Amazon is a major player with Amazon Web Services (AWS), they are far from the only major player in the market.
+This lab will help you get acquainted with some of the major cloud providers.
+
+We will focus here purely on the virtual machine and storage solutions at various cloud providers. 
+Today cloud computing companies may offer dozens of different services: machine learning, natural language processing, operations management, log analysis, IoT, and many more.
+Each of these services has their own pricing, and some of them are hard to compare across providers. 
+
+When comparing cloud providers' offerings, typically they will provide information on either a monthly or hourly basis.
+You can look at the pricing pages
+
+== Virtual Machines
+One of the core services for cloud computing is a virtual machine.
+Just like the virtual machines you create in these labs with Vagrant, cloud providers allow you to create virtual machines on their servers.
+You can then connect to their servers (likely with SSH) and configure it to do whatever you want (like setting up Apache, for example). 
+
+The first comparison we'll look at is the monthly cost of virtual machines on various cloud providers.
+Take a look at the pricing pages for Amazon EC2 (https://aws.amazon.com/ec2/pricing/on-demand/), Azure (https://azure.microsoft.com/en-us/pricing/calculator/) and Digital Ocean (https://www.digitalocean.com/pricing/).
+Look at different server sizes to see how much it would cost to run a server for a month. Compare various configurations.
+
+Typically cloud VMs are available with different configurations of memory (RAM), CPUs, and storage space. 
+What is the biggest server you can run on each of the providers?
+What is the cheapest server you can run?
+How much customizability do you have to adjust RAM, CPU, storage, or other parameters?
+
+== Storage
+Next we'll look at storage costs.
+While some limited storage is likely included with your virtual machines, sometimes you'll need extra.
+All of the major cloud providers have additional storage options available.
+Typically for storage you pay by the GB/month.
+You may also pay per "operation" (writing to or reading from the disk).
+In addition to storge, there are likely costs for transferring content into or out of the cloud.
+
+Look back at the pricing pages for Azure and DigitalOcean for storage costs. 
+For Amazon, we'll have to look at the pricing for S3 (https://aws.amazon.com/s3/pricing/), their storage solution.
+
+NOTE: You might have noticed that AWS is a little complicated in how it names things. It can be hard to remember what everything is called, so websites have created cheat sheets to help you translate the strange names into English (https://www.expeditedssl.com/aws-in-plain-english).
+
+How much does it cost to store 1GB for a month?
+What about if you had to store 3 TB?
+Or even 300 TB?
+Can you see if there are transfer costs to get your data into the cloud and back out again?
+
+== Exploration
+Now that we've looked at the basics, look around a bit. 
+It'll be easiest at Azure, but you can look at AWS or DigitalOcean to see what options are available.
+What other services does the cloud provider have, and how much does it cost?
+You should also look for other cloud providers besides AWS, Azure, and DigitalOcean.
+What services do they provide?
