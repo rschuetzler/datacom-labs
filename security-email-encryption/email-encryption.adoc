@@ -1,6 +1,6 @@
 = Email Encryption
 Ryan Schuetzler <ryan@schuetzler.net>
-v1.1
+v1.2, 2018-11-06
 ifndef::bound[:imagesdir: figs]
 :icons: font
 
@@ -122,12 +122,14 @@ image::mailvelope-window.png[Mailvelope's compose window]
 
 You should see a whole bunch of gobbledygook in a new mail window starting with `-----BEGIN PGP MESSAGE-----`. This is your PGP encrypted message. Select a recipient, give the mail a subject line, send it.
 
+NOTE: Mailvelope might put in `rschuetzler@keybase.io` as my email address. When you go to send the message, change the destination address to `ryan@schuetzler.net` or I won't receive your email.
+
 ==== Reading encrypted mail
 
 When you receive an encrypted message, it is a simple process to read it.
 
 [start=19]
-. Open the email as usual in your browser
+. Open the email as usual in your browser.
 . Mailvelope will detect that it is an encrypted message and display a pop-over allowing you to click to decrypt the message.
 .. You may need to enter the password for your private key again. That is because the private key is used to decrypt a message destined for you.
 
@@ -192,3 +194,8 @@ messages
 
 It is possible to send encrypted mail with Apple Mail, Outlook, or other mail clients.
 Feel free to use Google to find out how to send GPG encrypted messages if you have a different preferred email client.
+
+== Things to think about
+. What are the benefits of encrypting emails?
+. What are the drawbacks of encrypting emails?
+. What information is still visible (e.g., to your email provider or ISP) when the contents of an email are encrypted?
