@@ -1,0 +1,92 @@
+= Getting set up with Amazon Web Services
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1, 2019-11-15
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:xrefstyle: short
+
+Amazon Web Services (AWS) is one of the largest providers of cloud computing services in the world.
+They offer a huge array of services, from databases to VMs to speech recognition.
+While there are hundreds of cloud providers to choose from, it's a smart career move to get familiar with AWS because of their market share.
+In this lab you will use AWS Educate, Amazon's educational program, to get some free credit that you can use to create servers on Amazon's infrastructure.
+
+IMPORTANT: When you are done with the lab, make sure you delete your servers or other services so they stop running. Otherwise they will continue to accrue charges.
+
+== Objectives
+
+* Sign up for AWS Educate
+* Become familiar with the AWS Educate portal
+* Create a virtual machine on AWS and connect to it from your computer
+* Create a static website on AWS that can be accessed from anywhere
+
+
+== Signing up for AWS Educate
+
+// Also add steps for people who aren't in my class to sign up. (at https://aws.amazon.com/education/awseducate/)
+
+The first step to getting set up is to sign up for AWS Educate.
+As a university student, you have access to (some) AWS resources for free, including a large set of courses that you can use to learn about what AWS can do.
+To begin this lab, you should be receiving an email inviting you to join a "classroom."
+The email will be titled "Your AWS Educate Application."
+
+. Click the link in the email to complete the AWS Educate application.
+You'll need to put in your contact information, graduation information, and name to apply.
+Make sure to use your UNO email address to prove that you are a student.
+You do not have a promo code, so skip that.
+. Once you complete the application, you will receive an "email verification" message. Click the link to confirm your email address.
+. Wait. 
+Now you'll need to wait for your application to be approved. 
+This can take some time (20 minutes to 24 hours, possibly), so be patient.
+Maybe read through the rest of the lab while you wait so you're ready to go.
+Once you receive an email stating that your application is approved, you can move forward. 
+. Click the link in the email to set up your AWS Educate student account password.
+. Once you set the password, you should get a page that looks something like <<img-educate>> at https://awseducate.com/student/s/
++
+.The AWS Educate Student Portal
+[#img-educate]
+image::educate-portal.png[]
+. Connect your Educate account to an AWS account to receive the $50 credit from the course. Choose one of the options below (I recommend a.)
+.. If _do not_ or _do not wish to use_ an existing AWS account, you should choose the option to "Use an AWS Educate Starter Account" from the box on the right side of the page.
++
+An AWS Starter account is one that does not require a credit card. You will have access to only the services allowed by the class, and once your $50 free credit is used up, your services will be deleted. That's more than enough to get through this lab and the class, so use this if you're not sure what to choose.
+.. If you have an AWS account and are comfortable using AWS, you can choose the option to "Use a personal AWS Account." This option will just add the credits from the class to your existing AWS account.  With an existing AWS account, you have already entered credit card information, and if you use up the $50 free credit for the course, your credit card will continue to be charged. *_Only use this if you are comfortable with AWS._*
+. Once you click through the options and accept the terms and conditions, you should see a page that looks something like <<img-educate-account>>.
++
+.Your AWS Educate Account page
+[#img-educate-account]
+image::educate-account.png[]
+. Clicking the button for your "AWS Console" on the right side of the page should take you to a page that looks like <<img-aws-console>>.
++
+.Your AWS Console
+[#img-aws-console]
+image::aws-console.png[]
+
+== The AWS Educate Portal
+
+As I already explained, AWS Educate is Amazon's student developer partnership that gives you access to a whole bunch of free learning resources.
+For this lab we won't really use it, but after the lab you will have some free credit left over that you can use to experiment and learn more on AWS through the Educate Portal.
+The Portal homepage is https://awseducate.com/student/s/.
+Going to this page will show you a bunch of information similar to what you see in <<img-educate>>.
+
+. Watch some of the videos linked from the AWS Educate page to get an idea what you can do.
+. Click the "Career Pathways" to see some of the courses offered for different cloud computing roles.
+. Go back to the homepage and click on Badges to see some of the Educate credentials you can earn.
+. Finally, click "My Classrooms" to find the IT Infrastructure classroom, then click "Go to classroom"
+. After accepting some terms, you should see the familiar button to access your AWS Console. In the future, this will be how you get back to the AWS console to start services.
+
+Now that you're signed up for this class, you can come back to the Educate portal any time, even after the class is over (at least until you graduate). 
+If any of the Career Pathways are interesting to you, it's worth doing some learning on your own to prepare for a future career.
+Employers love to see AWS skills on a resume.
+
+== Starting a server
+
+The simplest and most basic thing you will want to do to get started with AWS is to start up a virtual machine server. 
+On AWS, these servers are called "EC2 Instances."
+Starting up an EC2 instance is doing the exact same thing you did when you were creating VMs on your local machine with VirtualBox and Vagrant.
+The only difference is that instead of running on your computer, your EC2 server will be running in an Amazon data center somewhere in Virginia.
+Since we're not using Vagrant for this, the commands to connect to the server will be different, but you're still basically doing the same thing: connecting to a server using SSH.
+
+TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS that there are a lot of acronyms and weird names for things.  Check out https://expeditedsecurity.com/aws-in-plain-english/[AWS in plain English] to get an idea what some of them mean. And that's just a start! Look at https://aws.amazon.com/products/ for a bigger AWS product list.
+
