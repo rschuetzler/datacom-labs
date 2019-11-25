@@ -21,8 +21,24 @@ IMPORTANT: When you are done with the lab, make sure you delete your servers or 
 * Create a virtual machine on AWS and connect to it from your computer
 * Create a static website on AWS that can be accessed from anywhere
 
+== Signing up for AWS Educate through Canvas
+The first step to getting set up is to sign up for AWS Educate.
+As a university student, you have access to (some) AWS resources for free, including a large set of courses that you can use to learn about what AWS can do.
+If you are enrolled in one of my classes, you should be able to access AWS Educate through a link in your course.
 
-== Signing up for AWS Educate
+. Go to the course Modules page for this week.
+. Find a link titled "AWS Edcuate"
+. Click the link to find the form.
+. Fill out the form, selecting the AWS Starter Account option (unless you know what you're doing. See <<starter-account,Step 6 from the next section>> for more detail).
+. After a short delay, you should receive an email to set up your account password, after which you will be directed to https://www.awseducate.com/student/s/ (<<img-educate>>).
+. You can then continue with the lab starting with <<educate-portal,The AWS Educate Portal>>.
++
+.The AWS Educate Student Portal
+[#img-educate]
+image::educate-portal.png[]
+
+
+== Signing up for AWS Educate (without a Canvas link)
 
 // Also add steps for people who aren't in my class to sign up. (at https://aws.amazon.com/education/awseducate/)
 
@@ -42,12 +58,8 @@ This can take some time (20 minutes to 24 hours, possibly), so be patient.
 Maybe read through the rest of the lab while you wait so you're ready to go.
 Once you receive an email stating that your application is approved, you can move forward. 
 . Click the link in the email to set up your AWS Educate student account password.
-. Once you set the password, you should get a page that looks something like <<img-educate>> at https://awseducate.com/student/s/
-+
-.The AWS Educate Student Portal
-[#img-educate]
-image::educate-portal.png[]
-. Connect your Educate account to an AWS account to receive the $50 credit from the course. Choose one of the options below (I recommend a.)
+. Once you set the password, you should get a page that looks something like <<img-educate>> at https://www.awseducate.com/student/s/
+. [[starter-account]]Connect your Educate account to an AWS account to receive the $50 credit from the course. Choose one of the options below (I recommend a.)
 .. If _do not_ or _do not wish to use_ an existing AWS account, you should choose the option to "Use an AWS Educate Starter Account" from the box on the right side of the page.
 +
 An AWS Starter account is one that does not require a credit card. You will have access to only the services allowed by the class, and once your $50 free credit is used up, your services will be deleted. That's more than enough to get through this lab and the class, so use this if you're not sure what to choose.
@@ -63,7 +75,7 @@ image::educate-account.png[]
 [#img-aws-console]
 image::aws-console.png[]
 
-== The AWS Educate Portal
+== [[educate-portal]]The AWS Educate Portal
 
 As I already explained, AWS Educate is Amazon's student developer partnership that gives you access to a whole bunch of free learning resources.
 For this lab we won't really use it, but after the lab you will have some free credit left over that you can use to experiment and learn more on AWS through the Educate Portal.
@@ -90,3 +102,20 @@ Since we're not using Vagrant for this, the commands to connect to the server wi
 
 TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS that there are a lot of acronyms and weird names for things.  Check out https://expeditedsecurity.com/aws-in-plain-english/[AWS in plain English] to get an idea what some of them mean. And that's just a start! Look at https://aws.amazon.com/products/ for a bigger AWS product list.
 
+We're first going to create an EC2 instance.
+
+. Get to your AWS Management Console using "AWS Console" button shown in <<img-educate-account>>.
+This should take you to a page that looks like <<img-aws-console>>.
+. Click the option to "Launch a virtual machine" With EC2.
+. Select the option for an Amazon Linux 2 AMI. 
+This is using Amazon's customized version of Linux.
+It will work a lot like Ubuntu has in the other labs you have completed so far.
+Make sure to select the option for 64-bit (x86).
+. Select the General purpose `t2.micro` instance. This is a very small server with a single virtual CPU.
+. When asked to create a key pair, make sure you create a key pair and save it to your computer. Without it, you may not be able to access your server.
+. After you have created your instance, click the button to view your instances. That should take you to a page like this https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId
+. This is your EC2 control panel where you can see your currently running EC2 instances. You should have one currently on (with a green "Instance State" indicator).
+
+IMPORTANT: Remember: when you are done with the lab, make sure you delete your servers or other services so they stop running. 
+Otherwise they will continue to accrue charges. 
+As long as you signed up for the starter account, it won't cost you any money, but you could run out of credit and not be able to play around anymore.
