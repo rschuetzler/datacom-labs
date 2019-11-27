@@ -109,35 +109,35 @@ We're first going to create an EC2 instance.
   * Launch an AWS Linux instance.
     * Go to AWS Management console and then launch a virtual machine with EC2.
     
-image::https://github.com/Julie789/Datacom_labs/blob/master/mgmt_console.JPG[title="AWS Management Console"]
+image::mgmt_console.jpg[title="AWS Management Console"]
     
     * Choose an Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select one option from Amazon Linux.
 
-image::https://github.com/Julie789/Datacom_labs/blob/master/AMI.JPG[title="AMI"]
+image::AMI.jpg[title="AMI"]
 
     * Choose an Instance Type which is free tier eligible i.e. t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. Click Next.
 
-image::https://github.com/Julie789/Datacom_labs/blob/master/instance_type.JPG[title="Instance Type"]
+image::instance_type.jpg[title="Instance Type"]
 
     * Keep default of the _Configure Instance Details_ and _Add Storage_. Click Next for _Add Tags_.
     
     * In Add Tags, add key value pair as Name: MyFirstWebsite. Click Next for _Configure Security Group_
 
-image::https://github.com/Julie789/Datacom_labs/blob/master/Tags.JPG[title="Tags"]
+image::Tags.jpg[title="Tags"]
 
     * A security group is a set of firewall rules that control the traffic for your instance. On this page, you can add rules to allow   specific traffic to reach your instance. For example, if you want to set up a web server and allow Internet traffic to reach your   instance, add rules that allow unrestricted access to the HTTP and HTTPS ports. You can create a new security group or select from an existing one below. Add the security group of SSH, HTTP, HTTPS as shown below:
 
-image::https://github.com/Julie789/Datacom_labs/blob/master/security_group.JPG[title="Firewall"]
+image::security_group.jpg[title="Firewall"]
 
     * Click _Review and Launch_ the instance. After verifying, Click on _Launch_
     
     * Download the PEM file i.e Key Pair as shown below and secure it in your system.
 
-image::https://github.com/Julie789/Datacom_labs/blob/master/pem.JPG[title="Download PEM File"]
+image::pem.jpg[title="Download PEM File"]
     
   * Once Instance is launched, you can see the instance running in your EC2 Instances as shown below.
   
-image::https://github.com/Julie789/Datacom_labs/blob/master/running_instance.JPG[title="Instance"]
+image::running_instance.jpg[title="Instance"]
   
   * Open cmd and connect to your server using command shown below. Keep your pem file and the IP address handy. Type yes to authenticate your connection. You will be able to connect to the Amazon EC2.
 ```
@@ -151,23 +151,24 @@ image::https://github.com/Julie789/Datacom_labs/blob/master/running_instance.JPG
   
   * Go to /var and create folder www/html if not existing.
   
-  * Create index.html file using vi editor.
+  * Create index.html file using the `nano` editor.
 ```
-  vi index.html
+  nano index.html
 ```
   
   *  Add your html contents in this file. Add and edit the html file to see the changes.
   
-```
+[source,html]
+----
 <html>
 <head>
-<title>My Website</title>
+    <title>My Website</title>
 </head>
 <body>
-<h1>Welcome to my website</h1>
+    <h1>Welcome to my website</h1>
 </body>
 </html>
-```
+----
 
   * Install Apache web server through command.  
 ```
@@ -184,7 +185,16 @@ image::https://github.com/Julie789/Datacom_labs/blob/master/running_instance.JPG
   service httpd status
 ```
   
-  * Once the server is running, run in the browser the Public DNS or IPv4 from your instance. The website is ready to use.
+  * Once the server is running, open your browser and navigate to the Public DNS or IPv4 from your instance. You should see your website up and running.
+
+== Ideas for Exploration
+There are so many services on AWS that you could play around with.
+With the starter account you won't have access to everything, but you'll be able to play around with a lot of the services that would be needed to create a website.
+Also, with the starter account you can use whatever services you want and when the credits run out, your services will shut down, so you won't be charged.
+Note, if you used your own AWS account when you signed up, then you can be charged if you use services beyond the credits provided with the class.
+
+Investigate some other services available on AWS, and learn what they do and how to use them.
+It can be overwhelming to see dozens or even hundreds of options, but with time and experience, it will become less confusing. 
 
 IMPORTANT: Remember: when you are done with the lab, make sure you delete your servers or other services so they stop running. 
 Otherwise they will continue to accrue charges. 
