@@ -104,17 +104,87 @@ TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS 
 
 We're first going to create an EC2 instance.
 
-. Get to your AWS Management Console using "AWS Console" button shown in <<img-educate-account>>.
-This should take you to a page that looks like <<img-aws-console>>.
-. Click the option to "Launch a virtual machine" With EC2.
-. Select the option for an Amazon Linux 2 AMI. 
-This is using Amazon's customized version of Linux.
-It will work a lot like Ubuntu has in the other labs you have completed so far.
-Make sure to select the option for 64-bit (x86).
-. Select the General purpose `t2.micro` instance. This is a very small server with a single virtual CPU.
-. When asked to create a key pair, make sure you create a key pair and save it to your computer. Without it, you may not be able to access your server.
-. After you have created your instance, click the button to view your instances. That should take you to a page like this https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#Instances:sort=instanceId
-. This is your EC2 control panel where you can see your currently running EC2 instances. You should have one currently on (with a green "Instance State" indicator).
+== Steps involved to create a static website
+ 
+  * Launch an AWS Linux instance.
+    * Go to AWS Management console and then launch a virtual machine with EC2.
+    
+image::https://github.com/Julie789/Datacom_labs/blob/master/mgmt_console.JPG[title="AWS Management Console"]
+    
+    * Choose an Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select one option from Amazon Linux.
+
+image::https://github.com/Julie789/Datacom_labs/blob/master/AMI.JPG[title="AMI"]
+
+    * Choose an Instance Type which is free tier eligible i.e. t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. Click Next.
+
+image::https://github.com/Julie789/Datacom_labs/blob/master/instance_type.JPG[title="Instance Type"]
+
+    * Keep default of the _Configure Instance Details_ and _Add Storage_. Click Next for _Add Tags_.
+    
+    * In Add Tags, add key value pair as Name: MyFirstWebsite. Click Next for _Configure Security Group_
+
+image::https://github.com/Julie789/Datacom_labs/blob/master/Tags.JPG[title="Tags"]
+
+    * A security group is a set of firewall rules that control the traffic for your instance. On this page, you can add rules to allow   specific traffic to reach your instance. For example, if you want to set up a web server and allow Internet traffic to reach your   instance, add rules that allow unrestricted access to the HTTP and HTTPS ports. You can create a new security group or select from an existing one below. Add the security group of SSH, HTTP, HTTPS as shown below:
+
+image::https://github.com/Julie789/Datacom_labs/blob/master/security_group.JPG[title="Firewall"]
+
+    * Click _Review and Launch_ the instance. After verifying, Click on _Launch_
+    
+    * Download the PEM file i.e Key Pair as shown below and secure it in your system.
+
+image::https://github.com/Julie789/Datacom_labs/blob/master/pem.JPG[title="Download PEM File"]
+    
+  * Once Instance is launched, you can see the instance running in your EC2 Instances as shown below.
+  
+image::https://github.com/Julie789/Datacom_labs/blob/master/running_instance.JPG[title="Instance"]
+  
+  * Open cmd and connect to your server using command shown below. Keep your pem file and the IP address handy. Type yes to authenticate your connection. You will be able to connect to the Amazon EC2.
+```
+  ssh -i "your pem file" ec2-user@"your IPv4 Public IP"
+```
+  
+  * Switch to the root user by invoking command 
+```
+  sudo su -
+```
+  
+  * Go to /var and create folder www/html if not existing.
+  
+  * Create index.html file using vi editor.
+```
+  vi index.html
+```
+  
+  *  Add your html contents in this file. Add and edit the html file to see the changes.
+  
+```
+<html>
+<head>
+<title>My Website</title>
+</head>
+<body>
+<h1>Welcome to my website</h1>
+</body>
+</html>
+```
+
+  * Install Apache web server through command.  
+```
+  yum install httpd
+```
+  
+  * Start the server.
+```
+  service httpd start
+```
+  
+  * Check the status. It should be in running stage.
+```
+  service httpd status
+```
+  
+  * Once the server is running, run in the browser the Public DNS or IPv4 from your instance. The website is ready to use.
 
 IMPORTANT: Remember: when you are done with the lab, make sure you delete your servers or other services so they stop running. 
 Otherwise they will continue to accrue charges. 
