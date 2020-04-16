@@ -1,0 +1,38 @@
+= Hosting a static website on AWS S3
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1, 2020-04-16
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:xrefstyle: short
+
+Amazon Web Services Simple Storage Service (AWS S3) is Amazon's easiest way to store and access files on Amazon's cloud. Even though it is simple, it is still powerful enough to host a website (as long as the website doesn't require a database). In this lab, you'll use AWS's instructions to set up a website on S3.
+
+== Learning Objectives
+
+* Set up and configure an S3 bucket
+* Add files to an S3 bucket
+* Configure S3 to allow connections from the outside world
+
+== Instructions
+
+. Login to to AWS Educate (https://aws.amazon.com/education/awseducate/)
+. Using the instructions from the AWS Intro lab, access your AWS Console for the class
+. Follow the instructions at https://docs.aws.amazon.com/AmazonS3/latest/dev/HostingWebsiteOnS3Setup.html
+.. These instructions will walk you through setting up your bucket
+.. Make sure you select `us-east-1` as the region, as that's the only one you can use under the Educate account.
+.. When it's time to upload the site, you can either create your own `index.html` and other page, or you can use the `static-site.zip` that is attached to the assignment. Make sure you unzip the file and upload the contents (`index.html`, `left-sidebar.html`, the `css` folder, etc.). You can just drag and drop them into the S3 bucket to upload the whole thing.
+. Once you have uploaded the files, I want you to see how easy it would be to add CloudFront. Our Educate accounts don't have permission to add it, but you can see how easy the process would be. Follow the instructions here https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/.
+
+
+== Reflection
+
+. What would CloudFront do for you or for your website's users?
+. You don't have a domain name, so you can't use Route 53 to give your S3 website a real domain name. If you did own a domain name, you could follow the instructions https://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html[here] to add it to your website. Look through those instructions to see what would be different.
+. If the entire website is ~1MB in size, how much would it cost to store it on S3 for one year?
+.. How much would it cost to deliver the website to users if 1000 new users visited every day and downloaded the whole site? Assume each site visit is 10 GET requests.
+
+IMPORTANT: Remember: once the lab is graded, make sure you delete your servers or other services so they stop running. 
+Otherwise they will continue to accrue charges. 
+As long as you signed up for the starter account, it won't cost you any money, but you could run out of credit and not be able to play around anymore.
