@@ -96,9 +96,7 @@ Employers love to see AWS skills on a resume.
 
 The simplest and most basic thing you will want to do to get started with AWS is to start up a virtual machine server. 
 On AWS, these servers are called "EC2 Instances."
-Starting up an EC2 instance is doing the exact same thing you did when you were creating VMs on your local machine with VirtualBox and Vagrant.
-The only difference is that instead of running on your computer, your EC2 server will be running in an Amazon data center somewhere in Virginia.
-Since we're not using Vagrant for this, the commands to connect to the server will be different, but you're still basically doing the same thing: connecting to a server using SSH.
+Your EC2 server will be running in an Amazon data center somewhere in Virginia, and we will connect to it using the Secure Shell (SSH) protocol.
 
 TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS that there are a lot of acronyms and weird names for things.  Check out https://expeditedsecurity.com/aws-in-plain-english/[AWS in plain English] to get an idea what some of them mean. And that's just a start! Look at https://aws.amazon.com/products/ for a bigger AWS product list.
 
@@ -140,6 +138,9 @@ image::pem.jpg[title="Download PEM File"]
 image::running_instance.jpg[title="Instance"]
   
   * Open cmd and connect to your server using command shown below. Keep your pem file and the IP address handy. Type yes to authenticate your connection. You will be able to connect to the Amazon EC2.
+
+NOTE: If you're using PuTTY, you need to first convert the `.pem` file into something Putty can use. Instructions to do that are here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+
 ```
   ssh -i "your pem file" ec2-user@"your IPv4 Public IP"
 ```

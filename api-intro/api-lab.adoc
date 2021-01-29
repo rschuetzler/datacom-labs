@@ -1,0 +1,187 @@
+= Investigating and using APIs
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:experimental:
+
+Application Programming Interfaces (APIs) are a key part of building many useful applications today.
+If an application provides an API, it can allow others to build new things with the functionality provided.
+In this assignment, you will investigate web APIs in two different ways: Zapier, and Postman.
+After working with these two tools, you will better understand how APIs function, and how you might use them in an application that you build.
+
+== Part 1: Using Postman
+When you need to interact directly with APIs, whether creating or consuming them, it is helpful to have a tool to let you see what's going on with your requests.
+Postman (https://www.getpostman.com/) calls itself the world's only complete API Development Environment.
+I have no way to verify that statement, but I can say that it's a very useful tool for testing out requests to an API to (a) see what it returns and (b) make sure it returns what you want it to.
+In this part of the lab, you will use Postman to send some API requests and see how the data is formatted when it comes back.
+
+=== Setting up
+. Go to https://www.getpostman.com/downloads/ and download the version of Postman appropriate for your OS.
+. Install the application
+. Run Postman on your computer
+. You can either choose to create a free Postman account, or you can click the little gray link at the bottom of the window to skip signing up and go straight to the app.
+. In the window that appears, choose the option to create a Collection. I called my collection "API Basics."
++
+.Postman intro screen
+image::postman-intro.png[]
+
+=== Using a basic API
+Now that we have a project, we're going to look at what happens when we use an API.
+We'll start off with the simplest API call possible.
+It has no parameters, and no authentication.
+We'll use the API from https://shibe.online to get a random picture of a dog.
+
+[start=6]
+. Click the "..." next to your new collection and choose the option to "Add Request"
+.. Name the request "Random Dog" and save it to your collection.
+. Open the request and enter `https://shibe.online/api/shibes` where Postman asks for the request URL.
+. Make sure the request type is "GET" (check the dropdown to the left of the URL)
++
+NOTE: `GET`, `POST`, `PUT`, and `DELETE` are the most common request types used when accessing APIs. These are HTTP request methods, and you can find more information about when to use each here: https://www.w3schools.com/tags/ref_httpmethods.asp.
+
+. Click btn:[Send] to send the request.
+. In the box at the bottom, you should see the response from the API that includes a single URL. If you copy that URL into a web browser, you'll see that it's a picture of a dog, as promised.
+
+=== Adding parameters
+Some APIs use URL parameters to specify additional information when fulfilling requests.
+For example, our Shibe API allows us to specify how many dog pictures we would like (up to 100) using the `count` parameter.
+
+[start=11]
+. Under the request URL in the Params tab, put in `count` as the Key, and `5` as the value.
+. Click btn:[Send] to see the result of this query. You should receive a list of 5 URLs, each with their own random dog picture.
+. Add a second parameter for `httpsUrls` with a value of `false`. Send and check the list and notice that the URLs returned are now `http` instead of `https`.
++
+NOTE: Notice that changing the parameters also changes the URL in the bar above. It adds `?count=5&httpsUrls=false` after the URL that you previously put. That is how parameters are passed in HTTP GET requests. Postman makes it easier to set different parameters by presenting them in a table instead of in a long string. You can copy the exact same URL into your browser and see the results there as well. Try it: `http://shibe.online/api/shibes?count=10&httpsUrls=false`.
+. icon:desktop[] Take a screenshot of the Postman window with the request, parameters, and results.
+
+=== POSTing
+Not all requests to APIs can be done with an HTTP `GET` request. 
+Usually if you are submitting data in some form to an API, you will use a `POST` request instead.
+For this section we'll create a POST request for a different API to send some text. 
+We'll use the ShoutCloud.io service to convert some input text from lowercase into all caps.
+The ShoutCloud API accepts a JSON-formatted input and gives back an ALL-CAPSified version of the input string.
+
+[start=15]
+. Create a new request in the collection by clicking the "..."
+. Change the request type from GET to POST
+. Enter the URL: `HTTP://API.SHOUTCLOUD.IO/V1/SHOUT`
+. Don't add anything to the "Params" tab. Usually with HTTP POST requests, data is passed in the message body instead of as part of the URL.
+. Go to the Body tab, select `raw`.
+. For the orange input type, select `JSON (application/json)`.
+.. Check the Headers tab and note that a `Content-Type` header has been added. This header tells the API what type of data you are willing to accept. In this case, you are telling the server that you will only accept JSON in return.
+. In the input box, enter `{"INPUT": "put some text here"}`
++
+.Entering parameters for a POST
+image::postman-post.png[]
+. Click btn:[Send]. You should get back a response with two values: "INPUT" and "OUTPUT". INPUT is the string you entered, and OUTPUT is the CAPS-ified version of the string.
+
+=== Authentication
+Authentication for APIs can take many different forms.
+Many APIs use a secret key that is passed either as a parameter or as part of the header.
+Others allow you to use a username and password directly.
+Still others use OAuth, an open standard for authentication.
+
+Learning how to authenticate with an API is beyond the scope of this lab because getting an API key usually involves creating an account somewhere, and I think one new account per lab is enough.
+If your experimentation takes you to an API that requires a key, you'll likely need to create an account to get the API key.
+If it requires OAuth, you'll have to do some work to figure out how to use it.
+
+TIP: There are some great resources out there for learning how OAuth works. https://stackoverflow.com/questions/4727226/on-a-high-level-how-does-oauth-2-work has a good real life comparison.
+
+
+=== Experimentation
+Now that you have the basics of how to use an API with Postman, dig around on your own and learn something new.
+Look for new APIs at https://github.com/toddmotto/public-apis, https://www.programmableweb.com/, or other sources.
+
+[start=23]
+. icon:desktop[] / icon:keyboard-o[] Create requests to interact with 3 different APIs besides those described here. Take and label screenshots for each. Describe what each API does.
+. icon:keyboard-o[] What have you learned about APIs from this lab?
+. icon:keyboard-o[] What challenges did you face from this lab?
+
+
+== Part 2: Zapier
+
+Zapier (https://zapier.com/) is an automation tool that integrates APIs provided by other applications to create powerful automations (called Zaps).
+With a free account, you are able to create automations with two steps: a trigger and an action.
+Typically a Zap will use a trigger from one application to do an action in a different application.
+Popular app integrations include Gmail, Trello, Dropbox, and a bunch of to do list applications.
+
+Triggers are used to start an automation.
+For example, the GitHub integration has triggers for "New Commit," "New Repository," "New Mention," and about a dozen others.
+When an event triggers a Zap, specific information from the event can be passed to the corresponding action.
+
+Actions are used to do something once the trigger has started.
+For example, GitHub has actions for creating comments, updating issues, or deleting branches.
+Gmail has actions for sending email, drafting email, and adding or removing labels from mail.
+
+NOTE: In order for Zapier to work for your sites, you need to authorize it to do things for you. They are a reputable service, but if you do not trust it, you can create a separate account on services you want to integrate just to test things out. For example, you can create a separate GitHub or Gmail account for this assignment to test integrations with Zapier.
+
+=== Discover
+
+. Go to https://zapier.com/apps/integrations/ and investigate some of the popular integrations (zaps) that people have created with Zapier.
+. icon:desktop[] On the integrations page, search for an app that you use to see integrations that others have created for that app.
++
+.Example screenshot of integrations for an app
+image::integrations.png[]
+
+=== Create
+I'll walk you through the process of creating a sample Zap. Let's imagine a scenario where we have a company email account for tech support. When customers send an email to the account that we label as a bug, we want to automatically create a new issue in GitHub for the project.
+
+[start=3]
+. *Getting things ready*
+.. In GitHub, create a new private repository. Initialize the repository with a `.gitignore` file and a README. The contents don't really matter, but you need to have something in the repo for the integration to work.
++
+.Creating a new GitHub repository
+image::new-repo.png[]
+
+.. In your Gmail account, create a new label (icon:cog[] -> Labels) called "bugs".
+.. Send yourself an email with a sample bug report. Mine was "Major issue: When I connect to the application, my phone is erased."
+.. Label the email with the new "bugs" label.
+. Create an account at Zapier.com
+. On the Zapier Homepage (https://zapier.com/app/home/), select GitHub in the first box, and Gmail in the second.
+.. Under "When this happens..." select "New Labeled Email" (this is the trigger)
+.. Under "then do this!" select "Create issue" (this is the action)
+.. Click "Make a Zap!"
++
+.Starting a new Zap for GitHub and Gmail
+image::github-gmail.png[]
+
+
+
+. *Creating the Trigger*
+.. Back on Zapier, on the page that comes up, connect Zapier to your Gmail account (remember you can create a dummy account for this assignment if you prefer).
+.. Your email should show up under the test condition. If it doesn't, try sending yourself a new email and labeling it again. Select the email as a sample to test the Zap.
+. *Creating the Action*
+.. Select GitHub as the Action app and Create Issue as the action to perform.
+.. Connect Zapier to your GitHub account (again, you can create a dummy account just for this assignment if you wish).
+.. Select the test repo you created above as the Repo for the action.
+.. For the title, you can have a combination of text you type and text from the email that triggers the action. Type "Email issue:" in the Title box, then click the plus icon on the right to add a field from your email. Select the Subject field of your email.
+.. In the Body section, add the "Body plain" section of your email.
+.. Skip the Assignee, Milestone, and Labels sections of the action (unless you want to play around with them)
++
+.Including Email content in an action
+image::github-action.png[]
+
+. *Test the Zap*
+.. Click the button to send the test to GitHub.
+.. Open your GitHub repository and verify that the issue was created as you outlined.
+.. On Zapier, click Finish and give your Zap a name, then turn it on.
+.. Send another email to yourself with a new subject and body. Apply the `bugs` label and verify that a new issue is automatically created.
+.. icon:desktop[] Take a screenshot of your issue on GitHub.
+
+
+=== Explore & Reflect
+Now that you understand the process of creating an integration, you can find ways to improve your personal or work life.
+Advanced Zapier plans cost up to $75/month, suggesting that these integrations can provide significant value for individuals or companies.
+
+. icon:keyboard-o[] Describe three other integrations you would create. For each one, detail the trigger, the action, what data is passed, and what benefit the integration would provide. They could be company-focused, personal life-focused, or a mixture.
+. icon:keyboard-o[] What challenges did have creating the integration?
+. icon:keyboard-o[] What concerns might you have for employees of your company using Zapier or similar services?
+
+
+
+== Extras
+
+There are other services similar to Zapier.
+If-this-then-that (https://ifttt.com) is one that is focused more toward personal use as opposed to Zapier's business focus.
+In addition to the API integrations, IFTTT includes iOS and Android applications to let you pull in integration with your phone.
