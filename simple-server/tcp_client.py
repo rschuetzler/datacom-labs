@@ -1,6 +1,6 @@
 import socket
 
-HOST = "100.26.206.96"
+HOST = "basic.schuetzler.net"
 PORT = 9090
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
