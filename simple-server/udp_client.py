@@ -1,5 +1,4 @@
 import socket
-import sys
 
 HOST, PORT = "basic.schuetzler.net", 9091
 data = "Testing 123"
