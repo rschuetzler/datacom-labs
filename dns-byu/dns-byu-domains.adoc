@@ -1,0 +1,96 @@
+= Using DNS with BYU Domains
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:experimental:
+
+DNS is the globally distributed directory that translates names like www.google.com into IP addresses like 172.217.7.100.
+To add your own records to this global directory, you need to pay to register a domain with a registrar.
+BYU gives the ability for all students to purchase a domain name for free.
+You may have done this already for another class.
+If that's the case: no worries, we'll just use the domain you have.
+If you haven't gone through this process yet, or it's been a while and your domain expired.
+
+
+== Objectives
+* Register a domain name
+* Create new DNS records to point to your websites
+* Use A and CNAME records to host multiple sites on one server
+
+== Steps
+
+=== Register your domain
+
+If you have already registered your domain with BYU domains, that's great.
+Just skip ahead to the next step.
+If you haven't, visit https://domains.byu.edu/help/doku.php?id=creating_your_domain and follow the instructions to select and register your domain name.
+Follow steps 1-8 there to register your domain.
+From here on out for examples I will refer to your domain as `yourdomain.com`. 
+Whenever you see that, substitute your own domain (and the appropriate TLD of `.com`, `.net` or whatever).
+
+=== Set up a simple website
+
+To see our BYU domains in action, we're going to need a website to point it to. 
+BYU Domains has a bunch of hosting services, but that's not as cool as doing it yourself on AWS.
+Set up a web server on AWS just like you have for the other activities (installing and starting `httpd`). 
+A `t2.micro` instance will be plenty.
+Make sure you've opened TCP port 80 in the security group settings, and that you can get to the website in your browser.
+From that instance, make note of the Public IPv4 address you've got. 
+
+=== Point the domain to your site
+
+Once you have an instance running on AWS and a domain registered through BYU, it's time to get started.
+
+. Visit your BYU domains dashboard at https://domains.byu.edu/dashboard/
+. Under the Domains header click "Domains"
+. Find the new domain you registered and click "Manage" under Actions
+. On the right under Additional Resources, click "Modify the Zones"
+. You should now see a list of a bunch of DNS records that BYU already created for you. Look through this list to find things you recognize and things you do not.
++
+.List of domains
+[#domainlist]
+image::domainlist.png[]
++
+NOTE: The domains automatically added are used by BYU domains to provide their own hosting. That's great and all, and we'll leave that in place for now, but we want to do it ourselves on AWS. So leave the existing records as they are and we'll move on to pointing DNS records to our own site.
+
+. In the list of DNS records, we need to add our own new record. Since yourdomain.com and www.yourdomain.com are taken, let's make a new subdomain just for this and call it website.yourdomain.com. 
+.. Click the "Add Record" button to create a new record. 
+.. Create a new record of type `A` with a zone name of `website.yourdomain.com.` (note the trailing `.` -- What's that for again?). 
+.. Enter the IPv4 address of your EC2 instance from above. 
+.. Set the TTL to 60
++
+TIP: The TTL sets how often (in seconds) other DNS servers should store the record in their cache. If you expect the record to change often, make a shorter TTL like we are here. Otherwise you might have to wait a day to see updates propagate through the DNS system.
+
+. Once the record is created, you can go to your browser and type `website.yourdomain.com`.
+
+It worked! (hopefully). You can now use your own domain to visit the website. 
+
+=== Point other domains to your site
+
+In DNS we've got a few major types of records.
+You see some of them in the list of domains already: A, CNAME, MX, and TXT. 
+`A` records like the one you just created are used to point to a host - an IP address. 
+If the IP address changes (like it would if you turned off an EC2 instance and started it again the next day), then the IP address in the A record needs to be updated.
+Another type of record is the `CNAME`.
+`CNAME` records act like an alias to point to another A record.
+Using this type of record, you can have a bunch of different domain names pointing to the same host, which is helpful if you have multiple website or things you want hosted in the same place.
+
+At first here, we're going to create a CNAME record that points to our existing site. 
+Visiting the site should show the same contents under two different domain names.
+
+. Back at the "Zone Editor" page, create a new record.
+.. Name: `awesome.yourdomain.com.`
+.. Type: `CNAME`
+.. Record: `website.yourdomain.com`
+. Once you've added the record, go to awesome.yourdomain.com in the browser, and you should see the exact same website you saw before.
+
+It worked again!
+You can have as many `CNAME` records pointing to one domain as you want.
+The most logical organization is to have a single DNS `A` record for the host itself, then use the `CNAME` s to give user-friendly names to everything.
+For example, you could create a server called `LameWebsite`, make an `A` record called `lamewebsite.yourdomain.com` to point to it, then use `CNAME` s so your users don't know that you think your own website is lame (e.g., `awesome.yourdomain.com`)
+
+
+=== Virtual Hosts - use those different domains
+
+Since 
