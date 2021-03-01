@@ -79,6 +79,7 @@ Using this type of record, you can have a bunch of different domain names pointi
 At first here, we're going to create a CNAME record that points to our existing site. 
 Visiting the site should show the same contents under two different domain names.
 
+[start=8]
 . Back at the "Zone Editor" page, create a new record.
 .. Name: `awesome.yourdomain.com.`
 .. Type: `CNAME`
@@ -93,4 +94,45 @@ For example, you could create a server called `LameWebsite`, make an `A` record 
 
 === Virtual Hosts - use those different domains
 
-Since 
+When your browser visits a website, it passes the name of the server you are trying to visit in the `Host:` section of the HTTP header.
+In the activities we have done so far, your server has pretty much ignored that header. 
+But what if it didn't.
+
+[start=10]
+. On your EC2 instance, create a new directory in the `/var/www/` folder called `awesome`. You should now have two directories: `/var/www/html` and `/var/www/awesome`.
+. To avoid having to use `sudo` for everything from here on out, modify the permissions of the `awesome` folder like this:
++ 
+[source,console]
+----
+$ sudo chown -R $USER:$USER /var/www/awesome
+$ sudo chmod -R 755 /var/www
+----
+
+. Create a new `index.html` inside the `/var/www/awesome` directory. Make sure you can clearly tell that it is different from what is in the `/var/www/html` directory by changing the contents and title of the page.
+. Make a backup of your Apache configuration file, just in case you mess something up, you can copy this file back and restore it to a working state). If you're on a different Linux, the configuration might be in a different location.
++
+[source,console]
+----
+$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
+----
+
+. Add the following to the bottom of the Apache configuration file located at `/etc/httpd/conf/httpd.conf` (you'll need to use `sudo`).
++
+CAUTION: Server configuration files can be very picky, so make sure you type everything exactly as written below. If you get an error message when restarting the `httpd` service, you probably typed something wrong.
+
++
+----
+<VirtualHost *:80>
+        ServerName website.yourdomain.com
+        DocumentRoot "/var/www/html"
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName awesome.yourdomain.com
+        DocumentRoot "/var/www/awesome"
+</VirtualHost>
+----
+
+. Restart the `httpd` service to tell Apache to use the new configuration (`sudo service httpd restart`). If it gives an error message, you need to fix the configuration.
+. Now you can visit `website.yourdomain.com` and `awesome.yourdomain.com` and see two different websites hosted on the same server. You may need to refresh the page on the awesome site to have it refresh.
+. While you're there, scroll through the Apache configuration and see if you can tell what other parts of the configuration do.
