@@ -1,0 +1,129 @@
+= Configuring TLS Certificates on Apache (Amazon Linux)
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:xrefstyle: short
+:listing-caption: Example
+:experimental:
+
+In 2021, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
+For one, it gives you that pretty lock icon that shows that you know what you're doing.
+For two, it gives users some assurance that their browsing is not being snooped on by anyone.
+For three, it's easy, and it's free. 
+Let's Encrypt is a service that makes it dead simple to get a certificate for any domain that you own. 
+So there's no excuse - you need a certificate for your website.
+
+== Objectives
+. Use `certbot` to automatically request a security certificate.
+. Configure Apache to use the certificate provided.
+. Use `cron` to set up automatic certificate renewals so you always have a secure site.
+
+== Setting up Certbot
+
+The https://letsencrypt.org/[Let's Encrypt] project allows anyone to request a free TLS certificate for any website that they control.
+They provide an application called https://certbot.eff.org/[certbot] that automatically requests a certificate, verifies your control of the domain, and even configures the web server to use the certificate.
+All you need to do is provide an email address that they'll use to remind you when the certificate is going to expire.
+
+. On the web server, install `certbot` and the Apache plugin
++
+[source,console]
+----
+[ec2-user ~]$ sudo yum install certbot python2-certbot-apache
+----
+
+. Run certbot with the apache flag to automatically install and configure the certificate for Apache. 
+.. During this step you will be asked for an email address. This is required for the certificate to be issued. You can decline to have the email address shared with the EFF, however, and still get a certificate.
+.. Certbot automatically detects any Virtual Hosts you have added to your Apache configuration, and will request certificates for those. Just hit kbd:[Enter] to request for all domains at once.
++
+[source,console]
+----
+[ec2-user ~]$ sudo certbot --apache
+----
+
+. Make sure that you have opened TCP port 443 in the security group settings to allow HTTPS traffic through on its default port.
+
+And with that, you have a fully functioning certificate for your Apache website, including all VirtualHosts that you had created.
+Go to `https://awesome.yourdomain.com` to see your fully encrypted website.
+Look for the lock icon in the top bar, and click on it to view the certificate that you have been issued.
+What type of encryption is the certificate using?
+
+== Looking at the Apache configuration
+
+Certbot is smart enough to automatically set up your Apache configuration in a way that most people would want.
+Let's take a look at what configuration instructions `certbot` added.
+
+[start=4]
+. Open your Apache configuration in the text editor of your choice, e.g., nano
++
+[source,console]
+----
+[ec2-user ~]$ nano /etc/httpd/conf/httpd.conf
+----
+
+. Inside the `VirtualHost` blocks, you'll find some new instructions that you hadn't typed. What do you think these do?
+. On the very last line of the file, you'll also see an `Include` directive. Open the file linked there (`/etc/httpd/conf/httpd-le-ssl.conf`) and see what instructions it contains. What do these instructions do?
+. Note the links to the `SSLCertificateFile` and the `SSLCertificateKeyFile`. From the command line, `cat` those files to look at what they contain. Does anything there look familiar? (hint: You might need to use `sudo su -` to have sufficient permissions to view the key)
+
+== Setting up certificates to auto-renew
+
+One way that Let's Encrypt keeps certificates from being abused is by giving them a relatively short lifespan.
+While certificates used to last for years, Let's Encrypt certs are issued for 3 months.
+That means that you'll need to renew the certificate every 90 days or your users will start getting big red error messages that your site is not secure and may have been compromised.
+You don't want that, but thankfully certbot makes it easy to use built-in Linux tools to automatically renew your certificates.
+Cron is that tool.
+
+Cron is a tool on Linux that can be used to schedule tasks to be run automatically on a schedule. 
+For example, you might want to automatically log disk usage every 5 days, or automatically perform a security scan each morning at 2am.
+In our case, we want to automatically renew our certificates every day.
+Certbot won't update a certificate if it expires in more than 30 days, but running certbot will simply check the age and request a new certificate if it can.
+We create new jobs in `cron` by editing the `/etc/crontab` file (with sudo permissions).
+
+The crontab file tells you how it is configured (see <<crontab>>).
+It is a space-separated list of options for how often to run a command, followed by the username that will be used to run it, and finally the command itself.
+For example, if you wanted to add the contents of the home directory to a file every day at 1:39am and 1:39pm, you would put the line in <<crontab-example>> inside the `/etc/crontab` file.
+The first number in the example is the minute that the command will be run.
+The second number is a list of the hours we want the command to be run (in a 24-hour clock).
+The three `*` s represent day of the month, month, and day of the week, indicating that we want to run it every day.
+The `ec2-user` represents the user who will run the command, and finally the command itself is listed at the end of the line.
+Common cron schedules are available at the https://cron.help/examples[cron.help website].
+
+
+.Starting contents of /etc/crontab
+[source#crontab]
+----
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+----
+
+.Example of a cron task to run every day at 1:39am and 1:39pm
+[source#crontab-example]
+----
+39  1,13    *     *     *    ec2-user    ls /home/ec2-user > /home/etc-user/home.txt
+----
+
+[start=8]
+. Open the `/etc/crontab` file (with sudo permissions).
+. Add the following line to the end of the file to have the certbot renew task run every 12 hours. The `--no-self-upgrade` flag will prevent certbot from upgrading itself without your permission:
++
+[source]
+----
+0   */12   *   *   *   root   certbot renew --no-self-upgrade
+----
+
+. Restart cron to deploy your newest creation.
++
+[source,console]
+----
+[ec2-user ~]$ sudo systemctl restart crond
+----
+
+
+Now, to be honest, you didn't really need to create the cron job unless you're going to be using this server for longer than 3 months.
+But I want you to know how to do it, because in the real world you're going to be building sites that last longer than a semester (I hope).
