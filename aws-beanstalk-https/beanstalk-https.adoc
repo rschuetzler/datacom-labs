@@ -1,0 +1,44 @@
+= Setting up Beanstalk with an HTTPS Certificate
+
+The easiest way to set up an AWS Elastic Beanstalk application with an HTTPS certificate is to use AWS Certificate Manager.
+Unfortunately that's not available in the AWS Educate accounts, so we need to do things the (slightly) hard way.
+
+== Objectives
+* Create an HTTPS certificate
+* Upload that to your AWS account
+* Deploy the HTTPS certificate on a Beanstalk application
+
+== Steps
+
+. Create an EC2 instance using Amazon Linux, with security group rules to allow HTTP and HTTPS.
+. Create an A record for the domain you want to use, and point it to the IP address of the server.
+. Install Apache on the server, and configure Apache with Virtual Hosts with the domain name you're going to use.
+. Use `certbot` to generate an HTTPS certificate.
+. Install the AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html)
+. Configure authentication for the AWS CLI by putting the credentials (including session info) in the `.aws/credentials` file on the server.
+. As the root user, copy the most recent `chain.pem`, `cert.pem`, and `privkey.pem` files from the `/etc/letsencrypt/archive/yourdomain.com` directory into the `/home/ec2-user` directory. Mine were, for example, `chain2.pem`, `cert2.pem`.
+. Give ec2-user permission to read those files (`sudo chmod +r chain2.pem`, etc.), then stop being root.
+. Run the following command, removing the `[]` brackets and substitituing in your file names and a name for your file.
++
+[source,console]
+````
+$ aws iam upload-server-certificate --server-certificate-name [some-name-you-want] --certificate-chain file://[chain.pem] --certificate-body file://[https-cert-file.crt] --private-key file://[private-key.pem]
+````
+
+. If successful, you will receive back a JSON string that looks something like what you see below. Make note of the "Arn" value, because you'll need that for later.
++
+[source]
+````
+{
+    "ServerCertificateMetadata": {
+        "ServerCertificateId": "AS5YBEIONO2Q7CAIHKNGC",
+        "ServerCertificateName": "elastic-beanstalk-x509",
+        "Expiration": "2017-01-31T23:06:22Z",
+        "Path": "/",
+        "Arn": "arn:aws:iam::123456789012:server-certificate/elastic-beanstalk-x509",
+        "UploadDate": "2016-02-01T23:10:34.167Z"
+    }
+}
+````
+
+
