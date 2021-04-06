@@ -18,17 +18,19 @@ Unfortunately that's not available in the AWS Educate accounts, so we need to do
 . Configure authentication for the AWS CLI by putting the credentials (including session info) in the `.aws/credentials` file on the server.
 . As the root user, copy the most recent `chain.pem`, `cert.pem`, and `privkey.pem` files from the `/etc/letsencrypt/archive/yourdomain.com` directory into the `/home/ec2-user` directory. Mine were, for example, `chain2.pem`, `cert2.pem`.
 . Give ec2-user permission to read those files (`sudo chmod +r chain2.pem`, etc.), then stop being root.
++
+NOTE: At this point, you have a working certificate that can be used for your domain. You might need to move it to a different place in AWS, and you might need to change DNS records to point to Beanstalk instead of the `A` record, but you've got a working example.
 . Run the following command, removing the `[]` brackets and substitituing in your file names and a name for your file.
 +
 [source,console]
-````
+----
 $ aws iam upload-server-certificate --server-certificate-name [some-name-you-want] --certificate-chain file://[chain.pem] --certificate-body file://[https-cert-file.crt] --private-key file://[private-key.pem]
-````
+----
 
 . If successful, you will receive back a JSON string that looks something like what you see below. Make note of the "Arn" value, because you'll need that for later.
 +
 [source]
-````
+----
 {
     "ServerCertificateMetadata": {
         "ServerCertificateId": "AS5YBEIONO2Q7CAIHKNGC",
@@ -39,6 +41,6 @@ $ aws iam upload-server-certificate --server-certificate-name [some-name-you-wan
         "UploadDate": "2016-02-01T23:10:34.167Z"
     }
 }
-````
+----
 
 
