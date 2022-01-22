@@ -1,7 +1,7 @@
 = Introduction to Wireshark
 ifndef::bound[]
-Ryan Schuetzler <rschuetzler@unomaha.edu>
-v1.0, 2017-04-10
+Ryan Schuetzler <ryan@schuetzler.net>
+v1.1, 2022-01-21
 :imagesdir: figs
 endif::[]
 
@@ -24,8 +24,8 @@ By the end of this lesson, you will be able to:
 === Install Wireshark
 
 * Go to https://www.wireshark.org/download.html and download the latest Stable Release of Wireshark for your OS.
-* Run through the installer.
-** If you are on Windows, make sure you install WinPcap. This program allows you to do a packet capture on Windows, which is the whole point of installing Wireshark in the first place.
+* Run through the installer. Leave most options checked as default unless you know better.
+** If you are on Windows, make sure you install NPcap. This program allows you to do a packet capture on Windows, which is the whole point of installing Wireshark in the first place.
 
 === My First Packet Capture
 
@@ -38,7 +38,7 @@ image::start-capture.png[Starting a packet capture in Wireshark]
 * Double-click on your active interface to begin a packet capture.
 * Let the packet capture run while complete the following steps:
 ** Open your web browser and visit your favorite websites.
-** As one of your selected sites, go to http://neverssl.com, or some other site that does not use HTTPS encryption, and that you have not visited today.
+** As one of your selected sites, visit a page that does not have HTTPS encryption. This could be a page you have created on an AWS server as part of another activity. If you have no other unencrypted options, go to http://neverssl.com.
 ** Open a command prompt (Windows) or terminal (macOS or Linux) and type `ping www.schuetzler.net` and hit ENTER. If you are on Mac or Linux, you can press CTRL-C to stop the ping, or type `ping -c 4 www.schuetzler.net` to ping only 4 times instead of forever.
 * Return to Wireshark and stop the capture by clicking the red square in the top left corner of the window.
 
@@ -96,8 +96,8 @@ This is different from the numbers we normally talk about, which are base-10.
 A single hexadecimal digit can represent the numbers 0-15.
 They do this using the typical numerical digits you are used to seeing (0-9) and the first six letters of the English alphabet (A-F), so don't be surprised to see some letters mixed into your numbers.
 Hexadecimal is frequently used to represent binary numbers (base-2) because four binary bits matches perfectly to a single hexadecimal digit.
-They match perfectly because with four binary digits, you can represent 2^4^, or 16 different numbers.
-A byte, then, can be represented either with 8 ones and zeros (e.g., 11010111) or with 2 hexadecimal digits, each representing 4 of the bits (e.g., D7).
+They match perfectly because with four binary digits, you can represent 2^4^, or 16 different numbers (e.g., 0-15).
+A byte (8 bits) can be represented either with 8 ones and zeros (e.g., 11010111) or with 2 hexadecimal digits, each representing 4 of the bits (e.g., D7).
 
 You can see the raw bytes in Wireshark represented as hexadecimal on the left side of the bottom pane.
 On the right, Wireshark attempts to translate the bytes into human-readable characters.
@@ -134,7 +134,7 @@ IMPORTANT: Wireshark queries are case-sensitive. Typing "DNS" will get you nothi
 .Sample DNS Query in Wireshark
 image::dns-query.png[]
 
-* Look through the packet details. What is the source and destination IP address? What about the source and destination port? How does that match up with what you know about transport layer ports? What transport layer protocol is being used?
+* Look through the packet details. What is the source and destination IP address? What about the source and destination port? What transport layer protocol is being used?
 * Expand the `Domain Name System (query)` tree, and the `Queries` branch beneath that
 ** What is the DNS name being requested?
 ** What is DNS record type is being requested?
@@ -142,7 +142,7 @@ image::dns-query.png[]
 * Wireshark makes it easy to find the response to a query by placing a link to it directly underneath the `Domain Name System (query)` header. It will say something like `[Response In: #]`. You can double-click the link to be taken to the response packet.
 * Find the response to the query you were examining
 * Expand the `Domain Name System (response)` tree and the `Queries` and `Answers` subtrees beneath it. Look through the data that are available.
-** Why does the response contain the query _and_ the answer?
+// ** Why does the response contain the query _and_ the answer?
 ** What data is contained in the answer?
 
 NOTE: The data in the answer may vary depending on the type of answer given. For example, a `CNAME` response would contain different data than an `A` record. See if you can find different types of DNS responses in your packet capture.
@@ -184,7 +184,7 @@ You can use the same filters to identify traffic for any computer on your networ
 
 ==== Find your pings
 
-During the packet capture, you should have run the `ping` command to send several pings to some computer my server at www.schuetzler.net. Now we'll find those pings to see what they look like at the packet level.
+During the packet capture, you should have run the `ping` command to send several pings to some computer (e.g., my server at www.schuetzler.net). Now we'll find those pings to see what they look like at the packet level.
 
 * Apply a new filter for `icmp`. ICMP, or the Internet Control Message Protocol, is a set of tools for troubleshooting networks. One of those tools is `ping`.
 * Find a message where the data is an ICMP echo (ping) request.
