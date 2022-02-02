@@ -1,6 +1,6 @@
 import socket
 
-HOST = "basic.schuetzler.net"
+HOST = "www.is404.net"
 PORT = 9090
 message = "i am whispering"
 
