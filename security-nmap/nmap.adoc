@@ -34,14 +34,14 @@ The folks an `nmap.org` have configured a great first site to scan, at `scanme.n
 === Other Scans
 For this class, I've set up a few other hosts with a variety of services running. Run scans against these just like you did with `scanme.nmap.org`. Review the information in the tabs and record what you learn. What services are running, and what ports are they using? Where are the servers relative to one another?
 
-- `csma.schuetzler.net` (188.166.105.179)
-- `csmb.schuetzler.net` (46.101.61.139)
+- `www.is404.net`
+- `honey.is404.net`
 
 === Service Discovery
 
 Nmap has the ability to perform service discovery. This is useful because sometimes people attempt security through obscurity by changing the port a service like SSH uses.
 
-- Set up a port scan on `csmc.schuetzler.net` (139.59.4.124)
+- Set up a port scan on `honey.is404.net`
 - Select the option to run an "Intense scan, all TCP ports"
 - Change the port scan options to include a `-sV` to instruct nmap to do service discovery
 
@@ -53,6 +53,6 @@ What have you learned about network security from running Nmap? How does this af
 
 === Learning More
 
-Now that you've got a feel for what nmap can do, dig around in the documentation at https://nmap.org/book/man.html to see what else you can do with it. What can you learn about network-connected resources? Feel free to play around with and do anything you want to the 3 csm#.schuetzler.net servers.
+Now that you've got a feel for what nmap can do, dig around in the documentation at https://nmap.org/book/man.html to see what else you can do with it. What can you learn about network-connected resources? Feel free to play around with and do anything you want to the 2 is404.net servers.
 
 Now that you've done some scanning, I'll tell you that `csmb.schuetzler.net` is running a special network defense application called Artillery (https://github.com/BinaryDefense/artillery). Search for more information about what Artillery can do. Their global ban list is available at https://www.binarydefense.com/banlist.txt.
