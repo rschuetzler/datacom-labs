@@ -1,0 +1,149 @@
+= Using DNS with the Cloudflare API
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:experimental:
+
+DNS is the globally distributed directory that translates names like www.google.com into IP addresses like 172.217.7.100.
+To add your own records to this global directory, you normally need to pay to register a domain with a registrar.
+Rather than make each of you pay to register your own domains, I'm going to give you programmatic access to is404.net to add your own subdomains.
+I have already registered the domain is404.net, and Cloudflare, my DNS hosting provider, offers an API to CRUD new DNS records.
+
+WARNING: Please don't break my stuff, or other people's stuff, or we'll have to do this differently in the future and that would make me sad.
+You the ability to edit all records on is404.net, but please don't mess with any records you didn't create.
+That includes www.is404.net, api.is404.net, or honey.is404.net. Or anything created by students other than yourself.
+
+
+== Objectives
+* Create new DNS records to point to your websites
+* Use A and CNAME records to host multiple sites on one server
+
+== Steps
+
+=== Set up a simple website
+
+To see our DNS in action, we're going to need a website to point it to. 
+
+. Set up a web server on AWS just like you have for the other activities (installing and starting `httpd`). 
+A free `t2.micro` instance will be plenty.
+. Make sure you've opened TCP port 80 in the security group settings, and that you can get to the website in your browser.
+. Also open up TCP port 443 for later HTTPS use.
+. From that instance, make note of the Public IPv4 address you've got. 
+
+=== Point the domain to your site
+
+To create a DNS A record that points to your site, you'll need (a) your public IP address, (b) the auth token for Cloudflare (on LearningSuite), (c) the Zone ID for is404.net (`17ed37c3a70df401d89510fd4731ebe2`), and (d) Postman.
+Full documentation for the Cloudflare DNS API is available at their website: https://api.cloudflare.com/#dns-records-for-a-zone-properties.
+
+==== Setting up the Postman Collection
+First, create a new Collection in Postman to manage all of our DNS requests.
+
+[start=4]
+. In the Collections pane, click the small `+` icon to create a new Collection. 
+I named mine Cloudflare DNS by right-clicking on the new collection and selecting Rename.
+You can call yours whatever you like.
+
+Next we're going to set up authentication for all requests in the collection. 
+
+[start=5]
+. By doing this, Postman will add information to the HTTP Header of each request to authorize your request.
+. Click on the collection title and select the Authorization header.
+. Choose the Authorization Type of Bearer Token, then put in the token from LearningSuite (starts with `klC`...)
+
+One more piece of setup: We're going to create a URL variable for the collection so that we don't have to type the same long URL over and over again.
+
+[start=8]
+. Go to the Variables tab of the Collection settings.
+. Create a new Variable with a name of `URL` and a value of `https://api.cloudflare.com/client/v4/zones/17ed37c3a70df401d89510fd4731ebe2/dns_records`
+
+==== Listing DNS Records
+The first Cloudflare request we're going to do is just to list out all of the DNS records on the is404.net domain.
+
+[start=10]
+. Create a new request in your collection.
+. Make it a `GET` request.
+. In the URL portion of the request, put `{{URL}}` to use that variable as the URL to request.
+. Hit Send to send the request, then look below to see the list of results. 
+Most importantly, for each result you can see the `name`, which is the DNS record name; the `type`, which includes A, CNAME, and other types of records; the `content`, which shows what the record will return; and the `ttl` for time to live.
+Much of the rest of the information is Cloudflare-specific, and you can ignore it. 
+
+==== Creating DNS records
+
+===== Create an A record
+Now that you can see what records are there, let's make an A record to point to your site.
+
+[start=14]
+. Create a new request in your collection
+. Make it a `POST` request to the `{{URL}}` variable URL.
+. In the Body of the request, add the following as JSON, substituting your netID in the "name", and your IP address in the "content".
++
+[source,json]
+----
+{
+    "type": "A",
+    "name": "your-netid-here",
+    "content": "52.24.163.220",
+    "ttl": "60"
+}
+----
+. Copy the "id" of the record that was created so that you can edit or delete the record later. Paste it somewhere you will be able to get it again if needed.
+. You should see that the "name" of the record you created is your-netid.is404.net. 
+. Open your-netid.is404.net in your browser (make sure you go to the `http` site for now)
+
+===== Create a CNAME record
+Once you have an A record, you can create a CNAME record that points to it. 
+CNAME records allow you to have multiple names pointing to the same server, while keeping the IP address updated in just one record.
+
+[start=20]
+. Re-use the same `POST` request you used to create the A record, but update the JSON in the Body to look like this (note the updated type, name, and content):
++
+[source,json]
+----
+{
+    "type": "CNAME",
+    "name": "your-net-id-isawesome",
+    "content": "your-net-id.is404.net",
+    "ttl": "60"
+}
+----
+. Once again, note the ID of the record that was created so you can update the record in the future if needed.
+. Visit the new domain you created (your-net-id-isawesome.is404.net) and confirm that you can visit the site (with `http`)
+
+=== Virtual Hosts - use those different domains
+
+When your browser visits a website, it passes the name of the server you are trying to visit in the `Host:` section of the HTTP header.
+In the activities we have done so far, your server has pretty much ignored that header. 
+But what if it didn't?
+
+[start=23]
+. On your EC2 instance, create a new directory in the `/var/www/` folder called `awesome`. You should now have two directories: `/var/www/html` and `/var/www/awesome`.
+. Create a new `index.html` inside the `/var/www/awesome` directory. Make sure you can clearly tell that it is different from what is in the `/var/www/html` directory by changing the contents and title of the page.
+. Make a backup of your Apache configuration file, just in case you mess something up, you can copy this file back and restore it to a working state). If you're on a different Linux, the configuration might be in a different location.
++
+[source,console]
+----
+$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
+----
+
+. Add the following to the bottom of the Apache configuration file located at `/etc/httpd/conf/httpd.conf`.
++
+CAUTION: Server configuration files can be very picky, so make sure you type everything exactly as written below. If you get an error message when restarting the `httpd` service, you probably typed something wrong.
+
++
+----
+<VirtualHost *:80>
+        ServerName your-net-id.is404.net
+        DocumentRoot "/var/www/html"
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName your-net-id-isawesome.is404.net
+        DocumentRoot "/var/www/awesome"
+</VirtualHost>
+----
+
+. Restart the `httpd` service to tell Apache to use the new configuration (`sudo service httpd restart`). If it gives an error message, you need to fix the configuration.
+. Now you can visit `website.yourdomain.com` and `awesome.yourdomain.com` and see two different websites hosted on the same server. You may need to refresh the page on the awesome site to have it refresh.
+. While you're there, scroll through the Apache configuration and see if you can tell what other parts of the configuration do.
+

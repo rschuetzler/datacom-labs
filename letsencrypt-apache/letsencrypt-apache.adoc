@@ -7,10 +7,10 @@ ifndef::bound[:imagesdir: figs]
 :listing-caption: Example
 :experimental:
 
-In 2021, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
+In 2022, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
 For one, it gives you that pretty lock icon that shows that you know what you're doing.
 For two, it gives users some assurance that their browsing is not being snooped on by anyone.
-For three, it's easy, and it's free. 
+For three, it's easy and it's free. 
 Let's Encrypt is a service that makes it dead simple to get a certificate for any domain that you own. 
 So there's no excuse - you need a certificate for your website.
 
@@ -29,6 +29,7 @@ All you need to do is provide an email address that they'll use to remind you wh
 +
 [source,console]
 ----
+[ec2-user ~]$ sudo amazon-linux-extras install epel
 [ec2-user ~]$ sudo yum install certbot python2-certbot-apache
 ----
 
