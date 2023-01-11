@@ -105,7 +105,7 @@ image::launch-instance.png[title="Launch instance button"]
 
 image::AMI.png[title="AMI"]
 
-* Choose an Instance Type which is free tier eligible e.g., t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. Click Next.
+* Choose an Instance Type which is free tier eligible e.g., t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications.
 
 image::instance_type.png[title="Instance Type"]
 
@@ -116,6 +116,8 @@ You can create a new keypair if you know what you're doing, but using `vockey` i
 A security group is a set of firewall rules that control the traffic for your instance. 
 On this page, you can add rules to allow specific traffic to reach your instance. 
 For example, if you want to set up a web server and allow Internet traffic to reach your instance, add rules that allow unrestricted access to the HTTP and HTTPS ports.
+
+image::security-group.png[title="Security Group settings"]
 
 * Keep default options for storage
 
