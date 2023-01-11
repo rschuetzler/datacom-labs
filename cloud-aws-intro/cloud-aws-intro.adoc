@@ -1,18 +1,20 @@
 = Getting set up with Amazon Web Services
 Ryan Schuetzler <ryan@schuetzler.net>
-v0.1, 2019-11-15
+v0.2, 2023-01-10
 ifndef::bound[:imagesdir: figs]
 :icons: font
 :source-highlighter: rouge
 :rouge-style: github
 :xrefstyle: short
 
+Last updated: {revdate}
+
 Amazon Web Services (AWS) is one of the largest providers of cloud computing services in the world.
 They offer a huge array of services, from databases to VMs to speech recognition.
 While there are hundreds of cloud providers to choose from, it's a smart career move to get familiar with AWS because of their market share.
-In this lab you will use AWS Educate, Amazon's educational program, to get some free credit that you can use to create servers on Amazon's infrastructure.
+In this lab you will use AWS Academy, Amazon's educational program, to get some free credit that you can use to create servers on Amazon's infrastructure.
 
-IMPORTANT: When you are done with the lab, you can manually stop the lab. Otherwise it will continue to accrue charges when you are not using it.
+IMPORTANT: When you are done with the lab, you can manually stop the lab, or you can just let it stop itself after 4 hours. You will accumulate charges only if you have an EC2 instance or other service running.
 
 == Objectives
 
@@ -35,8 +37,8 @@ As I already explained, AWS Academy is Amazon's student developer partnership th
 We will use some of the free academy credits for activities in this course.
 After the course is over, you might have some credits left over that you can play with.
 
-In the LMS modules page, you'll see a link to the student guide and another link to the Learner Lab - Foundational Services.
-To enable AWS services, you'll go through the "Foundational Services" link.
+In the LMS modules page, you'll see a link to the student guide and another link to the Learner Lab.
+To enable AWS services, you'll go through the "Learner Lab" link.
 Once there, you'll be able to start the lab.
 
 The "Lab" in the AWS Academy is a temporary environment for working with AWS services.
@@ -44,6 +46,35 @@ To help students avoid situations where they turn on a big server, leave it runn
 In AWS, a "running" server is one that is currently turned on; a "stopped" server is one that is currently shut down; and a "terminated" server is deleted.
 So when your services stop after 4 hours, that doesn't mean your work is gone. 
 It just means you have to come back and turn the lab on to get it running again.
+
+== Starting the Lab
+
+The first thing you need to do is start your AWS Academy Lab environment. 
+This is AWS's way of controlling your spending as you're learning how things work, and preventing you from using the lab environment to run enterprise websites.
+This environment runs for 4 hours, then automatically shuts down (but doesn't delete) all servers and services you are running.
+
+To start the lab, you will go to the modules page of the Learner Lab course.
+Once there, you can click the Learner Lab link. You may have to turn off your adblocker to enable this page to function. 
+
+[IMPORTANT] 
+====
+If you're on Chrome, you might have to search for the little eye icon on the right side of the address bar to enable some cross-site cookies that are required for the site to function.
+
+image::chrome-eye.png[]
+====
+
+Then you can click the "Start Lab" button at the top of the page. 
+The first time you run it, starting the lab will take 5-10 minutes, since AWS is creating a brand new environment for you to work in.
+In the future it will start up much more quickly.
+
+Once you have started the lab, you should see a screen like the one below. 
+In the middle is a console that will let you interact with your lab environment directly with the AWS CLI (command line interface) -- it's labeled with a 1 in the screenshot below. 
+Before we get into that, though, we'll take a look at the AWS Management Console. 
+Access the management console by clicking the AWS link (labeled with 2).
+You may need to allow popups on this page to let the management console window open.
+
+image::learner-lab-console.png[title="Learner Lab Console"]
+
 
 == Starting a server
 
@@ -56,61 +87,85 @@ TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS 
 We're first going to create an EC2 instance.
 
 == Steps involved to create a static website
+
+=== Create an instance
  
-  * Launch an AWS Linux instance.
-    * Go to AWS Management console and then launch a virtual machine with EC2.
+Go to the AWS Management Console and then launch a virtual machine with EC2.
+
+* On the management console homepage, search for "EC2" to get to the EC2 dashboard
     
-image::mgmt_console.jpg[title="AWS Management Console"]
+image::mgmt_console.png[title="AWS Management Console"]
+
+* Click the orange "Launch instance" button to get into to instance creation wizard
+
+image::launch-instance.png[title="Launch instance button"]
+
+* Give the instance a name, such as "MyFirstInstance"  
+* Next you will chose the Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select Amazon Linux from the quick start menu, and leave the other selections as their default.
+
+image::AMI.png[title="AMI"]
+
+* Choose an Instance Type which is free tier eligible e.g., t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. Click Next.
+
+image::instance_type.png[title="Instance Type"]
+
+* Under *Key pair (login)*, select vockey. This will be the way that you authenticate to log into the server. 
+You can create a new keypair if you know what you're doing, but using `vockey` is easy, and the key is already created for you.
+
+* Under the network and firewall settings, create a new security group and check the boxes to allow SSH traffic from anywhere, and HTTPS and HTTP traffic from the internet. 
+A security group is a set of firewall rules that control the traffic for your instance. 
+On this page, you can add rules to allow specific traffic to reach your instance. 
+For example, if you want to set up a web server and allow Internet traffic to reach your instance, add rules that allow unrestricted access to the HTTP and HTTPS ports.
+
+* Keep default options for storage
+
+* Under *Advanced details*, under the option for *IAM instance profile*, select the option for `LabInstanceProfile`. Leave the rest of the advanced options as they are.
+
+image::advanced-details.png[title="Advanced details pane"]
+
+* Click the button to launch your instance.
     
-    * Choose an Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select one option from Amazon Linux.
+=== Connect to your instance
 
-image::AMI.jpg[title="AMI"]
+Congratulations! You now have a server that is running in a datacenter somewhere in Virginia. That's cool and all, but fairly useless unless you can connect with that instance and tell it to do something. So that's what we'll do next. 
 
-    * Choose an Instance Type which is free tier eligible i.e. t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications. Click Next.
+There are lots of ways to connect to your EC2 instance.
+Going through all those and explaining the differences will be a topic for another activity. 
+Today we're going to do it the easiest way possible - AWS Instance Connect.
 
-image::instance_type.jpg[title="Instance Type"]
+* Return to the EC2 Dashboard
+* Click on Instances to go to your list of instances. There you will see a list of instances (that will probably just be your MyFirstInstance).
 
-    * Keep default of the _Configure Instance Details_ and _Add Storage_. Click Next for _Add Tags_.
-    
-    * In Add Tags, add key value pair as Name: MyFirstWebsite. Click Next for _Configure Security Group_
+image::ec2-dashboard.png[title="EC2 Dashboard"]
 
-image::Tags.jpg[title="Tags"]
+* Click on the Instance ID of your instance to pull up detailed information.
+* On the detail page, click "Connect" in the upper right. That will pull up a page with options for how to connect to your instance. 
 
-    * A security group is a set of firewall rules that control the traffic for your instance. On this page, you can add rules to allow   specific traffic to reach your instance. For example, if you want to set up a web server and allow Internet traffic to reach your   instance, add rules that allow unrestricted access to the HTTP and HTTPS ports. You can create a new security group or select from an existing one below. Add the security group of SSH, HTTP, HTTPS as shown below:
+image::connection-page.png[title="EC2 Instance Connect"]
 
-image::security_group.jpg[title="Firewall"]
+* Click the orange *Connect* button. A new window should open with a big black screen that has an EC2 ASCII art graphic and "Amazon Linux 2 AMI"
 
-    * Click _Review and Launch_ the instance. After verifying, Click on _Launch_
-    
-    * Download the PEM file i.e Key Pair as shown below and secure it in your system.
-
-image::pem.jpg[title="Download PEM File"]
-    
-  * Once Instance is launched, you can see the instance running in your EC2 Instances as shown below.
+image::ssh-window.png[title="Instance Connect SSH window"]
   
-image::running_instance.jpg[title="Instance"]
-  
-  * Open cmd and connect to your server using command shown below. Keep your pem file and the IP address handy. Type yes to authenticate your connection. You will be able to connect to the Amazon EC2.
+* Switch to the root user by invoking command 
 
-NOTE: If you're using PuTTY, you need to first convert the `.pem` file into something Putty can use. Instructions to do that are here: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
-
-```
-  ssh -i "your pem file" ec2-user@"your IPv4 Public IP"
-```
-  
-  * Switch to the root user by invoking command 
 ```
   sudo su -
 ```
+
+* Type `mkdir -p /var/www/html` to create the `/var/www/html` directory (make sure to type it EXACTLY as written - `/var/`...)
+
+* Type `cd /var/www/html` (again, make sure you include the first `/`)
   
-  * Go to /var and create folder www/html if not existing.
-  
-  * Create index.html file using the `nano` editor.
+* Create index.html file using the `nano` editor.
+
 ```
   nano index.html
 ```
+
+TIP: `nano` is a command line text editor. It does the same thing that Notepad or VS Code does for editing a file, but entirely within the command prompt that you see. Once you have written the code you want to have on your page, use the keyboard shortcuts at the bottom to save the changes. (Hint: you want to Write Out the file changes before you close the editor, or you may lose your changes) (Hint 2: `^` is the symbol for the Ctrl key--even on a Mac)
   
-  *  Add your html contents in this file. Add and edit the html file to see the changes.
+*  Add some html contents in this file. Add and edit the html file to see the changes.
   
 [source,html]
 ----
@@ -124,31 +179,45 @@ NOTE: If you're using PuTTY, you need to first convert the `.pem` file into some
 </html>
 ----
 
-  * Install Apache web server through command.  
+* Install Apache web server through command.  
+[source,shell]
 ```
   yum install httpd
 ```
   
-  * Start the server.
+* Start the server.
+[source,console]
 ```
   service httpd start
 ```
   
-  * Check the status. It should be in running stage.
+* Check the status. It should be in running stage.
+[source,shell]
 ```
   service httpd status
 ```
+
+=== Access your site
+
+Once you've got all that done, it's time to enjoy the fruits of your labors.
+Go back to your instance details (in the AWS Management Console) and find the *Public IPv4 address* section. 
+Click on the button to "open address," then in the browser's address bar, edit the `https://` to be `http://` (we'll get security set up another time).
+Accept whatever warnings your browser puts up about accessing insecure websites, and you should see your website! 
+If others around you are done with their sites, visit their pages by going to `http://x.x.x.x` (replacing `x.x.x.x` with whatever their public IPv4 address is)
+
   
-  * Once the server is running, open your browser and navigate to the Public DNS or IPv4 from your instance. You should see your website up and running.
 
 == Ideas for Exploration
 There are so many services on AWS that you could play around with.
 With the starter account you won't have access to everything, but you'll be able to play around with a lot of the services that would be needed to create a website.
 Also, with the starter account you can use whatever services you want and when the credits run out, your services will shut down, so you won't be charged.
-Note, if you used your own AWS account when you signed up, then you can be charged if you use services beyond the credits provided with the class.
 
-Investigate some other services available on AWS, and learn what they do and how to use them.
+Investigate some other services available on AWS, and learn what they do and how to use them. You can find the full list at https://aws.amazon.com/products/. 
+To see which services you can use with your student account, scroll down on the right side of the Academy Lab page. The section titled "Service usage and other restrictions" describes what you can do, and what limits your account has.
 It can be overwhelming to see dozens or even hundreds of options, but with time and experience, it will become less confusing. 
 
-IMPORTANT: Remember: when you are done with the lab, make sure you stop the lab. You may also choose to delete (terminate) resources that you don't want to use anymore. 
-Otherwise they will continue to accrue charges. 
+You can also play around by making your website more complex. Currently there is only one page (`index.html`). 
+How would you create a second page and link to that? 
+What about adding a stylesheet to make your page look pretty?
+
+TIP: When you are done with the lab, you can go back to the Academy page and stop the lab to stop accruing charges for your instance. You don't have to do this, because the instance you are using is in the free tier and already isn't costing you anything. And even if you left it running for an entire semester, it would only use approximately $40 of your charges. 

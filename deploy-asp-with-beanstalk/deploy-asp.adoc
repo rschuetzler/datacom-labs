@@ -1,0 +1,24 @@
+= Deploy an ASP.NET Application with AWS Elastic Beanstalk
+Ryan Schuetzler <ryan@schuetzler.net>
+v0.1, 2021-03-13
+ifndef::bound[:imagesdir: figs]
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:xrefstyle: short
+
+Alright, here's the deal.
+I'm not a .NET developer.
+I know pretty much nothing about it. 
+So we're going to have to work together to figure this one out.
+
+You've been working on a .NET bookstore application for a while, so that's what we're going to use.
+At this point, this document is just a list of resources and tidbits that I have found that might be helpful.
+As we work together and identify issues, we'll expand this into a full tutorial.
+
+== Objectives
+
+* Deploy a .NET Core application on AWS Elastic Beanstalk
+* Understand what services Beanstalk puts in place for you
+
+== Potential pitfalls
