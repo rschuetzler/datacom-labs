@@ -3,11 +3,8 @@ import socketserver
 
 class MyUDPRequestHandler(socketserver.DatagramRequestHandler):
     def handle(self):
-
-        data = self.request[0].strip()
-        socket = self.request[1]
-        # just send back the same data, but lower-cased
-        socket.sendto(data.lower(), self.client_address)
+        data = self.rfile.read()
+        self.wfile.write(data.strip().lower())
 
 
 if __name__ == "__main__":
