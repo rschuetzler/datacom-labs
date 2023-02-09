@@ -3,10 +3,8 @@ import socketserver
 
 class MyTCPRequestHandler(socketserver.StreamRequestHandler):
     def handle(self):
-
-        self.data = self.request.recv(1024).strip()
-        # just send back the same data, but upper-cased
-        self.request.sendall(self.data.upper())
+        data = self.rfile.read()
+        self.wfile.write(data.strip().upper())
 
 
 if __name__ == "__main__":
