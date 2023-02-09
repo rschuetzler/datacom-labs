@@ -6,9 +6,7 @@ class MyUDPRequestHandler(socketserver.DatagramRequestHandler):
 
         data = self.request[0].strip()
         socket = self.request[1]
-        print(f"{self.client_address[0]}:{self.client_address[1]} wrote:")
-        print(data)
-        # just send back the same data, but upper-cased
+        # just send back the same data, but lower-cased
         socket.sendto(data.lower(), self.client_address)
 
 
