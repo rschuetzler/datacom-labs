@@ -3,7 +3,7 @@ import socketserver
 
 class MyTCPRequestHandler(socketserver.StreamRequestHandler):
     def handle(self):
-        data = self.rfile.read()
+        data = self.rfile.readline()
         self.wfile.write(data.strip().upper())
 
 
