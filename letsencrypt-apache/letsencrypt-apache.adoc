@@ -7,7 +7,7 @@ ifndef::bound[:imagesdir: figs]
 :listing-caption: Example
 :experimental:
 
-In 2022, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
+In 2023, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
 For one, it gives you that pretty lock icon that shows that you know what you're doing.
 For two, it gives users some assurance that their browsing is not being snooped on by anyone.
 For three, it's easy and it's free. 
@@ -55,7 +55,7 @@ Certbot is smart enough to automatically set up your Apache configuration in a w
 Let's take a look at what configuration instructions `certbot` added.
 
 [start=4]
-. Open your Apache configuration in the text editor of your choice, e.g., nano
+. Open your Apache configuration in the text editor of your choice, e.g., `nano`
 +
 [source,console]
 ----
