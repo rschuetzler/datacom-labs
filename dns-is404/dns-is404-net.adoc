@@ -49,7 +49,7 @@ Next we're going to set up authentication for all requests in the collection.
 [start=5]
 . By doing this, Postman will add information to the HTTP Header of each request to authorize your request.
 . Click on the collection title and select the Authorization header.
-. Choose the Authorization Type of Bearer Token, then put in the token from LearningSuite (starts with `klC`...)
+. Choose the Authorization Type of Bearer Token, then put in the token from LearningSuite (starts with `G6q`...)
 
 One more piece of setup: We're going to create a URL variable for the collection so that we don't have to type the same long URL over and over again.
 
