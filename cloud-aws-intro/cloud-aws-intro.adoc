@@ -187,16 +187,22 @@ TIP: `nano` is a command line text editor. It does the same thing that Notepad o
   yum install httpd
 ```
   
-* Start the server.
+* Start the web server.
 [source,console]
 ```
-  service httpd start
+  systemctl start httpd
 ```
   
 * Check the status. It should be in running stage.
 [source,shell]
 ```
   service httpd status
+```
+
+* Enable the server to start Apache every time the server boots, so you don't have to log in to do it every time the lab shuts it down.
+[source,shell]
+```
+  systemctl enable httpd
 ```
 
 === Access your site
