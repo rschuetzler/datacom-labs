@@ -19,7 +19,20 @@ So there's no excuse - you need a certificate for your website.
 . Configure Apache to use the certificate provided.
 . Use `cron` to set up automatic certificate renewals so you always have a secure site.
 
-== Setting up Certbot
+== Setting up Certbot (Amazon Linux 2023)
+
+[source,console]
+----
+[ec2-user@ip...] sudo dnf install openssl mod_ssl
+[ec2-user@ip...] sudo dnf install python3 augeas-libs pip
+[ec2-user@ip...] sudo python3 -m venv /opt/certbot
+[ec2-user@ip...] sudo /opt/certbot/bin/pip install --upgrade pip
+[ec2-user@ip...] sudo /opt/certbot/bin/pip install certbot-apache
+[ec2-user@ip...] sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+[ec2-user@ip...] sudo certbot --apache
+----
+
+== Setting up Certbot (Amazon Linux 2)
 
 The https://letsencrypt.org/[Let's Encrypt] project allows anyone to request a free TLS certificate for any website that they control.
 They provide an application called https://certbot.eff.org/[certbot] that automatically requests a certificate, verifies your control of the domain, and even configures the web server to use the certificate.
