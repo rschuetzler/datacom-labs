@@ -23,6 +23,8 @@ That includes www.is404.net, api.is404.net, or honey.is404.net. Or anything crea
 
 === Set up a simple website
 
+NOTE: If you have an existing website (e.g., something you made for previous activities), you don't need to follow these steps to make a new one. Just find the public IP of your existing site and use that. Make sure you've got your firewall (or security group) set up to allow port 80 and port 443.
+
 To see our DNS in action, we're going to need a website to point it to. 
 
 . Set up a web server on AWS just like you have for the other activities (installing and starting `httpd`). 
