@@ -21,12 +21,12 @@ IMPORTANT: When you are done with the lab, you can manually stop the lab, or you
 * Sign up for AWS Academy
 * Become familiar with the AWS Academy lab portal
 * Create a virtual machine on AWS and connect to it from your computer
-* Create a static website on AWS that can be accessed from anywhere
+* Create a simple website on AWS that can be accessed from anywhere
 
 == Signing up for AWS Academy
 The first step to getting set up is to sign up for AWS Academy.
 As a university student, you have access to (some) AWS resources for free, including a large set of courses that you can use to learn about what AWS can do.
-If you are enrolled in one of my classes, you should be able to access AWS Educate through a link in your course.
+If you are enrolled in one of my classes, you should be able to access AWS Academy through a link that has been emailed to you.
 
 . Check your email for a signup link from AWS Academy.
 . You can then continue with the lab starting with <<academy-lms,the AWS Academy LMS>>.
@@ -50,7 +50,7 @@ It just means you have to come back and turn the lab on to get it running again.
 == Starting the Lab
 
 The first thing you need to do is start your AWS Academy Lab environment. 
-This is AWS's way of controlling your spending as you're learning how things work, and preventing you from using the lab environment to run enterprise websites.
+This is AWS's way of controlling your spending as you're learning how things work, while preventing you from using the lab environment to run enterprise websites.
 This environment runs for 4 hours, then automatically shuts down (but doesn't delete) all servers and services you are running.
 
 To start the lab, you will go to the modules page of the Learner Lab course.
@@ -65,7 +65,7 @@ image::chrome-eye.png[]
 
 Then you can click the "Start Lab" button at the top of the page. 
 The first time you run it, starting the lab will take 5-10 minutes, since AWS is creating a brand new environment for you to work in.
-In the future it will start up much more quickly.
+In the future it will start up more quickly.
 
 Once you have started the lab, you should see a screen like the one below. 
 In the middle is a console that will let you interact with your lab environment directly with the AWS CLI (command line interface) -- it's labeled with a 1 in the screenshot below. 
@@ -86,9 +86,8 @@ TIP: EC2 stands for Elastic Compute Cloud. You'll notice as you look around AWS 
 
 We're first going to create an EC2 instance.
 
-== Steps involved to create a static website
 
-=== Create an instance
+== Create an instance
  
 Go to the AWS Management Console and then launch a virtual machine with EC2.
 
@@ -100,19 +99,24 @@ image::mgmt_console.png[title="AWS Management Console"]
 
 image::launch-instance.png[title="Launch instance button"]
 
-* Give the instance a name, such as "MyFirstInstance"  
-* Next you will chose the Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select Amazon Linux from the quick start menu, and leave the other selections as their default.
+* Give the instance a name, such as "MyFirstInstance" (you can name it whatever you want) 
+* Next you will chose the Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select Amazon Linux from the quick start menu, then make sure "Amazon Linux 2023 AMI" is selected in the box below. Leave the 64-bit architecture as it is.
 
 image::AMI.png[title="AMI"]
 
-* Choose an Instance Type which is free tier eligible e.g., t2.micro. Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications.
+* Choose an Instance Type which is free tier eligible (e.g., t2.micro, the default). Amazon EC2 provides a wide selection of instance types optimized to fit different use cases. Instances are virtual servers that can run applications.
 
 image::instance_type.png[title="Instance Type"]
 
 * Under *Key pair (login)*, select vockey. This will be the way that you authenticate to log into the server. 
 You can create a new keypair if you know what you're doing, but using `vockey` is easy, and the key is already created for you.
 
-* Under the network and firewall settings, create a new security group and check the boxes to allow SSH traffic from anywhere, and HTTPS and HTTP traffic from the internet. 
+[IMPORTANT]
+====
+A key pair is how you log in to your server. It is a more secure way of logging in than using passwords, and is the default for basically all cloud servers everywhere. If you lose access to the key, you will not be able to log in to your server, and you'll have to start a new one from scratch.
+====
+
+* Under the network and firewall settings, create a new security group and check the boxes to allow SSH traffic from anywhere, and HTTP traffic from the internet. We won't worry about HTTPS for this server just yet, but we'll get there later.
 A security group is a set of firewall rules that control the traffic for your instance. 
 On this page, you can add rules to allow specific traffic to reach your instance. 
 For example, if you want to set up a web server and allow Internet traffic to reach your instance, add rules that allow unrestricted access to the HTTP and HTTPS ports.
@@ -127,28 +131,94 @@ image::advanced-details.png[title="Advanced details pane"]
 
 * Click the button to launch your instance.
     
-=== Connect to your instance
+== Connect to your instance
 
 Congratulations! You now have a server that is running in a datacenter somewhere in Virginia. That's cool and all, but fairly useless unless you can connect with that instance and tell it to do something. So that's what we'll do next. 
+There are several ways to connect to your remote server, but the most reliable is through SSH, so that's what I'll expect you to use throughout this semester.
 
-There are lots of ways to connect to your EC2 instance.
-Going through all those and explaining the differences will be a topic for another activity. 
-Today we're going to do it the easiest way possible - AWS Instance Connect.
+=== What is SSH?
 
-* Return to the EC2 Dashboard
-* Click on Instances to go to your list of instances. There you will see a list of instances (that will probably just be your MyFirstInstance).
+SSH stands for "**S**ecure **SH**ell." It's a way for you to securely access and control another computer remotely, over the internet. Think of it like you are virtually connecting your keyboard and screen to another computer and use it as if you were sitting in front of it.
 
-image::ec2-dashboard.png[title="EC2 Dashboard"]
+It's often used by developers and system administrators to access servers and perform tasks remotely. For example, you might use SSH to log into a server in a data center and run commands to update software or check on the health of the server. Because SSH encrypts the connection, it's much more secure than using something like Telnet, which sends your data in plain text.
 
-* Click on the Instance ID of your instance to pull up detailed information.
-* On the detail page, click "Connect" in the upper right. That will pull up a page with options for how to connect to your instance. 
+SSH can use password authentication, but typically it uses keypair authentication. 
+You already set up your EC2 instance to use a keypair that was created by the AWS academy lab.
+In these instructions, I'll show you where to download the key, how to get it ready for use on your computer, and finally we'll get you logged into the server.
 
-image::connection-page.png[title="EC2 Instance Connect"]
+SSH comes installed on all Windows and Mac computers by default, but the way to get it to work is slightly different, so I've got different sections here to walk you through that.
 
-* Click the orange *Connect* button. A new window should open with a big black screen that has an EC2 ASCII art graphic and "Amazon Linux 2 AMI"
+=== Logging in on a Mac
 
-image::ssh-window.png[title="Instance Connect SSH window"]
-  
+[NOTE]
+====
+On Mac and Linux computers, SSH keys must follow some rules about permissions. Files on these systems have 3 sets of read/write/execute permissions - one for the owner of the file, one for the group, and one for all users of the computer. If the permissions on a private key are too open, SSH will not allow it to be used for authentication. We will fix the permissions in this section with the `chmod` command, setting the key so it can only be read by the file owner, and not by anybody else on the computer.
+====
+
+1. In the AWS Academy window, click the "AWS Details" window.
++
+image::aws-details.png[title="AWS Academy Details button"]
+2. Next to SSH Key, choose "Download PEM".
+3. Open a terminal on your Mac. You can find it with Spotlight, in the Launchpad, or in the Applications/Utilities folder.
+4. Move the labsuser.pem file into your `~/.ssh` directory. If you get an error that says the directory does not exist, create it with `mkdir`. 
++
+[source,console]
+....
+$ mv ~/Downloads/labsuser.pem ~/.ssh/
+....
+5. Fix permissions on the labsuser.pem file. (See the callout at the beginning of this section for a note about why this is necessary)
++
+[source,console]
+....
+$ chmod 400 ~/.ssh/labsuser.pem
+....
+6. Type the ssh command just like you did in the Academy console
++
+[source,console]
+....
+$ ssh -i ~/.ssh/labsuser.pem ec2-user@44.204.193.103
+....
+
+Success! 
+Since you're now logging in on your computer, you'll have to once again accept the new identity of the server.
+You'll see the same warning and have to accept it again every time the IP address of the server changes.
+Once you accept the warning, you should see that the prompt has changed to the `[ec2-user@...]` prompt you saw before.
+If it didn't change, you might have to do some troubleshooting to figure out what went wrong.
+
+Once again, you're now logged into the server.
+Play around, install something, edit a file, or whatever you want to.
+When you're ready, you can move on to the next section.
+
+=== Logging in on Windows
+
+On Windows, the story is a little different, but not that different. 
+With any reasonably modern version of Windows, SSH is already installed, so we can use it almost the same way as on a Mac.
+I prefer to use the new Windows Terminal application from Microsoft (on the https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-us&gl=us&rtc=1[Windows Store]), but the old command prompt works as well.
+
+1. In the AWS Academy window, click the "AWS Details" window.
++
+image::aws-details.png[title="AWS Academy Details button"]
+2. Next to SSH Key, choose "Download PEM".
+3. Open your Downloads folder, and move `labsuser.pem` from there into your main user folder (`C:\Users\yourusernamehere`)
+4. Open up your favorite Windows terminal application. It should start in your user folder
+5. Type the ssh command just like you did in the Academy console
++
+[source,console]
+....
+$ ssh -i labsuser.pem ec2-user@44.204.193.103
+....
+
+Success! 
+Since you're now logging in on your computer, you'll have to once again accept the new identity of the server.
+You'll see the same warning and have to accept it again every time the IP address of the server changes.
+Once you accept the warning, you should see that the prompt has changed to the `[ec2-user@...]` prompt you saw before.
+If it didn't change, you might have to do some troubleshooting to figure out what went wrong.
+
+Once again, you're now logged into the server.
+Play around, install something, edit a file, or whatever you want to.
+When you're ready, you can move on to the next section.
+
+== Making a simple website (once you've logged in)
 * Switch to the root user by invoking command 
 
 ```
