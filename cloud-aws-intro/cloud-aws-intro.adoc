@@ -184,6 +184,10 @@ Since you're now logging in on your computer, you'll have to once again accept t
 You'll see the same warning and have to accept it again every time the IP address of the server changes.
 Once you accept the warning, you should see that the prompt has changed to the `[ec2-user@...]` prompt you saw before.
 If it didn't change, you might have to do some troubleshooting to figure out what went wrong.
+You should see something like the screenshot below
+
+image::ssh-success.png[title="Successful SSH login"]
+
 
 Once again, you're now logged into the server.
 Play around, install something, edit a file, or whatever you want to.
@@ -213,6 +217,9 @@ Since you're now logging in on your computer, you'll have to once again accept t
 You'll see the same warning and have to accept it again every time the IP address of the server changes.
 Once you accept the warning, you should see that the prompt has changed to the `[ec2-user@...]` prompt you saw before.
 If it didn't change, you might have to do some troubleshooting to figure out what went wrong.
+You should see something like the screenshot below
+
+image::ssh-success.png[title="Successful SSH login"]
 
 Once again, you're now logged into the server.
 Play around, install something, edit a file, or whatever you want to.
