@@ -1,6 +1,6 @@
 = Getting set up with Amazon Web Services
 Ryan Schuetzler <ryan@schuetzler.net>
-v0.2, 2023-01-10
+v0.2, 2023-09-19
 ifndef::bound[:imagesdir: figs]
 :icons: font
 :source-highlighter: rouge
