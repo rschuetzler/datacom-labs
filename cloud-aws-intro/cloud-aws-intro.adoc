@@ -1,6 +1,6 @@
 = Getting set up with Amazon Web Services
 Ryan Schuetzler <ryan@schuetzler.net>
-v0.2, 2023-09-19
+v0.2, 2023-09-20
 ifndef::bound[:imagesdir: figs]
 :icons: font
 :source-highlighter: rouge
@@ -130,6 +130,13 @@ image::security-group.png[title="Security Group settings"]
 image::advanced-details.png[title="Advanced details pane"]
 
 * Click the button to launch your instance.
+* In the green bar that appears after you click the button, click on the instance ID. If you missed clicking on the instance ID there, you can always get to the instance list by clicking "Instances" in the left side menu in the EC2 section of the Management Console.
++
+image::instance-created.png[title="Instance created message"]
+* In the next page that comes up, click on the instance ID again to pull up the instance summary page
++
+image::instance-list.png[title="EC2 instance list"]
+* On the instance summary page, make note of your Public IPv4 Address (34.211.103.212 in the screenshot). You will use this address to access your server. Wherever you see an IP address in the example commands below, use your public IPv4 address.
     
 == Connect to your instance
 
@@ -176,8 +183,9 @@ $ chmod 400 ~/.ssh/labsuser.pem
 +
 [source,console]
 ....
-$ ssh -i ~/.ssh/labsuser.pem ec2-user@44.204.193.103
+$ ssh -i ~/.ssh/labsuser.pem ec2-user@34.211.103.212
 ....
+7. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
 Success! 
 Since you're now logging in on your computer, you'll have to once again accept the new identity of the server.
@@ -209,8 +217,9 @@ image::aws-details.png[title="AWS Academy Details button"]
 +
 [source,console]
 ....
-$ ssh -i labsuser.pem ec2-user@44.204.193.103
+$ ssh -i labsuser.pem ec2-user@34.211.103.212
 ....
+6. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
 Success! 
 Since you're now logging in on your computer, you'll have to once again accept the new identity of the server.
@@ -289,7 +298,6 @@ Go back to your instance details (in the AWS Management Console) and find the *P
 Click on the button to "open address," then in the browser's address bar, edit the `https://` to be `http://` (we'll get security set up another time).
 Accept whatever warnings your browser puts up about accessing insecure websites, and you should see your website! 
 If others around you are done with their sites, visit their pages by going to `http://x.x.x.x` (replacing `x.x.x.x` with whatever their public IPv4 address is)
-
   
 
 == Ideas for Exploration
@@ -305,4 +313,4 @@ You can also play around by making your website more complex. Currently there is
 How would you create a second page and link to that? 
 What about adding a stylesheet to make your page look pretty?
 
-TIP: When you are done with the lab, you can go back to the Academy page and stop the lab to stop accruing charges for your instance. You don't have to do this, because the instance you are using is in the free tier and already isn't costing you anything. And even if you left it running for an entire semester, it would only use approximately $40 of your charges. 
+TIP: When you are done with the lab, you can go back to the Academy page and stop the lab to stop accruing charges for your instance. You don't have to do this, because the instance you are using is in the free tier and already isn't costing you anything. 
