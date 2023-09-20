@@ -137,6 +137,9 @@ image::instance-created.png[title="Instance created message"]
 +
 image::instance-list.png[title="EC2 instance list"]
 * On the instance summary page, make note of your Public IPv4 Address (34.211.103.212 in the screenshot). You will use this address to access your server. Wherever you see an IP address in the example commands below, use your public IPv4 address.
++
+image::instance-summary.png[title="Instance summary page"]
+
     
 == Connect to your instance
 
