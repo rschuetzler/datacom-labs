@@ -241,7 +241,7 @@ When you're ready, you can move on to the next section.
 * Switch to the root user by invoking command 
 
 ```
-  sudo su -
+sudo su -
 ```
 
 * Type `mkdir -p /var/www/html` to create the `/var/www/html` directory (make sure to type it EXACTLY as written - `/var/`...)
@@ -250,8 +250,9 @@ When you're ready, you can move on to the next section.
   
 * Create index.html file using the `nano` editor.
 
+[source,shell]
 ```
-  nano index.html
+nano index.html
 ```
 
 TIP: `nano` is a command line text editor. It does the same thing that Notepad or VS Code does for editing a file, but entirely within the command prompt that you see. Once you have written the code you want to have on your page, use the keyboard shortcuts at the bottom to save the changes. (Hint: you want to Write Out the file changes before you close the editor, or you may lose your changes) (Hint 2: `^` is the symbol for the Ctrl key--even on a Mac)
@@ -273,13 +274,13 @@ TIP: `nano` is a command line text editor. It does the same thing that Notepad o
 * Install Apache web server through command.  
 [source,shell]
 ```
-  yum install httpd
+yum install httpd
 ```
   
 * Start the web server.
 [source,console]
 ```
-  systemctl start httpd
+systemctl start httpd
 ```
   
 * Check the status. It should be in running stage. If you get stuck after typing this command, you can type `q` to leave the `service` program.
