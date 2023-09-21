@@ -174,19 +174,19 @@ image::aws-details.png[title="AWS Academy Details button"]
 +
 [source,console]
 ....
-$ mv ~/Downloads/labsuser.pem ~/.ssh/
+mv ~/Downloads/labsuser.pem ~/.ssh/
 ....
 5. Fix permissions on the labsuser.pem file. (See the callout at the beginning of this section for a note about why this is necessary)
 +
 [source,console]
 ....
-$ chmod 400 ~/.ssh/labsuser.pem
+chmod 400 ~/.ssh/labsuser.pem
 ....
 6. Type the ssh command just like you did in the Academy console
 +
 [source,console]
 ....
-$ ssh -i ~/.ssh/labsuser.pem ec2-user@34.211.103.212
+ssh -i ~/.ssh/labsuser.pem ec2-user@34.211.103.212
 ....
 7. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
@@ -220,7 +220,7 @@ image::aws-details.png[title="AWS Academy Details button"]
 +
 [source,console]
 ....
-$ ssh -i labsuser.pem ec2-user@34.211.103.212
+ssh -i labsuser.pem ec2-user@34.211.103.212
 ....
 6. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
