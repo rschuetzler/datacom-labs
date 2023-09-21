@@ -58,7 +58,7 @@ Once there, you can click the Learner Lab link. You may have to turn off your ad
 
 [IMPORTANT] 
 ====
-If you're on Chrome, you might have to search for the little eye icon on the right side of the address bar to enable some cross-site cookies that are required for the site to function.
+The Learner Lab does not work on Safari. If you're on Chrome, you might have to search for the little eye icon on the right side of the address bar to enable some cross-site cookies that are required for the site to function.
 
 image::chrome-eye.png[]
 ====
