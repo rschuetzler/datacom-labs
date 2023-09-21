@@ -282,7 +282,7 @@ TIP: `nano` is a command line text editor. It does the same thing that Notepad o
   systemctl start httpd
 ```
   
-* Check the status. It should be in running stage.
+* Check the status. It should be in running stage. If you get stuck after typing this command, you can type `q` to leave the `service` program.
 [source,shell]
 ```
   service httpd status
