@@ -182,7 +182,7 @@ mv ~/Downloads/labsuser.pem ~/.ssh/
 ....
 chmod 400 ~/.ssh/labsuser.pem
 ....
-6. Type the ssh command just like you did in the Academy console
+6. Type the ssh command. **Make sure you replace the IP address with the IP address of your server.**
 +
 [source,console]
 ....
@@ -216,7 +216,7 @@ image::aws-details.png[title="AWS Academy Details button"]
 2. Next to SSH Key, choose "Download PEM".
 3. Open your Downloads folder, and move `labsuser.pem` from there into your main user folder (`C:\Users\yourusernamehere`)
 4. Open up your favorite Windows terminal application. It should start in your user folder
-5. Type the ssh command just like you did in the Academy console
+5. Type the ssh command. **Make sure you replace the IP address with the IP address of your server.**
 +
 [source,console]
 ....
