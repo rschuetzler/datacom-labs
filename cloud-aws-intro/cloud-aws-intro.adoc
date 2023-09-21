@@ -270,6 +270,7 @@ TIP: `nano` is a command line text editor. It does the same thing that Notepad o
 </body>
 </html>
 ----
+* Save and close the file by typing CTRL+X, then typing `y` to indicate you want to save it, then hitting ENTER to confirm the filename.
 
 * Install Apache web server through command.  
 [source,shell]
