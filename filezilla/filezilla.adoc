@@ -1,6 +1,6 @@
 = Moving files with FileZilla over SSH
 Ryan Schuetzler <ryan@schuetzler.net>
-v0.1, 2023-09-27
+v0.2, 2023-09-28
 :icons: font
 :source-highlighter: rouge
 :rouge-style: github
