@@ -64,7 +64,7 @@ The shouting API accepts a JSON-formatted input and gives back an ALL-CAPSified 
 [start=15]
 . Create a new request in the collection by clicking the "..."
 . Change the request type from GET to POST
-. Enter the URL: `http://api.is404.net/shout`
+. Enter the URL: `http://api.is404.net/shout.php`
 . Don't add anything to the "Params" tab. Usually with HTTP POST requests, data is passed in the message body instead of as part of the URL.
 . Go to the Body tab, select `raw`.
 . For the dropdown on the right, select `JSON`.
@@ -99,10 +99,10 @@ TIP: There are some great resources out there for learning how OAuth works. http
 
 === Experimentation
 Now that you have the basics of how to use an API with Postman, dig around on your own and learn something new.
-Look for new APIs at https://github.com/toddmotto/public-apis, https://www.programmableweb.com/, or other sources.
+Look for new APIs at https://github.com/public-apis/public-apis or other sources.
 
 [start=24]
 // . Visit http://api.is404.net/docs to see documentation for all the APIs available at this site. See if you can get another one to work.
-. icon:keyboard-o[] Create requests to interact with 3 different APIs besides those described here. Show it to your neighbor an explain what it does.
-. icon:keyboard-o[] What have you learned about APIs from this lab?
-. icon:keyboard-o[] What challenges did you face from this lab?
+. Create requests to interact with 3 different APIs besides those described here. Show it to your neighbor an explain what it does.
+. What have you learned about APIs from this lab?
+. What challenges did you face from this lab?
