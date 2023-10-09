@@ -82,7 +82,7 @@ The shouting API accepts a JSON-formatted input and gives back an ALL-CAPSified 
 .Entering parameters for a POST
 image::postman-post.png[]
 . Click btn:[Send]. You should get back a response with one value: "shout" that contains the CAPSed version of your text.
-. Go to http://api.is404.net/+<sectionnumber>+ to see if your message got posted, and to see what your colleagues are sending.
+// . Go to http://api.is404.net/+<sectionnumber>+ to see if your message got posted, and to see what your colleagues are sending.
 
 === Authentication
 Authentication for APIs can take many different forms.
@@ -102,7 +102,7 @@ Now that you have the basics of how to use an API with Postman, dig around on yo
 Look for new APIs at https://github.com/toddmotto/public-apis, https://www.programmableweb.com/, or other sources.
 
 [start=24]
-. Visit http://api.is404.net/docs to see documentation for all the APIs available at this site. See if you can get another one to work.
+// . Visit http://api.is404.net/docs to see documentation for all the APIs available at this site. See if you can get another one to work.
 . icon:keyboard-o[] Create requests to interact with 3 different APIs besides those described here. Show it to your neighbor an explain what it does.
 . icon:keyboard-o[] What have you learned about APIs from this lab?
 . icon:keyboard-o[] What challenges did you face from this lab?
