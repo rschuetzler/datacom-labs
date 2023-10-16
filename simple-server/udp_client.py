@@ -1,6 +1,6 @@
 import socket
 
-HOST, PORT = "ice.is404.net", 9091
+HOST, PORT = "ice.is404.net", 9090
 message = "NOW I AM SHOUTING"  # The UDP server will lowercase the message
 
 # SOCK_DGRAM is the socket type to use for UDP sockets

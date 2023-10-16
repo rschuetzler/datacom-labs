@@ -8,5 +8,5 @@ class MyUDPRequestHandler(socketserver.DatagramRequestHandler):
 
 
 if __name__ == "__main__":
-    with socketserver.UDPServer(("0.0.0.0", 9091), MyUDPRequestHandler) as server:
+    with socketserver.UDPServer(("0.0.0.0", 9090), MyUDPRequestHandler) as server:
         server.serve_forever()
