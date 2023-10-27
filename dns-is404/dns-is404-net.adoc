@@ -11,8 +11,8 @@ Rather than make each of you pay to register your own domains, I'm going to give
 I have already registered the domain is404.net, and Cloudflare, my DNS hosting provider, offers an API to CRUD new DNS records.
 
 WARNING: Please don't break my stuff, or other people's stuff, or we'll have to do this differently in the future and that would make me sad.
-You the ability to edit all records on is404.net, but please don't mess with any records you didn't create.
-That includes www.is404.net, api.is404.net, or honey.is404.net. Or anything created by students other than yourself.
+You have the ability to edit all records on is404.net, but please don't mess with any records you didn't create.
+That includes www.is404.net, api.is404.net, or dns.is404.net. Or anything created by students other than yourself.
 
 
 == Objectives
@@ -31,9 +31,31 @@ To see our DNS in action, we're going to need a website to point it to.
 A free `t2.micro` instance will be plenty.
 . Make sure you've opened TCP port 80 in the security group settings, and that you can get to the website in your browser.
 . Also open up TCP port 443 for later HTTPS use.
-. From that instance, make note of the Public IPv4 address you've got. 
+. From that instance, make note of the Public IPv4 address you've got.
 
-=== Point the domain to your site
+=== Set up a static (non-changing) IP address
+Normally, an EC2 instance receives an IP address on startup, and that IP address will stay as long as that server is up. 
+Because your server shuts down after 4 hours in the lab environment, that means you get a different IP address each time you start working on your server.
+AWS gives an option to "rent" an IP address from them and assign it to an EC2 instance. 
+They call this an Elastic IP. 
+The Elastic IP doesn't cost any money while your instance is running, but you are charged a small about (approximately $4/month) when the server is shut down.
+Thankfully, you've got plenty of AWS money, so let's spend it!
+
+[start=5]
+. Log into the AWS Management Console, and go to the EC2 section.
+. In the left side navigation bar, find "Elastic IPs" in the Network & Security section
+. Click "Allocate Elastic IP address"
+. Leave the default options, then click "Allocate"
+. Click the box to "Associate this IP address", or check the box next to the IP address, then under Actions at the top of the page, select "Associate Elastic IP address"
+. Choose the Resource type of "Instance", then select the instance running your website from the Instance list. Leave the Private IP address section blank.
+. Click "Associate"
+
+Congratulations! 
+You can now note this new IP address. 
+Every time you start up your server, it will have the same IP address. 
+That also means you're ready to set up some DNS!
+
+=== Set up DNS through the Cloudflare API (optional supplemental material)
 
 To create a DNS A record that points to your site, you'll need (a) your public IP address, (b) the auth token for Cloudflare (on LearningSuite), (c) the Zone ID for is404.net (`17ed37c3a70df401d89510fd4731ebe2`), and (d) Postman.
 Full documentation for the Cloudflare DNS API is available at their website: https://api.cloudflare.com/#dns-records-for-a-zone-properties.
@@ -41,7 +63,6 @@ Full documentation for the Cloudflare DNS API is available at their website: htt
 ==== Setting up the Postman Collection
 First, create a new Collection in Postman to manage all of our DNS requests.
 
-[start=4]
 . In the Collections pane, click the small `+` icon to create a new Collection. 
 I named mine Cloudflare DNS by right-clicking on the new collection and selecting Rename.
 You can call yours whatever you like.
