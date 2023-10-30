@@ -5,6 +5,13 @@ v0.2, 2023-09-28
 :source-highlighter: rouge
 :rouge-style: github
 :xrefstyle: short
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 :experimental:
 
 SSH is an awesome protocol that lets you log into a computer somewhere else and manage files, install software, and just generally mess around.

@@ -5,6 +5,13 @@ ifndef::bound[:imagesdir: figs]
 :rouge-style: github
 :xrefstyle: short
 :listing-caption: Example
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 :experimental:
 
 In 2023, every single website should use a security certificate for a variety of https://www.troyhunt.com/heres-why-your-static-website-needs-https/[very good reasons].
