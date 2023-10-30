@@ -1,4 +1,4 @@
-= Using DNS with the Cloudflare API
+= Using DNS with Cloudflare
 ifndef::bound[:imagesdir: figs]
 :icons: font
 :source-highlighter: rouge
@@ -55,7 +55,65 @@ You can now note this new IP address.
 Every time you start up your server, it will have the same IP address. 
 That also means you're ready to set up some DNS!
 
-=== Set up DNS through the Cloudflare API (optional supplemental material)
+=== Set up your DNS records with dns.is404.net
+I have set up a small website to allow you to create new DNS records under the is404.net domain.
+This website is only accessible from BYU campus.
+
+[start=12]
+. Navigate to https://dns.is404.net (must be on BYU campus to access this site).
+. On this site are all the functions you need to CRUD some DNS records under the is404.net domain.
+** You can create a new record by clicking "Create new record" on the homepage. You'll need to type the full record name, including is404.net, select the type, and set the appropriate content for the record you are creating.
+** You can search for specific records by typing the full name of the record in the search page (including the is404.net part).
+** You can edit records by selecting the edit option. Always make sure the record type matches the contents (i.e., IP address for A records, domain name to point to for CNAME)
+** You can delete records, too. Be careful not to delete anything that's not yours.
+. Create a new A record that points to the elastic IP address you assigned to your server. The record should be `yournetid.is404.net`, replacing "yournetid" with... your NetID.
+. Now that you have set up a domain name for your server, you can visit it with your browser by going to `http://yournetid.is404.net`. Magic!
+. Now we want to give your server another name - because we can. Do this by creating a new CNAME record, with the Name of `yournetid-isawesome.is404.net`, a type of CNAME, and Content `yournetid.is404.net`.
+
+Before you move on, make sure you can access your website from both domain names you set up for it: `yournetid.is404.net` and `yournetid-isawesome.is404.net`. Once you can do this, you're ready to set up separate sites.
+
+=== Virtual Hosts - use those different domains
+
+When your browser visits a website, it passes the name of the server you are trying to visit in the `Host:` section of the HTTP header.
+In the activities we have done so far, your server has pretty much ignored that header. 
+But what if it didn't?
+
+[start=17]
+. On your EC2 instance, create a new directory in the `/var/www/` folder called `awesome`. You should now have two directories: `/var/www/html` and `/var/www/awesome`.
+. Create a new `index.html` inside the `/var/www/awesome` directory. Make sure you can clearly tell that it is different from what is in the `/var/www/html` directory by changing the contents and title of the page.
+. Make a backup of your Apache configuration file, just in case you mess something up, you can copy this file back and restore it to a working state). If you're on a different Linux, the configuration might be in a different location.
++
+[source,console]
+----
+$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
+----
+
+. Add the following to the bottom of the Apache configuration file located at `/etc/httpd/conf/httpd.conf`.
++
+CAUTION: Server configuration files can be very picky, so make sure you type everything exactly as written below. If you get an error message when restarting the `httpd` service, you probably typed something wrong.
+
++
+----
+<VirtualHost *:80>
+        ServerName your-net-id.is404.net
+        DocumentRoot "/var/www/html"
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName your-net-id-isawesome.is404.net
+        DocumentRoot "/var/www/awesome"
+</VirtualHost>
+----
+
+. Restart the `httpd` service to tell Apache to use the new configuration (`sudo systemctl restart httpd`). If it gives an error message, you need to fix the configuration.
+. Now you can visit `yournetid.is404.net` and `yournetid-isawesome.is404.net` and see two different websites hosted on the same server. You may need to refresh the page on the awesome site to have it refresh.
+. While you're there, scroll through the Apache configuration and see if you can tell what other parts of the configuration do.
+
+
+
+=== OPTIONAL - Set up DNS through the Cloudflare API
+This section presents information about how to use the Cloudflare API to directly set and edit DNS records.
+This API is used by the dns.is404.net website to make its changes, but you can also interact directly through Postman.
 
 To create a DNS A record that points to your site, you'll need (a) your public IP address, (b) the auth token for Cloudflare (on LearningSuite), (c) the Zone ID for is404.net (`17ed37c3a70df401d89510fd4731ebe2`), and (d) Postman.
 Full documentation for the Cloudflare DNS API is available at their website: https://api.cloudflare.com/#dns-records-for-a-zone-properties.
@@ -134,41 +192,3 @@ CNAME records allow you to have multiple names pointing to the same server, whil
 ----
 . Once again, note the ID of the record that was created so you can update the record in the future if needed.
 . Visit the new domain you created (your-net-id-isawesome.is404.net) and confirm that you can visit the site (with `http`)
-
-=== Virtual Hosts - use those different domains
-
-When your browser visits a website, it passes the name of the server you are trying to visit in the `Host:` section of the HTTP header.
-In the activities we have done so far, your server has pretty much ignored that header. 
-But what if it didn't?
-
-[start=23]
-. On your EC2 instance, create a new directory in the `/var/www/` folder called `awesome`. You should now have two directories: `/var/www/html` and `/var/www/awesome`.
-. Create a new `index.html` inside the `/var/www/awesome` directory. Make sure you can clearly tell that it is different from what is in the `/var/www/html` directory by changing the contents and title of the page.
-. Make a backup of your Apache configuration file, just in case you mess something up, you can copy this file back and restore it to a working state). If you're on a different Linux, the configuration might be in a different location.
-+
-[source,console]
-----
-$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
-----
-
-. Add the following to the bottom of the Apache configuration file located at `/etc/httpd/conf/httpd.conf`.
-+
-CAUTION: Server configuration files can be very picky, so make sure you type everything exactly as written below. If you get an error message when restarting the `httpd` service, you probably typed something wrong.
-
-+
-----
-<VirtualHost *:80>
-        ServerName your-net-id.is404.net
-        DocumentRoot "/var/www/html"
-</VirtualHost>
-
-<VirtualHost *:80>
-        ServerName your-net-id-isawesome.is404.net
-        DocumentRoot "/var/www/awesome"
-</VirtualHost>
-----
-
-. Restart the `httpd` service to tell Apache to use the new configuration (`sudo service httpd restart`). If it gives an error message, you need to fix the configuration.
-. Now you can visit `your-net-id.is404.net` and `your-netid-isawesome.is404.net` and see two different websites hosted on the same server. You may need to refresh the page on the awesome site to have it refresh.
-. While you're there, scroll through the Apache configuration and see if you can tell what other parts of the configuration do.
-
