@@ -3,6 +3,13 @@ ifndef::bound[:imagesdir: figs]
 :icons: font
 :source-highlighter: rouge
 :rouge-style: github
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 :experimental:
 
 DNS is the globally distributed directory that translates names like www.google.com into IP addresses like 172.217.7.100.
