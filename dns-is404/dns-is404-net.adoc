@@ -74,8 +74,10 @@ This website is only accessible from BYU campus.
 ** You can edit records by selecting the edit option. Always make sure the record type matches the contents (i.e., IP address for A records, domain name to point to for CNAME)
 ** You can delete records, too. Be careful not to delete anything that's not yours.
 . Create a new A record that points to the elastic IP address you assigned to your server. The record should be `yournetid.is404.net`, replacing "yournetid" with... your NetID.
+. Wait a minute or two to make sure the DNS record you created gets put on the DNS server before moving on.
 . Now that you have set up a domain name for your server, you can visit it with your browser by going to `http://yournetid.is404.net`. Magic!
 . Now we want to give your server another name - because we can. Do this by creating a new CNAME record, with the Name of `yournetid-isawesome.is404.net`, a type of CNAME, and Content `yournetid.is404.net`.
+. Wait another minute to make sure the CNAME record makes it to Cloudflare's servers before you request any pages.
 
 Before you move on, make sure you can access your website from both domain names you set up for it: `yournetid.is404.net` and `yournetid-isawesome.is404.net`. Once you can do this, you're ready to set up separate sites.
 
@@ -85,7 +87,7 @@ When your browser visits a website, it passes the name of the server you are try
 In the activities we have done so far, your server has pretty much ignored that header. 
 But what if it didn't?
 
-[start=17]
+[start=19]
 . On your EC2 instance, create a new directory in the `/var/www/` folder called `awesome`. You should now have two directories: `/var/www/html` and `/var/www/awesome`.
 . Create a new `index.html` inside the `/var/www/awesome` directory. Make sure you can clearly tell that it is different from what is in the `/var/www/html` directory by changing the contents and title of the page.
 . Make a backup of your Apache configuration file, just in case you mess something up, you can copy this file back and restore it to a working state). If you're on a different Linux, the configuration might be in a different location.
