@@ -94,7 +94,7 @@ But what if it didn't?
 +
 [source,console]
 ----
-$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
+sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
 ----
 
 . Add the following to the bottom of the Apache configuration file located at `/etc/httpd/conf/httpd.conf`.
