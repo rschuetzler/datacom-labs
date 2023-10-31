@@ -53,7 +53,7 @@ Thankfully, you've got plenty of AWS money, so let's spend it!
 . In the left side navigation bar, find "Elastic IPs" in the Network & Security section
 . Click "Allocate Elastic IP address"
 . Leave the default options, then click "Allocate"
-. Click the box to "Associate this IP address", or check the box next to the IP address, then under Actions at the top of the page, select "Associate Elastic IP address"
+. Click the button to "Associate this Elastic IP address", or check the box next to the IP address, then under Actions at the top of the page, select "Associate Elastic IP address"
 . Choose the Resource type of "Instance", then select the instance running your website from the Instance list. Leave the Private IP address section blank.
 . Click "Associate"
 
