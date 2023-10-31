@@ -73,7 +73,7 @@ This website is only accessible from BYU campus.
 ** You can search for specific records by typing the full name of the record in the search page (including the is404.net part).
 ** You can edit records by selecting the edit option. Always make sure the record type matches the contents (i.e., IP address for A records, domain name to point to for CNAME)
 ** You can delete records, too. Be careful not to delete anything that's not yours.
-. Create a new A record that points to the elastic IP address you assigned to your server. The record should be `yournetid.is404.net`, replacing "yournetid" with... your NetID.
+. Create a new A record that points to the elastic IP address you assigned to your server. The Name on the record should be `yournetid.is404.net`, replacing "yournetid" with... your NetID. The Content should be your new elastic IP address.
 . Wait a minute or two to make sure the DNS record you created gets put on the DNS server before moving on.
 . Now that you have set up a domain name for your server, you can visit it with your browser by going to `http://yournetid.is404.net`. Magic!
 . Now we want to give your server another name - because we can. Do this by creating a new CNAME record, with the Name of `yournetid-isawesome.is404.net`, a type of CNAME, and Content `yournetid.is404.net`.
