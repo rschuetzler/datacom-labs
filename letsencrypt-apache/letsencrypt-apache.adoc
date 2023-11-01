@@ -27,63 +27,52 @@ So there's no excuse - you need a certificate for your website.
 . Use `cron` to set up automatic certificate renewals so you always have a secure site.
 
 == Setting up Certbot (Amazon Linux 2023)
-
-[source,console]
-----
-[ec2-user@ip...] sudo dnf install openssl mod_ssl
-[ec2-user@ip...] sudo dnf install python3 augeas-libs pip
-[ec2-user@ip...] sudo python3 -m venv /opt/certbot
-[ec2-user@ip...] sudo /opt/certbot/bin/pip install --upgrade pip
-[ec2-user@ip...] sudo /opt/certbot/bin/pip install certbot-apache
-[ec2-user@ip...] sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
-[ec2-user@ip...] sudo certbot --apache
-----
-
-== Setting up Certbot (Amazon Linux 2)
-
 The https://letsencrypt.org/[Let's Encrypt] project allows anyone to request a free TLS certificate for any website that they control.
 They provide an application called https://certbot.eff.org/[certbot] that automatically requests a certificate, verifies your control of the domain, and even configures the web server to use the certificate.
 All you need to do is provide an email address that they'll use to remind you when the certificate is going to expire.
 
-. On the web server, install `certbot` and the Apache plugin
-+
 [source,console]
 ----
-[ec2-user ~]$ sudo amazon-linux-extras install epel
-[ec2-user ~]$ sudo yum install certbot python2-certbot-apache
+sudo dnf install python3 augeas-libs
+sudo python3 -m venv /opt/certbot
+sudo /opt/certbot/bin/pip install --upgrade pip
+sudo /opt/certbot/bin/pip install certbot certbot-apache
+sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 ----
+CAUTION: You must have completed the setup in the DNS lab before running this command, or it will not work. Also, your server must have open (0.0.0.0/0) access open on port 80. That is how certbot verifies that you own the domain.
 
-. Run certbot with the apache flag to automatically install and configure the certificate for Apache. 
-.. During this step you will be asked for an email address. This is required for the certificate to be issued. You can decline to have the email address shared with the EFF, however, and still get a certificate.
-.. Certbot automatically detects any Virtual Hosts you have added to your Apache configuration, and will request certificates for those. Just hit kbd:[Enter] to request for all domains at once.
-+
+Now that you have installed cerbot, you can use the following command to request certificates for the sites you have configured in your Apache configuration.
+During this step you will be asked for an email address. 
+This is required for the certificate to be issued. 
+You can decline to have the email address shared with the EFF, however, and still get a certificate.
 [source,console]
 ----
-[ec2-user ~]$ sudo certbot --apache
+sudo certbot --apache
 ----
 
-. Make sure that you have opened TCP port 443 in the security group settings to allow HTTPS traffic through on its default port.
+Make sure that you have opened TCP port 443 in the security group settings to allow HTTPS traffic through on its default port.
+. Click on your instance in the AWS Management console
+. Go to the Security tab. There you'll see the current inbound rules listed. Make sure that a rule allows traffic from 0.0.0.0/0 on TCP port 443.
+.. If it doesn't, you can add a new inbound rule by clicking on the Security Group id and editing the inbound rules.
 
 And with that, you have a fully functioning certificate for your Apache website, including all VirtualHosts that you had created.
-Go to `https://awesome.yourdomain.com` to see your fully encrypted website.
+Go to the browser and visit the new https versions of your websites to see your fully encrypted website.
 Look for the lock icon in the top bar, and click on it to view the certificate that you have been issued.
-What type of encryption is the certificate using?
 
 == Looking at the Apache configuration
 
 Certbot is smart enough to automatically set up your Apache configuration in a way that most people would want.
 Let's take a look at what configuration instructions `certbot` added.
 
-[start=4]
 . Open your Apache configuration in the text editor of your choice, e.g., `nano`
 +
 [source,console]
 ----
-[ec2-user ~]$ nano /etc/httpd/conf/httpd.conf
+nano /etc/httpd/conf/httpd.conf
 ----
 
 . Inside the `VirtualHost` blocks, you'll find some new instructions that you hadn't typed. What do you think these do?
-. On the very last line of the file, you'll also see an `Include` directive. Open the file linked there (`/etc/httpd/conf/httpd-le-ssl.conf`) and see what instructions it contains. What do these instructions do?
+. On the very last line of the file, you'll also see an `Include` directive. Open the file linked there (`/etc/httpd/conf/httpd-le-ssl.conf`) and see what instructions it contains. What do these instructions do? If you don't know, maybe ChatGPT can help.
 . Note the links to the `SSLCertificateFile` and the `SSLCertificateKeyFile`. From the command line, `cat` those files to look at what they contain. Does anything there look familiar? (hint: You might need to use `sudo su -` to have sufficient permissions to view the key)
 
 == Setting up certificates to auto-renew
@@ -129,7 +118,6 @@ Common cron schedules are available at the https://cron.help/examples[cron.help 
 39  1,13    *     *     *    ec2-user    ls /home/ec2-user > /home/etc-user/home.txt
 ----
 
-[start=8]
 . Open the `/etc/crontab` file (with sudo permissions).
 . Add the following line to the end of the file to have the certbot renew task run every 12 hours. The `--no-self-upgrade` flag will prevent certbot from upgrading itself without your permission:
 +
@@ -144,7 +132,6 @@ Common cron schedules are available at the https://cron.help/examples[cron.help 
 ----
 [ec2-user ~]$ sudo systemctl restart crond
 ----
-
 
 Now, to be honest, you didn't really need to create the cron job unless you're going to be using this server for longer than 3 months.
 But I want you to know how to do it, because in the real world you're going to be building sites that last longer than a semester (I hope).
