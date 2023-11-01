@@ -45,7 +45,7 @@ sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 ----
 CAUTION: You must have completed the setup in the DNS lab before running this command, or it will not work. Also, your server must have open (0.0.0.0/0) access open on port 80. That is how certbot verifies that you own the domain.
 
-Now that you have installed cerbot, you can use the following command to request certificates for the sites you have configured in your Apache configuration.
+Now that you have installed certbot, you can use the following command to request certificates for the sites you have configured in your Apache configuration.
 During this step you will be asked for an email address. 
 This is required for the certificate to be issued. 
 You can decline to have the email address shared with the EFF, however, and still get a certificate.
