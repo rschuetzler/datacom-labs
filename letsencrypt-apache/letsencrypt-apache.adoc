@@ -130,7 +130,7 @@ Common cron schedules are available at the https://cron.help/examples[cron.help 
 +
 [source,console]
 ----
-[ec2-user ~]$ sudo systemctl restart crond
+sudo systemctl restart crond
 ----
 
 Now, to be honest, you didn't really need to create the cron job unless you're going to be using this server for longer than 3 months.
