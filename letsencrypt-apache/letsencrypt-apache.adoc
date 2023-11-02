@@ -37,7 +37,7 @@ All you need to do is provide an email address that they'll use to remind you wh
 
 [source,console]
 ----
-sudo dnf install python3 augeas-libs
+sudo dnf install python3 augeas-libs mod_ssl
 sudo python3 -m venv /opt/certbot
 sudo /opt/certbot/bin/pip install --upgrade pip
 sudo /opt/certbot/bin/pip install certbot certbot-apache
