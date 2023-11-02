@@ -28,7 +28,9 @@ So there's no excuse - you need a certificate for your website.
 
 == Setting up Certbot (Universal)
 
-Go to https://certbot.eff.org/instructions, select that the server is running Apache and that you want to install on pip, and follow the instructions there. 
+Let's Encrypt provides a tool called `certbot` that helps set up certificates. They have universal instructions that you can use. This is here only for your future reference. For this lab, you can use the instructions in the next section.
+
+https://certbot.eff.org/instructions
 
 == Setting up Certbot (Amazon Linux 2023)
 The https://letsencrypt.org/[Let's Encrypt] project allows anyone to request a free TLS certificate for any website that they control.
@@ -130,12 +132,12 @@ Common cron schedules are available at the https://cron.help/examples[cron.help 
 0   */12   *   *   *   root   certbot renew --no-self-upgrade
 ----
 
-. Restart cron to deploy your newest creation.
-+
-[source,console]
-----
-sudo systemctl restart crond
-----
+// . Restart cron to deploy your newest creation.
+// +
+// [source,console]
+// ----
+// sudo systemctl restart crond
+// ----
 
 Now, to be honest, you didn't really need to create the cron job unless you're going to be using this server for longer than 3 months.
 But I want you to know how to do it, because in the real world you're going to be building sites that last longer than a semester (I hope).
