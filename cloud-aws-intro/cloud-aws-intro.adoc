@@ -107,7 +107,7 @@ image::mgmt_console.png[title="AWS Management Console"]
 image::launch-instance.png[title="Launch instance button"]
 
 3. Give the instance a name, such as "MyFirstInstance" (you can name it whatever you want) 
-4. Next you will chose the Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select Amazon Linux from the quick start menu, then make sure "Amazon Linux 2023 AMI" is selected in the box below. Leave the 64-bit architecture as it is.
+4. Next you will chose the Amazon Machine Image (AMI). An AMI is a template that contains the software configuration (operating system, application server, and applications) required to launch your instance. Select Ubuntu from the quick start menu, then make sure "Ubuntu Server 24.04 LTS" is selected in the box below. Leave the 64-bit architecture as it is.
 +
 image::AMI.png[title="AMI"]
 
@@ -124,7 +124,7 @@ A key pair is how you log in to your server. It is a more secure way of logging 
 ====
 
 7. Under the network and firewall settings, create a new security group and check the boxes to allow SSH traffic from anywhere, and HTTP traffic from the internet. We won't worry about HTTPS for this server just yet, but we'll get there later.
-A security group is a set of firewall rules that control the traffic for your instance. 
+A security group is a set of rules that control the traffic for your instance. 
 On this page, you can add rules to allow specific traffic to reach your instance. 
 For example, if you want to set up a web server and allow Internet traffic to reach your instance, add rules that allow unrestricted access to the HTTP and HTTPS ports.
 +
@@ -193,7 +193,7 @@ chmod 400 ~/.ssh/labsuser.pem
 +
 [source,console]
 ....
-ssh -i ~/.ssh/labsuser.pem ec2-user@34.211.103.212
+ssh -i ~/.ssh/labsuser.pem ubuntu@34.211.103.212
 ....
 7. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
@@ -227,7 +227,7 @@ image::aws-details.png[title="AWS Academy Details button"]
 +
 [source,console]
 ....
-ssh -i labsuser.pem ec2-user@34.211.103.212
+ssh -i labsuser.pem ubuntu@34.211.103.212
 ....
 6. You will get a warning that `The authenticity of host '...' can't be established`. This warning just means you haven't connected to this server before, and SSH doesn't know if it's the server you want to connect to. If you type "yes" and hit <Enter> you can accept the warning and connect to the server.
 
@@ -245,64 +245,14 @@ Play around, install something, edit a file, or whatever you want to.
 When you're ready, you can move on to the next section.
 
 == Making a simple website (once you've logged in)
-* Switch to the root user by invoking command 
-
-```
-sudo su -
-```
-
-* Type `mkdir -p /var/www/html` to create the `/var/www/html` directory (make sure to type it EXACTLY as written - `/var/`...)
-
-* Type `cd /var/www/html` (again, make sure you include the first `/`)
-  
-* Create index.html file using the `nano` editor.
-
+* Install Nginx web server through command.  
 [source,shell]
 ```
-nano index.html
+sudo apt install nginx
 ```
 
-TIP: `nano` is a command line text editor. It does the same thing that Notepad or VS Code does for editing a file, but entirely within the command prompt that you see. Once you have written the code you want to have on your page, use the keyboard shortcuts at the bottom to save the changes. (Hint: you want to Write Out the file changes before you close the editor, or you may lose your changes) (Hint 2: `^` is the symbol for the Ctrl key--even on a Mac)
+* The files for the Nginx web server are in `/var/www/html`. Edit those files to change what appears on the website.
   
-*  Add some html contents in this file. Add and edit the html file to see the changes.
-  
-[source,html]
-----
-<html>
-<head>
-    <title>My Website</title>
-</head>
-<body>
-    <h1>Welcome to my website</h1>
-</body>
-</html>
-----
-* Save and close the file by typing CTRL+X, then typing `y` to indicate you want to save it, then hitting ENTER to confirm the filename.
-
-* Install Apache web server through command.  
-[source,shell]
-```
-yum install httpd
-```
-  
-* Start the web server.
-[source,console]
-```
-systemctl start httpd
-```
-  
-* Check the status. It should be in running stage. If you get stuck after typing this command, you can type `q` to leave the `service` program.
-[source,shell]
-```
-  service httpd status
-```
-
-* Enable the server to start Apache every time the server boots, so you don't have to log in to do it every time the lab shuts it down.
-[source,shell]
-```
-  systemctl enable httpd
-```
-
 === Access your site
 
 Once you've got all that done, it's time to enjoy the fruits of your labors.
@@ -325,4 +275,4 @@ You can also play around by making your website more complex. Currently there is
 How would you create a second page and link to that? 
 What about adding a stylesheet to make your page look pretty?
 
-TIP: When you are done with the lab, you can go back to the Academy page and stop the lab to stop accruing charges for your instance. You don't have to do this, because the instance you are using is in the free tier and already isn't costing you anything. 
+TIP: When you are done with the lab, you can go back to the Academy page and stop the lab to stop accruing charges for your instance. You don't have to do this, because the instance you are using is in the free tier and already isn't costing you anything. Also, AWS Academy Lab services are automatically stopped after a few hours.
